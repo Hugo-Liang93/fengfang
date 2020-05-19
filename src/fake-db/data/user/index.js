@@ -104,7 +104,6 @@ mock.onPost('/api/auth/register').reply((request) => {
 
 
 mock.onPost('/api/auth/refresh-token').reply((request) => {
-
   const {accessToken} = JSON.parse(request.data)
 
   try {

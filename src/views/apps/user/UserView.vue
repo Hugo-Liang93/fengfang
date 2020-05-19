@@ -27,7 +27,7 @@
           <!-- Avatar Col -->
           <div class="vx-col" id="avatar-col">
             <div class="img-container mb-4">
-              <img :src="user_data.avatar" class="rounded w-full" />
+              <img :src="require('@/assets/images/portrait/small/avatar-s-11.jpg')" class="rounded w-full" />
             </div>
           </div>
 
@@ -35,16 +35,16 @@
           <div class="vx-col flex-1" id="account-info-col-1">
             <table>
               <tr>
-                <td class="font-semibold">Username</td>
-                <td>{{ user_data.username }}</td>
-              </tr>
-              <tr>
                 <td class="font-semibold">Name</td>
                 <td>{{ user_data.name }}</td>
               </tr>
               <tr>
                 <td class="font-semibold">Email</td>
                 <td>{{ user_data.email }}</td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Position</td>
+                <td>{{ user_data.user_position }}</td>
               </tr>
             </table>
           </div>
@@ -54,16 +54,16 @@
           <div class="vx-col flex-1" id="account-info-col-2">
             <table>
               <tr>
-                <td class="font-semibold">Status</td>
-                <td>{{ user_data.status }}</td>
-              </tr>
-              <tr>
                 <td class="font-semibold">Role</td>
-                <td>{{ user_data.role }}</td>
+                <td>{{ user_data.permission.role_name }}</td>
               </tr>
               <tr>
                 <td class="font-semibold">Company</td>
-                <td>{{ user_data.company }}</td>
+                <td>{{ user_data.user_company }}</td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Department</td>
+                <td>{{ user_data.user_dept }}</td>
               </tr>
             </table>
           </div>
@@ -83,27 +83,31 @@
             <table>
               <tr>
                 <td class="font-semibold">Birth Date</td>
-                <td>{{ user_data.dob }}</td>
+                <td>{{ user_data.user_birthday }}</td>
               </tr>
               <tr>
                 <td class="font-semibold">Mobile</td>
-                <td>{{ user_data.mobile }}</td>
+                <td>{{ user_data.user_phone }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">Website</td>
-                <td>{{ user_data.website }}</td>
-              </tr>
-              <tr>
-                <td class="font-semibold">Languages</td>
-                <td>{{ user_data.languages_known.join(", ") }}</td>
+                <td class="font-semibold">IDCard</td>
+                <td>{{ user_data.user_idcard }}</td>
               </tr>
               <tr>
                 <td class="font-semibold">Gender</td>
-                <td>{{ user_data.gender }}</td>
+                <td>{{ user_data.user_gender }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">Contact</td>
-                <td>{{ user_data.contact_options.join(", ") }}</td>
+                <td class="font-semibold">Province</td>
+                <td>{{ user_data.nativePlace.native_province }}</td>
+              </tr>
+              <tr>
+                <td class="font-semibold">City</td>
+                <td>{{ user_data.nativePlace.native_city }}</td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Address</td>
+                <td>{{ user_data.nativePlace.native_address }}</td>
               </tr>
             </table>
           </vx-card>
@@ -113,28 +117,16 @@
           <vx-card title="Social Links" class="mb-base">
             <table>
               <tr>
-                <td class="font-semibold">Twitter</td>
-                <td>{{ user_data.social_links.twitter }}</td>
+                <td class="font-semibold">Wechat</td>
+                <td>{{ user_data.social.user_wechat }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">Facebook</td>
-                <td>{{ user_data.social_links.facebook }}</td>
+                <td class="font-semibold">Weibo</td>
+                <td>{{ user_data.social.user_weibo }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">Instagram</td>
-                <td>{{ user_data.social_links.instagram }}</td>
-              </tr>
-              <tr>
-                <td class="font-semibold">Github</td>
-                <td>{{ user_data.social_links.github }}</td>
-              </tr>
-              <tr>
-                <td class="font-semibold">CodePen</td>
-                <td>{{ user_data.social_links.codepen }}</td>
-              </tr>
-              <tr>
-                <td class="font-semibold">Slack</td>
-                <td>{{ user_data.social_links.slack }}</td>
+                <td class="font-semibold">Mobile</td>
+                <td>{{ user_data.social.user_mobile }}</td>
               </tr>
             </table>
           </vx-card>
@@ -153,15 +145,16 @@
             <vs-divider />
           </div>
         </div>
-
-        <div class="block overflow-x-auto">
-          <table class="w-full permissions-table">
-            <tr>
+        
               <!--
                 You can also use `Object.keys(Object.values(data_local.permissions)[0])` this logic if you consider,
                 our data structure. You just have to loop over above variable to get table headers.
                 Below we made it simple. So, everyone can understand.
                -->
+<!--        <div class="block overflow-x-auto">
+          <table class="w-full permissions-table">
+            <tr>
+              
               <th class="font-semibold text-base text-left px-3 py-2" v-for="heading in ['Module', 'Read', 'Write', 'Create', 'Delete']" :key="heading">{{ heading }}</th>
             </tr>
 
@@ -171,6 +164,24 @@
                 <vs-checkbox v-model="val[name]" class="pointer-events-none" />
               </td>
             </tr>
+          </table>
+        </div> -->
+        
+        <div class="block overflow-x-auto">
+          <table class="w-full permissions-table">
+            <template v-for="(val, moduleName) in this.permissionType">
+              <tr :key="moduleName+val.header">
+                <th class="font-semibold text-base text-left px-3 py-2" v-for="heading in val.header" :key="moduleName+heading">{{ heading }}</th>
+              </tr>
+              <tr :key="moduleName+val.name">
+                <td class="px-3 py-2">{{ val.name }}</td>
+                <template v-for="permissionName in Object.keys(user_data.permission)">
+                  <td v-if="permissionName.indexOf(moduleName)!= -1" class="px-3 py-2" :key="user_data.permission[permissionName]+permissionName">
+                      <vs-checkbox v-model="user_data.permission[permissionName]" class="pointer-events-none" />
+                  </td>
+                </template>
+              </tr>
+            </template>
           </table>
         </div>
 
@@ -186,7 +197,25 @@ export default {
   data () {
     return {
       user_data: null,
-      user_not_found: false
+      user_not_found: false,
+      permissionType: {
+        'active': {
+          'name': '活动/公告/社区',
+          'header': ['模块', '发布', '删除', '查看', '修改', '审核']
+        },
+        'user': {
+          'name': '用户管理', 
+          'header': ['', '添加', '删除', '查看', '修改']
+        },
+        'clockin': {
+          'name': '打卡',
+          'header': ['', '导出', '删除', '查看', '修改']
+        },
+        'schedule': {
+          'name': '日程表',
+          'header': ['', '添加', '删除', '查看', '修改']
+        }
+      }
     }
   },
   computed: {
@@ -225,6 +254,18 @@ export default {
         title: 'User Deleted',
         text: 'The selected user was successfully deleted'
       })
+    },
+    fetch_user_data (userId) {
+      console.log('handle')
+      this.$store.dispatch('userManagement/fetchUser', userId)
+        .then(res => { this.user_data = res.data })
+        .catch(err => {
+          if (err.response.status === 404) {
+            this.user_not_found = true
+            return
+          }
+          console.error(err) 
+        })
     }
   },
   created () {
@@ -234,19 +275,32 @@ export default {
       moduleUserManagement.isRegistered = true
     }
 
-    const userId = this.$route.params.userId
-    this.$store.dispatch('userManagement/fetchUser', userId)
-      .then(res => {
-        this.user_data = res.data
-        console.log(res.data)
+    //const userId = this.$route.params.userId
+    
+    if (this.$route.params.userId === 'owner') {
+      this.user_data = JSON.parse(localStorage.getItem('userInfo'))
+    } else if (this.$store.state.userManagement.users) {
+      // 在userlist中存储过的数据中查询
+      this.user_data = this.$store.state.userManagement.users.find(val => {
+        return val.user_id === this.$route.params.userId
       })
-      .catch(err => {
-        if (err.response.status === 404) {
-          this.user_not_found = true
-          return
-        }
-        console.error(err) 
-      })
+      if (!this.user_data) {
+        this.fetch_user_data(this.$route.params.userId)
+      }
+    }
+    
+    // this.$store.dispatch('userManagement/fetchUser', userId)
+    //   .then(res => {
+    //     this.user_data = res.data
+    //     console.log(res.data)
+    //   })
+    //   .catch(err => {
+    //     if (err.response.status === 404) {
+    //       this.user_not_found = true
+    //       return
+    //     }
+    //     console.error(err) 
+    //   })
   }
 }
 

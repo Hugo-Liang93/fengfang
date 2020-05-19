@@ -12,6 +12,16 @@
   <div id="page-user-list">
 
     <vx-card ref="filterCard" title="Filters" class="user-list-filters mb-8" actionButtons @refresh="resetColFilters" @remove="resetColFilters">
+      
+      <vs-prompt title="导出数据" class="export-options" @cancle="clearFields" @accept="exportToExcel" accept-text="Export"  @close="clearFields" :active.sync="activePrompt">
+          <vs-input v-model="fileName" placeholder="文件名" class="w-full" />
+          <v-select v-model="selectedFormat" :options="formats" class="my-4" />
+          <div class="flex">
+            <span class="mr-4">单元格自适应:</span>
+            <vs-switch v-model="cellAutoWidth">Cell Auto Width</vs-switch>
+          </div>
+      </vs-prompt>
+      
       <div class="vx-row">
         <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
           <label class="text-sm opacity-75">角色</label>
@@ -65,9 +75,10 @@
         <!-- TABLE ACTION COL-2: SEARCH & EXPORT AS CSV -->
           <vs-input class="sm:mr-4 mr-0 sm:w-auto w-full sm:order-normal order-3 sm:mt-0 mt-4" v-model="searchQuery" @input="updateSearchQuery" placeholder="Search..." />
           <!-- <vs-button class="mb-4 md:mb-0" @click="gridApi.exportDataAsCsv()">Export as CSV</vs-button> -->
-
+          
+          <vs-button @click="activePrompt=true">导出</vs-button>
           <!-- ACTION - DROPDOWN -->
-          <vs-dropdown vs-trigger-click class="cursor-pointer">
+          <!-- <vs-dropdown vs-trigger-click class="cursor-pointer">
 
             <div class="p-3 shadow-drop rounded-lg d-theme-dark-light-bg cursor-pointer flex items-end justify-center text-lg font-medium w-32">
               <span class="mr-2 leading-none">Actions</span>
@@ -97,7 +108,7 @@
                 </span>
               </vs-dropdown-item>
 
-              <vs-dropdown-item>
+              <vs-dropdown-item @click="exportToExcel">
                 <span class="flex items-center">
                   <feather-icon icon="SaveIcon" svgClasses="h-4 w-4" class="mr-2" />
                   <span>CSV</span>
@@ -105,7 +116,7 @@
               </vs-dropdown-item>
 
             </vs-dropdown-menu>
-          </vs-dropdown>
+          </vs-dropdown> -->
       </div>
 
 
@@ -167,7 +178,13 @@ export default {
   },
   data () {
     return {
-
+      activePrompt: false,
+      fileName: '',
+      formats:['xlsx', 'csv', 'txt'],
+      cellAutoWidth: true,
+      selectedFormat: 'xlsx',
+      headerVal: ['user_id', 'email', 'name', 'user_company', 'user_dept', 'user_office', 'permission.role_name', 'user_position'],
+      headerTitle: [],
       // Filter Options
       roleFilter: { label: 'All', value: 'all' },
       roleOptions: [
@@ -200,8 +217,7 @@ export default {
       departmentOptions: [
         { label: 'All', value: 'all' },
         { label: '业务', value: '业务' },
-        { label: '总经办', value: '总经办' },
-        { label: 'Management', value: 'management' }
+        { label: '总经办', value: '总经办' }
       ],
 
       searchQuery: '',
@@ -216,7 +232,7 @@ export default {
       },
       columnDefs: [
         {
-          headerName: 'ID',
+          headerName: '员工ID',
           field: 'user_id',
           width: 250,
           filter: true,
@@ -225,7 +241,7 @@ export default {
           headerCheckboxSelection: true
         },
         {
-          headerName: 'Email',
+          headerName: '邮箱',
           field: 'email',
           filter: true,
           width: 225
@@ -234,7 +250,8 @@ export default {
           headerName: '姓名',
           field: 'name',
           filter: true,
-          width: 150
+          width: 150,
+          cellRendererFramework: 'CellRendererLink'
         },
         {
           headerName: '公司',
@@ -256,7 +273,7 @@ export default {
         },
         {
           headerName: '角色',
-          field: 'permisssion.role_name',
+          field: 'permission.role_name',
           filter: true,
           width: 150
         },
@@ -266,21 +283,21 @@ export default {
           filter: true,
           width: 150
         },
-        {
-          headerName: '打卡状态',
-          field: 'status',
-          filter: true,
-          width: 150,
-          cellRendererFramework: 'CellRendererStatus'
-        },
-        {
-          headerName: 'Verified',
-          field: 'is_verified',
-          filter: true,
-          width: 125,
-          cellRendererFramework: 'CellRendererVerified',
-          cellClass: 'text-center'
-        },
+        // {
+        //   headerName: '打卡状态',
+        //   field: 'status',
+        //   filter: true,
+        //   width: 150,
+        //   cellRendererFramework: 'CellRendererStatus'
+        // },
+        // {
+        //   headerName: 'Verified',
+        //   field: 'is_verified',
+        //   filter: true,
+        //   width: 125,
+        //   cellRendererFramework: 'CellRendererVerified',
+        //   cellClass: 'text-center'
+        // },
         {
           headerName: 'Actions',
           field: 'transactions',
@@ -300,7 +317,7 @@ export default {
   },
   watch: {
     roleFilter (obj) {
-      this.setColumnFilter('permisssion.role_name', obj.value)
+      this.setColumnFilter('permission.role_name', obj.value)
     },
     userCompanyFilter (obj) {
       this.setColumnFilter('user_company', obj.value)
@@ -362,6 +379,43 @@ export default {
     },
     updateSearchQuery (val) {
       this.gridApi.setQuickFilter(val)
+    },
+    exportToExcel () {
+      const selectedNodes = this.gridApi.getSelectedNodes()
+      console.log(selectedNodes)
+      const selectedData = selectedNodes.map(node => node.data)
+      import('@/vendor/Export2Excel').then(excel => {
+        const list = selectedData
+        const data = this.formatJson(this.headerVal, list)
+        excel.export_json_to_excel({
+          header: this.headerVal,
+          data,
+          filename: this.fileName,
+          autoWidth: this.cellAutoWidth,
+          bookType: this.selectedFormat
+        })
+        this.clearFields()
+      })
+    },
+    formatJson (filterVal, jsonData) {
+      return jsonData.map(v => filterVal.map(j => {
+        if (j.indexOf('.') !== -1) {
+          return v[j.split('.')[0]][j.split('.')[1]]
+        }
+        // Add col name which needs to be translated
+        // if (j === 'timestamp') {
+        //   return parseTime(v[j])
+        // } else {
+        //   return v[j]
+        // }
+    
+        return v[j]
+      }))
+    },
+    clearFields () {
+      this.filename = ''
+      this.cellAutoWidth = true
+      this.selectedFormat = 'xlsx'
     }
   },
   mounted () {

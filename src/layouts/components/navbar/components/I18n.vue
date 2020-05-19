@@ -5,10 +5,11 @@
       <span class="hidden sm:block ml-2">{{ getCurrentLocaleData.lang }}</span>
     </span>
     <vs-dropdown-menu class="w-48 i18n-dropdown vx-navbar-dropdown">
-      <vs-dropdown-item @click="updateLocale('en')"><img class="h-4 w-5 mr-1" src="@/assets/images/flags/en.png" alt="en" /> &nbsp;English</vs-dropdown-item>
-      <vs-dropdown-item @click="updateLocale('fr')"><img class="h-4 w-5 mr-1" src="@/assets/images/flags/fr.png" alt="fr" /> &nbsp;French</vs-dropdown-item>
-      <vs-dropdown-item @click="updateLocale('de')"><img class="h-4 w-5 mr-1" src="@/assets/images/flags/de.png" alt="de" /> &nbsp;German</vs-dropdown-item>
-      <vs-dropdown-item @click="updateLocale('pt')"><img class="h-4 w-5 mr-1" src="@/assets/images/flags/pt.png" alt="pt" /> &nbsp;Portuguese</vs-dropdown-item>
+      <vs-dropdown-item @click="updateLocale('cn')"><img class="h-4 w-5 mr-1" src="@/assets/images/flags/cn.png" alt="cn" /> &nbsp;中文</vs-dropdown-item>
+      <vs-dropdown-item @click="updateLocale('en')"><img class="h-4 w-5 mr-1" src="@/assets/images/flags/en.png" alt="en" /> &nbsp;英文</vs-dropdown-item>
+      <vs-dropdown-item @click="updateLocale('fr')"><img class="h-4 w-5 mr-1" src="@/assets/images/flags/fr.png" alt="fr" /> &nbsp;法文</vs-dropdown-item>
+      <vs-dropdown-item @click="updateLocale('de')"><img class="h-4 w-5 mr-1" src="@/assets/images/flags/de.png" alt="de" /> &nbsp;德文</vs-dropdown-item>
+      <vs-dropdown-item @click="updateLocale('pt')"><img class="h-4 w-5 mr-1" src="@/assets/images/flags/pt.png" alt="pt" /> &nbsp;葡萄牙文</vs-dropdown-item>
     </vs-dropdown-menu>
   </vs-dropdown>
 </template>
@@ -21,10 +22,11 @@ export default {
     },
     getCurrentLocaleData () {
       const locale = this.$i18n.locale
-      if (locale === 'en')      return { flag: 'us', lang: 'English'    }
-      else if (locale === 'pt') return { flag: 'br', lang: 'Portuguese' }
-      else if (locale === 'fr') return { flag: 'fr', lang: 'French'     }
-      else if (locale === 'de') return { flag: 'de', lang: 'German'     }
+      if (locale === 'en')      return { flag: 'us', lang: '英文'    }
+      else if (locale === 'pt') return { flag: 'br', lang: '葡萄牙文' }
+      else if (locale === 'fr') return { flag: 'fr', lang: '法文'     }
+      else if (locale === 'de') return { flag: 'de', lang: '德文'     }
+      else if (locale === 'cn') return { flag: 'cn', lang: '中文'     }
     }
   },
   methods: {

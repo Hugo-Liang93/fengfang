@@ -16,7 +16,7 @@
 
 <script>
 import themeConfig from '@/../themeConfig.js'
-import jwt         from '@/http/requests/auth/jwt/index.js'
+// import jwt         from '@/http/requests/auth/jwt/index.js'
 
 export default {
   data () {
@@ -69,7 +69,7 @@ export default {
   },
   async created () {
     // jwt
-    jwt.init()
+    // jwt.init()
     if (!localStorage.getItem('userInfo')) {
       this.$router.push('/pages/login')
     }

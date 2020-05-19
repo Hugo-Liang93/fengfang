@@ -20,8 +20,7 @@ const userDefaults = {
   // displayName : 'John Doe', // From Auth
   about       : 'Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw brownie brownie marshmallow.',
   photoURL    : require('@/assets/images/portrait/small/avatar-s-11.jpg'), // From Auth
-  status      : 'online',
-  userRole    : 'admin'
+  status      : 'online'
 }
 
 const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo')) || {}
@@ -30,7 +29,6 @@ const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo')) || {}
 // More data can be added by auth provider or other plugins/packages
 const getUserInfo = () => {
   const userInfo = {}
-
   // Update property in user
   Object.keys(userDefaults).forEach((key) => {
     // If property is defined in localStorage => Use that

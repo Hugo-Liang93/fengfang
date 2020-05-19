@@ -12,17 +12,19 @@ import axios from '@/axios.js'
 export default {
   addEvent ({ commit }, event) {
     return new Promise((resolve, reject) => {
-      axios.post('/api/apps/calendar/events/', {event})
+      axios.post('/api/apps/calendar/events/', event)
         .then((response) => {
-          commit('ADD_EVENT', Object.assign(event, {id: response.data.id}))
+          if (response.data.id) {
+            commit('ADD_EVENT', Object.assign(event, {id: response.data.id}))
+          } 
           resolve(response)
         })
         .catch((error) => { reject(error) })
     })
   },
-  fetchEvents ({ commit }) {
+  fetchEvents ({ commit }, user_id) {
     return new Promise((resolve, reject) => {
-      axios.get('/api/apps/calendar/events')
+      axios.get(`/api/apps/calendar/events/${user_id}`)
         .then((response) => {
           commit('SET_EVENTS', response.data)
           resolve(response)
@@ -41,15 +43,14 @@ export default {
     })
   },
   editEvent ({ commit }, event) {
+    console.log(event)
     return new Promise((resolve, reject) => {
-      axios.post(`/api/apps/calendar/event/${event.id}`, {event})
+      axios.post('/api/apps/calendar/event/', event)
         .then((response) => {
-
           // Convert Date String to Date Object
-          const event = response.data
-          event.startDate = new Date(event.startDate)
-          event.endDate = new Date(event.endDate)
-
+          // const event = response.data
+          // event.startDate = new Date(event.startDate)
+          // event.endDate = new Date(event.endDate)
           commit('UPDATE_EVENT', event)
           resolve(response)
         })
@@ -60,7 +61,9 @@ export default {
     return new Promise((resolve, reject) => {
       axios.delete(`/api/apps/calendar/event/${eventId}`)
         .then((response) => {
-          commit('REMOVE_EVENT', response.data)
+          if (response.data.status) {
+            commit('REMOVE_EVENT', eventId)
+          }
           resolve(response)
         })
         .catch((error) => { reject(error) })

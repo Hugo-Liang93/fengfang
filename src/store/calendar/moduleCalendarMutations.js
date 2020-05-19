@@ -24,6 +24,8 @@ export default {
   },
   REMOVE_EVENT (state, eventId) {
     const eventIndex = state.events.findIndex((e) => e.id === eventId)
-    state.events.splice(eventIndex, 1)
+    if (eventIndex !== -1) {
+      state.events.splice(eventIndex, 1)
+    }
   }
 }

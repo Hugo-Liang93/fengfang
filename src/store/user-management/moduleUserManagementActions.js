@@ -8,6 +8,7 @@
 ==========================================================================================*/
 
 import axios from '@/axios.js'
+import userAPI from '../../http/requests/api/user/index.js'
 
 export default {
   // addItem({ commit }, item) {
@@ -24,7 +25,19 @@ export default {
     return new Promise((resolve, reject) => {
       axios.get('/api/user-management/users')
         .then((response) => {
+          //调用在获取所有用户数据的时候
           commit('SET_USERS', response.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+  fetchPermissions ({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios.get('/api/user-management/permissions')
+        .then((response) => {
+          //调用在获取所有用户数据的时候
+          commit('SET_PERMISSIONS', response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })
@@ -44,6 +57,34 @@ export default {
       axios.delete(`/api/user-management/users/${userId}`)
         .then((response) => {
           commit('REMOVE_RECORD', userId)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+  
+  saveAccountInfo (context, user) {
+    return new Promise((resolve, reject) => {
+      userAPI.saveAccountInfo(user)
+        .then((response) => {
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+  saveUserInfo (context, user) {
+    return new Promise((resolve, reject) => {
+      userAPI.saveUserInfo(user)
+        .then((response) => {
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+  saveUserSocialInfo (context, user) {
+    return new Promise((resolve, reject) => {
+      userAPI.saveUserSocialInfo(user)
+        .then((response) => {
           resolve(response)
         })
         .catch((error) => { reject(error) })

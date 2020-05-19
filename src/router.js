@@ -28,7 +28,7 @@ import 'firebase/auth'
 Vue.use(Router)
 
 const router = new Router({
-  mode: 'history',
+  //mode: 'history',
   base: process.env.BASE_URL,
   scrollBehavior () {
     return { x: 0, y: 0 }
@@ -226,6 +226,34 @@ const router = new Router({
               { title: 'Edit', active: true }
             ],
             pageTitle: 'User Edit',
+            rule: 'editor'
+          }
+        },
+        {
+          path: '/apps/clockin',
+          name: 'app-user-clockin',
+          component: () => import('@/views/apps/clockIn/a-map/AMap.vue'),
+          meta: {
+            breadcrumb: [
+              { title: 'Home', url: '/' },
+              { title: '打卡管理' },
+              { title: '打卡', active: true }
+            ],
+            pageTitle: '打卡',
+            rule: 'editor'
+          }
+        },
+        {
+          path: '/apps/clockinList',
+          name: 'app-user-clockin',
+          component: () => import('@/views/apps/clockIn/clockIn-list/ClockInList.vue'),
+          meta: {
+            breadcrumb: [
+              { title: 'Home', url: '/' },
+              { title: '打卡管理' },
+              { title: '打卡列表', active: true }
+            ],
+            pageTitle: '打卡列表',
             rule: 'editor'
           }
         },
@@ -1071,16 +1099,15 @@ const router = new Router({
           }
         },
         {
-          path: '/extensions/quill-editor',
+          path: '/activity/add',
           name: 'extra-component-quill-editor',
-          component: () => import('@/views/components/extra-components/quill-editor/QuillEditor.vue'),
+          component: () => import('@/views/apps/quill-editor/QuillEditor.vue'),
           meta: {
             breadcrumb: [
               { title: 'Home', url: '/' },
-              { title: 'Extra Components' },
-              { title: 'Quill Editor', active: true }
+              { title: '发布公告', active: true }
             ],
-            pageTitle: 'Quill Editor',
+            pageTitle: '公告发布',
             rule: 'editor'
           }
         },

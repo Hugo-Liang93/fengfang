@@ -13,7 +13,7 @@
     <vs-alert color="danger" title="User Not Found" :active.sync="user_not_found">
       <span>User record with id: {{ $route.params.userId }} not found. </span>
       <span>
-        <span>Check </span><router-link :to="{name:'page-user-list'}" class="text-inherit underline">All Users</router-link>
+        <span>Check </span><router-link :to="{name:'app-user-list'}" class="text-inherit underline">All Users</router-link>
       </span>
     </vs-alert>
 
@@ -24,17 +24,22 @@
         <vs-tabs v-model="activeTab" class="tab-action-btn-fill-conatiner">
           <vs-tab label="Account" icon-pack="feather" icon="icon-user">
             <div class="tab-text">
-              <user-edit-tab-account class="mt-4" :data="user_data" />
+              <user-edit-tab-account class="mt-4" :data.sync="user_data" />
             </div>
           </vs-tab>
           <vs-tab label="Information" icon-pack="feather" icon="icon-info">
             <div class="tab-text">
-              <user-edit-tab-information class="mt-4" :data="user_data" />
+              <user-edit-tab-information class="mt-4" :data.sync="user_data" />
             </div>
           </vs-tab>
           <vs-tab label="Social" icon-pack="feather" icon="icon-share-2">
             <div class="tab-text">
-              <user-edit-tab-social class="mt-4" :data="user_data" />
+              <user-edit-tab-social class="mt-4" :data.sync="user_data" />
+            </div>
+          </vs-tab>
+          <vs-tab label="Password" icon-pack="feather" icon="icon-lock">
+            <div class="tab-text">
+              <user-edit-tab-pass class="mt-4" :data="user_data" />
             </div>
           </vs-tab>
         </vs-tabs>
@@ -49,7 +54,7 @@
 import UserEditTabAccount     from './UserEditTabAccount.vue'
 import UserEditTabInformation from './UserEditTabInformation.vue'
 import UserEditTabSocial      from './UserEditTabSocial.vue'
-
+import UserEditTabPass        from './UserSettingsChangePassword.vue'
 // Store Module
 import moduleUserManagement from '@/store/user-management/moduleUserManagement.js'
 
@@ -57,7 +62,8 @@ export default {
   components: {
     UserEditTabAccount,
     UserEditTabInformation,
-    UserEditTabSocial
+    UserEditTabSocial,
+    UserEditTabPass
   },
   data () {
     return {
@@ -72,11 +78,12 @@ export default {
       activeTab: 0
     }
   },
-  watch: {
-    activeTab () {
-      this.fetch_user_data(this.$route.params.userId)
-    }
-  },
+  // watch: {
+  //   activeTab () {
+  //     //this.fetch_user_data(this.$route.params.userId)
+  //     this.fetch_user_data(this.user_data.user_id)
+  //   }
+  // },
   methods: {
     fetch_user_data (userId) {
       this.$store.dispatch('userManagement/fetchUser', userId)
@@ -96,8 +103,21 @@ export default {
       this.$store.registerModule('userManagement', moduleUserManagement)
       moduleUserManagement.isRegistered = true
     }
-    this.fetch_user_data(this.$route.params.userId)
+    // 获取权限信息
+    this.$store.dispatch('userManagement/fetchPermissions')
+    // 如果是当前用户直接在localstorage中取数
+    if (this.$route.params.userId === 'owner') {
+      this.user_data = JSON.parse(localStorage.getItem('userInfo'))
+    } else if (this.$store.state.userManagement.users) {
+      // 在userlist中存储过的数据中查询
+      this.user_data = this.$store.state.userManagement.users.find(val => {
+        return val.user_id === this.$route.params.userId
+      })
+      if (!this.user_data) {
+        this.fetch_user_data(this.$route.params.userId)
+      }
+    }
+    // this.$store.commit('userManagement/SET_EDIT_USER', this.user_data)
   }
-}
-
+}  
 </script>

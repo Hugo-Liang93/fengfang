@@ -14,7 +14,8 @@
     <div class="vx-row">
       <div class="vx-col w-full">
         <div class="flex items-start flex-col sm:flex-row">
-          <img :src="data.avatar" class="mr-8 rounded h-24 w-24" />
+          <!-- <img :src="data.avatar" class="mr-8 rounded h-24 w-24" /> -->
+          <img :src="require('@/assets/images/portrait/small/avatar-s-11.jpg')" class="mr-8 rounded h-24 w-24" />
           <!-- <vs-avatar :src="data.avatar" size="80px" class="mr-4" /> -->
           <div>
             <p class="text-lg font-medium mb-2 mt-4 sm:mt-0">{{ data.name  }}</p>
@@ -24,7 +25,7 @@
             <vs-button class="mr-4 mb-4">Change Avatar</vs-button>
             <!-- <vs-button type="border" class="mr-4" @click="$refs.update_avatar_input.click()">Change Avatar</vs-button> -->
 
-            <vs-button type="border" color="danger">Remove Avatar</vs-button>
+            <!-- <vs-button type="border" color="danger">Remove Avatar</vs-button> -->
           </div>
         </div>
       </div>
@@ -33,33 +34,41 @@
     <!-- Content Row -->
     <div class="vx-row">
       <div class="vx-col md:w-1/2 w-full">
-        <vs-input class="w-full mt-4" label="Username" v-model="data_local.username" v-validate="'required|alpha_num'" name="username" />
-        <span class="text-danger text-sm"  v-show="errors.has('username')">{{ errors.first('username') }}</span>
 
-        <vs-input class="w-full mt-4" label="Name" v-model="data_local.name" v-validate="'required|alpha_spaces'" name="name" />
+        <vs-input class="w-full mt-4" label="Name" v-model="data_local.name" v-validate="'required'" name="name" />
         <span class="text-danger text-sm"  v-show="errors.has('name')">{{ errors.first('name') }}</span>
 
         <vs-input class="w-full mt-4" label="Email" v-model="data_local.email" type="email" v-validate="'required|email'" name="email" />
         <span class="text-danger text-sm"  v-show="errors.has('email')">{{ errors.first('email') }}</span>
+        
+        <vs-input class="w-full mt-4" label="Department" v-model="data_local.user_dept" v-validate="'required'" name="department" />
+        <span class="text-danger text-sm"  v-show="errors.has('department')">{{ errors.first('department') }}</span>
+        
+        <vs-input class="w-full mt-4" label="Office Address" v-model="data_local.user_office" v-validate="'required'" name="office" />
+        <span class="text-danger text-sm"  v-show="errors.has('office')">{{ errors.first('office') }}</span>
       </div>
 
       <div class="vx-col md:w-1/2 w-full">
 
         <div class="mt-4">
-          <label class="vs-input--label">Status</label>
-          <v-select v-model="status_local" :clearable="false" :options="statusOptions" v-validate="'required'" name="status" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
-          <span class="text-danger text-sm"  v-show="errors.has('status')">{{ errors.first('status') }}</span>
-        </div>
-
-        <div class="mt-4">
           <label class="vs-input--label">Role</label>
-          <v-select v-model="role_local" :clearable="false" :options="roleOptions" v-validate="'required'" name="role" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+          <v-select v-model="role_local"  :clearable="false" :options="roleOptions" v-validate="'required'" name="role" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
           <span class="text-danger text-sm"  v-show="errors.has('role')">{{ errors.first('role') }}</span>
         </div>
-
-        <vs-input class="w-full mt-4" label="Company" v-model="data_local.company" v-validate="'alpha_spaces'" name="company" />
+        
+        <!-- v-validate="'alpha_spaces'" -->
+        <vs-input class="w-full mt-4" label="Company" v-model="data_local.user_company"  name="company" />
         <span class="text-danger text-sm"  v-show="errors.has('company')">{{ errors.first('company') }}</span>
-
+        
+        <vs-input class="w-full mt-4" label="Position" v-model="data_local.user_position" v-validate="'required'" name="position" />
+        <span class="text-danger text-sm"  v-show="errors.has('position')">{{ errors.first('position') }}</span>
+        
+        <div class="mt-4">
+          <label class="text-sm">入职日期</label>
+          <!-- Y-m-d -->
+          <flat-pickr v-model="data_local.user_hiredate" :config="{altFormat: 'Y-m-d', dateFormat: 'Y-m-d', defaultDate: data_local.user_birthday, maxDate: new Date() }" class="w-full" v-validate="'required'" name="dob" />
+          <span class="text-danger text-sm"  v-show="errors.has('dob')">{{ errors.first('dob') }}</span>
+        </div>
       </div>
     </div>
 
@@ -78,21 +87,19 @@
 
       <div class="block overflow-x-auto">
         <table class="w-full">
-          <tr>
-            <!--
-              You can also use `Object.keys(Object.values(data_local.permissions)[0])` this logic if you consider,
-              our data structure. You just have to loop over above variable to get table headers.
-              Below we made it simple. So, everyone can understand.
-             -->
-            <th class="font-semibold text-base text-left px-3 py-2" v-for="heading in ['Module', 'Read', 'Write', 'Create', 'Delete']" :key="heading">{{ heading }}</th>
-          </tr>
-
-          <tr v-for="(val, name) in data_local.permissions" :key="name">
-            <td class="px-3 py-2">{{ name }}</td>
-            <td v-for="(permission, name) in val" class="px-3 py-2" :key="name+permission">
-              <vs-checkbox v-model="val[name]" />
-            </td>
-          </tr>
+          <template v-for="(val, moduleName) in this.permissionType">
+            <tr :key="moduleName+val.header">
+              <th class="font-semibold text-base text-left px-3 py-2" v-for="heading in val.header" :key="moduleName+heading">{{ heading }}</th>
+            </tr>
+            <tr :key="moduleName+val.name">
+              <td class="px-3 py-2">{{ val.name }}</td>
+              <template v-for="permissionName in Object.keys(data_local.permission)">
+                <td v-if="permissionName.indexOf(moduleName)!= -1" class="px-3 py-2" :key="data_local.permission[permissionName]+permissionName">
+                    <vs-checkbox v-model="data_local.permission[permissionName]" />
+                </td>
+              </template>
+            </tr>
+          </template>
         </table>
       </div>
 
@@ -112,10 +119,13 @@
 
 <script>
 import vSelect from 'vue-select'
+import flatPickr from 'vue-flatpickr-component'
+import 'flatpickr/dist/flatpickr.css'
 
 export default {
   components: {
-    vSelect
+    vSelect,
+    flatPickr
   },
   props: {
     data: {
@@ -127,51 +137,91 @@ export default {
     return {
 
       data_local: JSON.parse(JSON.stringify(this.data)),
-
-      statusOptions: [
-        { label: 'Active',  value: 'active' },
-        { label: 'Blocked',  value: 'blocked' },
-        { label: 'Deactivated',  value: 'deactivated' }
+      
+      companyOptions: [
+        { label: '蜂旅假期', value:'蜂旅假期'},
+        { label: '蜂房商旅', value:'广州市蜂房商旅服务有限公司'},
+        { label: '展厅', value:'展厅'},
+        { label: '驻场', value:'驻场'},
+        { label: '蜂房集团', value:'蜂房集团'}
       ],
       roleOptions: [
-        { label: 'Admin',  value: 'admin' },
-        { label: 'User',  value: 'user' },
-        { label: 'Staff',  value: 'staff' }
-      ]
+        { label: '超级管理员',  value: 1 },
+        { label: '公司管理员',  value: 2 },
+        { label: '部门管理员',  value: 3 },
+        { label: '员工',  value: 4 }
+      ],
+      permissionType: {
+        'active': {
+          'name': '活动/公告/社区',
+          'header': ['模块', '发布', '删除', '查看', '修改', '审核']
+        },
+        'user': {
+          'name': '用户管理', 
+          'header': ['', '添加', '删除', '查看', '修改']
+        },
+        'clockin': {
+          'name': '打卡',
+          'header': ['', '导出', '删除', '查看', '修改']
+        },
+        'schedule': {
+          'name': '日程表',
+          'header': ['', '添加', '删除', '查看', '修改']
+        }
+      }
     }
   },
   computed: {
-    status_local: {
-      get () {
-        return { label: this.capitalize(this.data_local.status),  value: this.data_local.status  }
-      },
-      set (obj) {
-        this.data_local.status = obj.value
-      }
+    validateForm () {
+      return !this.errors.any()
     },
     role_local: {
       get () {
-        return { label: this.capitalize(this.data_local.role),  value: this.data_local.role  }
+        return this.roleOptions.find(arr => {
+          return arr.value === this.data_local.permission.role_id
+        })
       },
       set (obj) {
-        this.data_local.role = obj.value
+        this.data_local.permission = this.$store.state.userManagement.permissions.find(arr => {
+          return arr.role_id === obj.value
+        })
       }
-    },
-    validateForm () {
-      return !this.errors.any()
     }
   },
   methods: {
-    capitalize (str) {
-      return str.slice(0, 1).toUpperCase() + str.slice(1, str.length)
-    },
     save_changes () {
       /* eslint-disable */
       if (!this.validateForm) return
 
       // Here will go your API call for updating data
       // You can get data in "this.data_local"
-
+      
+      this.$vs.loading()
+      this.$store.dispatch('userManagement/saveAccountInfo', this.data_local)
+        .then(() => { 
+          this.$vs.loading.close()
+          this.$vs.notify({
+            title: 'Success',
+            text: '保存成功',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'success'
+          })
+          if (this.$route.params.userId === 'owner') {
+            this.$store.commit('UPDATE_USER_INFO', this.data_local)
+          }
+          this.$emit('update:data',this.data_local)
+        })
+        .catch(error => {
+          this.$vs.loading.close()
+          this.$vs.notify({
+            title: 'Error',
+            text: error.message,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+        })
       /* eslint-enable */
     },
     reset_data () {
