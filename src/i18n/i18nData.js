@@ -56,7 +56,7 @@ export default {
     Slider: 'Slider',
     Tabs: 'Tabs',
     Tooltip: 'Tooltip',
-    Upload: 'Upload',
+    ProjectUpload: '项目资料上传',
     FormsAndTable: 'Forms & Table',
     FormElements: 'Form Elements',
     Select: 'Select',

@@ -83,38 +83,38 @@ export default [
         tagColor: 'success',
         i18n: 'Calendar'
       },
-      {
-        url: null,
-        name: 'eCommerce',
-        icon: 'ShoppingCartIcon',
-        i18n: 'eCommerce',
-        submenu: [
-          {
-            url: '/apps/eCommerce/shop',
-            name: 'Shop',
-            slug: 'ecommerce-shop',
-            i18n: 'Shop'
-          },
-          {
-            url: '/apps/eCommerce/item/',
-            name: 'Item Details',
-            slug: 'ecommerce-item-detail-view',
-            i18n: 'ItemDetails'
-          },
-          {
-            url: '/apps/eCommerce/wish-list',
-            name: 'Wish List',
-            slug: 'ecommerce-wish-list',
-            i18n: 'WishList'
-          },
-          {
-            url: '/apps/eCommerce/checkout',
-            name: 'Checkout',
-            slug: 'ecommerce-checkout',
-            i18n: 'Checkout'
-          }
-        ]
-      },
+      // {
+      //   url: null,
+      //   name: 'eCommerce',
+      //   icon: 'ShoppingCartIcon',
+      //   i18n: 'eCommerce',
+      //   submenu: [
+      //     {
+      //       url: '/apps/eCommerce/shop',
+      //       name: 'Shop',
+      //       slug: 'ecommerce-shop',
+      //       i18n: 'Shop'
+      //     },
+      //     {
+      //       url: '/apps/eCommerce/item/',
+      //       name: 'Item Details',
+      //       slug: 'ecommerce-item-detail-view',
+      //       i18n: 'ItemDetails'
+      //     },
+      //     {
+      //       url: '/apps/eCommerce/wish-list',
+      //       name: 'Wish List',
+      //       slug: 'ecommerce-wish-list',
+      //       i18n: 'WishList'
+      //     },
+      //     {
+      //       url: '/apps/eCommerce/checkout',
+      //       name: 'Checkout',
+      //       slug: 'ecommerce-checkout',
+      //       i18n: 'Checkout'
+      //     }
+      //   ]
+      // },
       {
         url: null,
         name: 'User',
@@ -169,7 +169,13 @@ export default [
         icon: 'EditIcon',
         slug: 'extra-component-quill-editor',
         i18n: 'AddActivity'
-      }    
+      },
+      {
+        url: '/components/upload',
+        name: 'Upload',
+        slug: 'component-upload',
+        i18n: 'ProjectUpload'
+      }   
     ]
   }
   // ,
