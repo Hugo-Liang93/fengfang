@@ -25,6 +25,7 @@ Vue.use(Vuex)
 import moduleAuth from './auth/moduleAuth.js'
 import moduleECommerce from './eCommerce/moduleECommerce.js'
 import moduleUser from './user/moduleUser.js'
+import moduleProject from './project/moduleProject.js'
 
 
 export default new Vuex.Store({
@@ -39,7 +40,8 @@ export default new Vuex.Store({
     // email: moduleEmail,
     auth: moduleAuth,
     eCommerce: moduleECommerce,
-    user: moduleUser
+    user: moduleUser,
+    project: moduleProject
   },
   strict: process.env.NODE_ENV !== 'production'
 })
