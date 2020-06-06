@@ -1,0 +1,71 @@
+<template>
+    <div :style="{'direction': $vs.rtl ? 'rtl' : 'ltr'}">
+      <feather-icon icon="Edit3Icon" svgClasses="h-5 w-5 mr-4 hover:text-primary cursor-pointer" @click="editRecord" />
+      <feather-icon icon="Trash2Icon" svgClasses="h-5 w-5 hover:text-danger cursor-pointer" @click="confirmDeleteRecord" />
+    </div>
+</template>
+
+<script>
+export default {
+  name: 'CellRendererActions',
+  methods: {
+    editRecord () {
+      this.$router.push(`/project/project-view/${this.params.data.project_id}`).catch(() => {})
+
+      /*
+              Below line will be for actual product
+              Currently it's commented due to demo purpose - Above url is for demo purpose
+
+              this.$router.push("/apps/user/user-edit/" + this.params.data.id).catch(() => {})
+            */
+    },
+    confirmDeleteRecord () {
+      this.$vs.dialog({
+        type: 'confirm',
+        color: 'danger',
+        title: '确定删除？',
+        text: `请注意，删除项目会一并删除相关附件,项目名称为 "${this.params.data.project_name}"`,
+        accept: this.deleteRecord,
+        acceptText: 'Delete'
+      })
+    },
+    deleteRecord () {
+      /* Below two lines are just for demo purpose */
+      this.$store.dispatch('project/removeProject', this.params.data.project_id).then((response) => {
+        if (response.data === true) {
+          this.showDeleteSuccess()
+        } else {
+          this.$vs.loading.close()
+          this.$vs.notify({
+            title: 'Error',
+            text: '删除失败',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+        }
+      }).catch(error => {
+        this.$vs.loading.close()
+        this.$vs.notify({
+          title: 'Error',
+          text: error.message,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+      })
+      /* UnComment below lines for enabling true flow if deleting user */
+      // this.$store.dispatch("userManagement/removeRecord", this.params.data.id)
+      //   .then(()   => { this.showDeleteSuccess() })
+      //   .catch(err => { console.error(err)       })
+    },
+    showDeleteSuccess () {
+      this.$vs.notify({
+        color: 'success',
+        title: '项目已经删除',
+        text: '已经成功删除项目信息'
+      })
+    }
+  }
+}
+</script>

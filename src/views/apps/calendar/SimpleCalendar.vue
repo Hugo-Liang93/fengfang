@@ -22,7 +22,7 @@
             <!-- Month Name -->
             <div class="vx-col w-1/3 items-center sm:flex hidden">
               <!-- Add new event button -->
-              <vs-button icon-pack="feather" icon="icon-plus" @click="promptAddNewEvent(new Date())">Add</vs-button>
+              <vs-button icon-pack="feather" icon="icon-plus" @click="promptAddNewEvent(new Date())">新增</vs-button>
             </div>
 
             <!-- Current Month 更换月份 -->
@@ -91,8 +91,8 @@
     <!-- ADD EVENT -->
     <vs-prompt
         class="calendar-event-dialog"
-        title="Add Event"
-        accept-text= "Add Event"
+        title="添加日程"
+        accept-text= "添加日程"
         @accept="addEvent"
         :is-valid="validForm"
         :active.sync="activePromptAddEvent">
@@ -120,7 +120,7 @@
 
         </div>
 
-        <vs-input name="event-name" v-validate="'required'" class="w-full" label-placeholder="Event Title" v-model="title"></vs-input>
+        <vs-input name="event-name" v-validate="'required'" class="w-full" label-placeholder="日程标题" v-model="title"></vs-input>
         <div class="my-4">
             <small class="date-label">Start Date</small>
             <datepicker :format="customFormatter" :language="langZH" name="start-date" v-model="startDate" :disabled="disabledFrom"></datepicker>
@@ -136,7 +136,7 @@
     <!-- EDIT EVENT -->
     <vs-prompt
         class="calendar-event-dialog"
-        title="Edit Event"
+        title="修改日程"
         accept-text= "Submit"
         cancel-text = "Remove"
         button-cancel = "border"
@@ -168,7 +168,7 @@
 
         </div>
 
-        <vs-input name="event-name" v-validate="'required'" class="w-full" label-placeholder="Event Title" v-model="title"></vs-input>
+        <vs-input name="event-name" v-validate="'required'" class="w-full" label-placeholder="日程标题" v-model="title"></vs-input>
         <div class="my-4">
             <small class="date-label">Start Date</small>
             <datepicker :format="customFormatter" :language="langZH" :disabledDates="disabledDatesFrom" name="start-date" v-model="startDate"></datepicker>

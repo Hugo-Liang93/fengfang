@@ -17,6 +17,9 @@ import 'material-icons/iconfont/material-icons.css' //Material Icons
 import 'vuesax/dist/vuesax.css' // Vuesax
 Vue.use(Vuesax)
 
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+Vue.use(VueAwesomeSwiper)
+import 'swiper/dist/css/swiper.css'
 
 // axios
 import axios from './axios.js'

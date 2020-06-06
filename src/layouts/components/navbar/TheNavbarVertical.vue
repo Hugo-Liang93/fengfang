@@ -20,18 +20,18 @@
         <feather-icon class="sm:inline-flex xl:hidden cursor-pointer p-2" icon="MenuIcon" @click.stop="showSidebar" />
         
         <!-- 设置快捷切换的 -->
-        <bookmarks :navbarColor="navbarColor" v-if="windowWidth >= 992" />
+        <!-- <bookmarks :navbarColor="navbarColor" v-if="windowWidth >= 992" /> -->
 
         <vs-spacer />
         
         <!-- 控制国际化 可以尝试修改 但不确定 -->
-        <i18n />
+<!--        <i18n />
 
         <search-bar />
 
         <cart-drop-down />
 
-        <notification-drop-down />
+        <notification-drop-down /> -->
 
         <profile-drop-down />
 

@@ -55,19 +55,26 @@ export default [
     i18n: 'Apps',
     items: [
       {
-        url: '/apps/email',
-        name: 'Email',
-        slug: 'email',
-        icon: 'MailIcon',
-        i18n: 'Email'
+        url: '/detail',
+        name: 'show',
+        slug: 'show',
+        icon: 'HomeIcon',
+        i18n: 'showlist'
       },
-      {
-        url: '/apps/chat',
-        name: 'Chat',
-        slug: 'chat',
-        icon: 'MessageSquareIcon',
-        i18n: 'Chat'
-      },
+      // {
+      //   url: '/apps/email',
+      //   name: 'Email',
+      //   slug: 'email',
+      //   icon: 'MailIcon',
+      //   i18n: 'Email'
+      // },
+      // {
+      //   url: '/apps/chat',
+      //   name: 'Chat',
+      //   slug: 'chat',
+      //   icon: 'MessageSquareIcon',
+      //   i18n: 'Chat'
+      // },
       {
         url: '/apps/todo',
         name: 'Todo',
@@ -171,11 +178,27 @@ export default [
         i18n: 'AddActivity'
       },
       {
-        url: '/components/upload',
-        name: 'Upload',
-        slug: 'component-upload',
-        i18n: 'ProjectUpload'
-      }   
+        url: null,
+        name: 'Project',
+        icon: 'LayersIcon',
+        i18n: 'ProjectManage',
+        submenu: [
+          {
+            url: '/project/upload',
+            name: 'Upload',
+            icon: 'EditIcon',
+            slug: 'component-upload',
+            i18n: 'ProjectUpload'
+          },
+          {
+            url: '/project/list-project',
+            name: 'ProjectList',
+            icon: 'EditIcon',
+            slug: 'component-upload',
+            i18n: 'ProjectList'
+          }
+        ]
+      }    
     ]
   }
   // ,

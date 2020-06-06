@@ -244,7 +244,7 @@ export default {
           headerName: '邮箱',
           field: 'email',
           filter: true,
-          width: 225
+          width: 225 
         },
         {
           headerName: '姓名',

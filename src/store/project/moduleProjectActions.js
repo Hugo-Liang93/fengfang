@@ -10,5 +10,13 @@ export default {
         })
         .catch((error) => { reject(error) })
     })
+  },
+  removeProject ({ commit }, projectId) {
+    return new Promise((resolve, reject) => {
+      projectAPI.removeProject(projectId).then((response) => {
+        commit('REMOV_PROJECT', projectId)
+        resolve(response)
+      }).catch((error) => { reject(error) })
+    })
   }
 }

@@ -47,12 +47,12 @@ const router = new Router({
         // =============================================================================
         {
           path: '/',
-          redirect: '/dashboard/analytics'
+          redirect: '/detail'
         },
         {
-          path: '/dashboard/analytics',
-          name: 'dashboard-analytics',
-          component: () => import('./views/DashboardAnalytics.vue'),
+          path: '/detail',
+          name: 'detail-list',
+          component: () => import('./views/DetailList.vue'),
           meta: {
             rule: 'editor'
           }
@@ -245,7 +245,7 @@ const router = new Router({
         },
         {
           path: '/apps/clockinList',
-          name: 'app-user-clockin',
+          name: 'app-user-clockin-list',
           component: () => import('@/views/apps/clockIn/clockIn-list/ClockInList.vue'),
           meta: {
             breadcrumb: [
@@ -254,6 +254,34 @@ const router = new Router({
               { title: '打卡列表', active: true }
             ],
             pageTitle: '打卡列表',
+            rule: 'editor'
+          }
+        },
+        {
+          path: '/project/list-project',
+          name: 'list-project',
+          component: () => import('@/views/apps/upload/upload-list/UploadList.vue'),
+          meta: {
+            breadcrumb: [
+              { title: 'Home', url: '/' },
+              { title: '项目管理' },
+              { title: '项目列表', active: true }
+            ],
+            pageTitle: 'Upload',
+            rule: 'editor'
+          }
+        },
+        {
+          path: '/project/project-view/:projectId',
+          name: 'prject-view',
+          component: () => import('@/views/apps/upload/UploadView.vue'),
+          meta: {
+            breadcrumb: [
+              { title: 'Home', url: '/' },
+              { title: '项目' },
+              { title: '项目详细', active: true }
+            ],
+            pageTitle: '项目详细',
             rule: 'editor'
           }
         },
@@ -724,9 +752,9 @@ const router = new Router({
           }
         },
         {
-          path: '/components/upload',
-          name: 'component-upload',
-          component: () => import('@/views/components/vuesax/upload/Upload.vue'),
+          path: '/project/upload',
+          name: 'project-upload',
+          component: () => import('@/views/apps/upload/Upload.vue'),
           meta: {
             breadcrumb: [
               { title: 'Home', url: '/' },

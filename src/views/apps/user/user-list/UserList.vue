@@ -382,7 +382,6 @@ export default {
     },
     exportToExcel () {
       const selectedNodes = this.gridApi.getSelectedNodes()
-      console.log(selectedNodes)
       const selectedData = selectedNodes.map(node => node.data)
       import('@/vendor/Export2Excel').then(excel => {
         const list = selectedData
