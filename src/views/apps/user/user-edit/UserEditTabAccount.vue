@@ -22,7 +22,7 @@
             <input type="file" class="hidden" ref="update_avatar_input" @change="update_avatar" accept="image/*">
 
             <!-- Toggle comment of below buttons as one for actual flow & currently shown is only for demo -->
-            <vs-button class="mr-4 mb-4">Change Avatar</vs-button>
+            <vs-button class="mr-4 mb-4">更换头像</vs-button>
             <!-- <vs-button type="border" class="mr-4" @click="$refs.update_avatar_input.click()">Change Avatar</vs-button> -->
 
             <!-- <vs-button type="border" color="danger">Remove Avatar</vs-button> -->

@@ -193,11 +193,11 @@ const router = new Router({
           component: () => import('@/views/apps/user/user-list/UserList.vue'),
           meta: {
             breadcrumb: [
-              { title: 'Home', url: '/' },
-              { title: 'User' },
-              { title: 'List', active: true }
+              { title: '主页', url: '/' },
+              { title: '用户管理' },
+              { title: '用户列表', active: true }
             ],
-            pageTitle: 'User List',
+            pageTitle: '用户列表',
             rule: 'editor'
           }
         },
@@ -1128,14 +1128,57 @@ const router = new Router({
         },
         {
           path: '/activity/add',
-          name: 'extra-component-quill-editor',
-          component: () => import('@/views/apps/quill-editor/QuillEditor.vue'),
+          name: 'activityAdd',
+          component: () => import('@/views/apps/activity/Activity.vue'),
           meta: {
             breadcrumb: [
-              { title: 'Home', url: '/' },
-              { title: '发布公告', active: true }
+              { title: '首页', url: '/' },
+              { title: '集团热点' },
+              { title: '热点发布', active: true }
             ],
-            pageTitle: '公告发布',
+            pageTitle: '发布热点',
+            rule: 'editor'
+          }
+        },
+        {
+          path: '/activity/activity-edit/:activityId',
+          name: 'activity-view-edit',
+          component: () => import('@/views/apps/activity/ActivityViewEdit.vue'),
+          meta: {
+            breadcrumb: [
+              { title: '首页', url: '/' },
+              { title: '集团热点' },
+              { title: '热点修改', active: true }
+            ],
+            pageTitle: '热点修改',
+            rule: 'editor'
+          }
+        },
+        {
+          path: '/activity/activity-view/:activityId',
+          name: 'activity-view',
+          component: () => import('@/views/apps/activity/ActivityViewShow.vue'),
+          meta: {
+            breadcrumb: [
+              { title: '首页', url: '/' },
+              { title: '集团热点' },
+              { title: '热点详情', active: true }
+            ],
+            pageTitle: '热点详情',
+            rule: 'editor'
+          }
+        },
+        {
+          path: '/activity/activityList',
+          name: 'extra-component-quill-editor',
+          component: () => import('@/views/apps/activity/activity-list/ActivityList.vue'),
+          meta: {
+            breadcrumb: [
+              { title: '首页', url: '/' },
+              { title: '集团热点' },
+              { title: '热点列表', active: true }
+            ],
+            pageTitle: '热点',
             rule: 'editor'
           }
         },

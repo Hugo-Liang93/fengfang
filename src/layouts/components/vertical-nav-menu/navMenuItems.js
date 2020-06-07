@@ -75,13 +75,13 @@ export default [
       //   icon: 'MessageSquareIcon',
       //   i18n: 'Chat'
       // },
-      {
-        url: '/apps/todo',
-        name: 'Todo',
-        slug: 'todo',
-        icon: 'CheckSquareIcon',
-        i18n: 'Todo'
-      },
+      // {
+      //   url: '/apps/todo',
+      //   name: 'Todo',
+      //   slug: 'todo',
+      //   icon: 'CheckSquareIcon',
+      //   i18n: 'Todo'
+      // },
       {
         url: '/apps/calendar/vue-simple-calendar',
         name: 'Calendar',
@@ -171,11 +171,26 @@ export default [
         ]
       },
       {
-        url: '/activity/add',
-        name: 'addActivity',
+        url: null,
+        name: 'Activity',
         icon: 'EditIcon',
-        slug: 'extra-component-quill-editor',
-        i18n: 'AddActivity'
+        i18n: 'ActivityManage',
+        submenu: [
+          {
+            url: '/activity/add',
+            name: 'addActivity',
+            icon: 'EditIcon',
+            slug: 'extra-component-quill-editor',
+            i18n: 'AddActivity'
+          },
+          {
+            url: '/activity/activityList',
+            name: 'ClockinList',
+            icon: 'MapIcon',
+            slug: 'extra-component-maps-google-map',
+            i18n: 'ListActivity'
+          }
+        ]
       },
       {
         url: null,

@@ -1,5 +1,9 @@
 export default {
-  SET_CLOCKIN_LIST (state, clockinList) {
-    state.clockinList = clockinList
+  SET_ACTIVITY_LIST (state, activityList) {
+    state.activityList = activityList
+  },
+  REMOV_ACTIVITY (state, activityId) {
+    const Index = state.activityList.findIndex((u) => u.id === activityId)
+    state.activityList.splice(Index, 1)
   }
 }

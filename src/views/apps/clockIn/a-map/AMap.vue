@@ -4,7 +4,6 @@
       <p>当定位在公司范围之内方可打卡</p>
       <div class="mt-5">
         <vs-button class="mr-4" v-bind:disabled="isAble" color="primary"  type="filled" @click="clockin">打卡</vs-button>
-        <vs-button class="mr-4"  color="primary"  type="filled" @click="checklocation">check</vs-button>
         <label v-if="clockInRecord">今天已经在 {{clockInRecord.clockin_path}}  打卡</label>
       </div>
       <div class="mt-5">
@@ -96,10 +95,6 @@ export default {
     }
   },
   methods: {
-    checklocation () {
-      console.log(this.getDistance(this.lng, this.lat, this.lngOffice, this.latOffice))
-      console.log(this.lng, this.lat, this.lngOffice, this.latOffice)
-    },
     clockin () {
       if (this.officeStatus && this.locationStatus) {
         
@@ -185,7 +180,6 @@ export default {
   created () {
     this.userOffice = this.$store.state.AppActiveUser.user_office
     this.clockInRecord = this.$store.state.AppActiveUser.clockin
-    console.log(this.clockInRecord)
     if (this.clockInRecord === undefined || this.clockInRecord.id === null) {
       this.isAble = false
     }

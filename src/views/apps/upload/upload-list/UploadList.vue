@@ -224,13 +224,13 @@ export default {
           headerName: '项目名称',
           field: 'project_name',
           filter: true,
-          width: 400
+          width: 250
         },
         {
           headerName: '项目描述',
           field: 'project_desc',
           filter: true,
-          width: 150
+          width: 650
         },
         {
           headerName: 'Actions',

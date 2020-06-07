@@ -9,26 +9,26 @@
 
 
 <template>
-    <vx-card title="公告发布" >
+    <vx-card title="热点发布" >
         <p class="mb-5">公告内容编辑</p>
-        <quill-editor v-model="content"></quill-editor>
-
-        <template v-if="content">
+        <quill-editor v-model="activity.content"></quill-editor>
+        <br />
+        <template v-if="activity.content">
           <h1>预览</h1>
           <div class="ql-container ql-snow">
             <div class="ql-editor">
-              <div v-html="content"></div>
+              <div v-html="activity.content"></div>
             </div>
           </div>
           <div class="mt-5">
-            <vs-button class="mr-4" color="primary"  type="filled" @click="openAddNewEvent">提交</vs-button>
+            <vs-button class="mr-4" color="primary"  type="filled" @click="openAddNewEvent">更新</vs-button>
           </div>
           <!-- ADD EVENT -->
           <vs-prompt
               class="calendar-event-dialog"
               title="发布公告"
               accept-text= "确定"
-              @accept="addEvent"
+              @accept="updateEvent"
               :is-valid="validForm"
               :active.sync="activePromptAddEvent">
           
@@ -55,23 +55,23 @@
           
               </div> -->
           
-              <vs-input name="event-name" v-validate="'required'" class="w-full" label-placeholder="Event Title" v-model="title"></vs-input>
+              <vs-input name="event-name" v-validate="'required'" class="w-full" label-placeholder="Event Title" v-model="activity.title"></vs-input>
               <div class="my-4">
                   <small class="date-label">Start Date</small>
-                  <datepicker :format="customFormatter" :language="langZH" :disabledDates="disabledDatesFrom" name="start-date" v-model="startDate" :disabled="disabledFrom"></datepicker>
+                  <datepicker :format="customFormatter" :language="langZH" :disabledDates="disabledDatesFrom" name="start-date" v-model="activity.startDate" :disabled="disabledFrom"></datepicker>
               </div>
               <div class="my-4">
                   <small class="date-label">End Date</small>
-                  <datepicker :format="customFormatter" :language="langZH" :disabledDates="disabledDatesTo" name="end-date" v-model="endDate"></datepicker>
+                  <datepicker :format="customFormatter" :language="langZH" :disabledDates="disabledDatesTo" name="end-date" v-model="activity.endDate"></datepicker>
               </div>
               <div class="my-4">
                 <small class="date-label">发布范围</small>
                 <ul class="demo-alignment">
                   <li>
-                    <vs-radio v-model="company" vs-value="admin">Admin</vs-radio>
+                    <vs-radio v-model="activity.company" vs-value="admin">Admin</vs-radio>
                   </li>
                   <li>
-                    <vs-radio v-model="company" :vs-value="company">Company</vs-radio>
+                    <vs-radio v-model="activity.company" :vs-value="activity.company">Company</vs-radio>
                   </li>
                 </ul>
               </div>
@@ -97,13 +97,15 @@ export default {
   data () {
     return {
       langZH: zh,
-      content: null,
-      activePromptAddEvent: false,
-      startDate: '',
-      endDate: '',
-      title: '',
       disabledFrom: false,
-      company: ''
+      activity: {
+        content: null,
+        startDate: '',
+        endDate: '',
+        title: '',
+        company: ''
+      },
+      activePromptAddEvent: false
     }
   },
   components: {
@@ -124,20 +126,21 @@ export default {
       this.disabledFrom = true
       this.addNewEventDialog(new Date())
     },
-    addEvent () {
-      activityAPI.saveActivity({
-        startDate: this.customFormatter(this.startDate),
-        endDate: this.customFormatter(this.endDate),
-        title: this.title,
-        content: this.content,
+    updateEvent () {
+      activityAPI.updateActivity({
+        id: this.activity.id,
+        startDate: this.customFormatter(this.activity.startDate),
+        endDate: this.customFormatter(this.activity.endDate),
+        title: this.activity.title,
+        content: this.activity.content,
         owner: this.$store.state.AppActiveUser.name,
-        company: this.company
+        company: this.activity.company
       }).then(response => { 
         console.log(response.data)
         this.$vs.loading.close()
         this.$vs.notify({
           title: 'Success',
-          text: '添加活动成功',
+          text: '更新活动成功',
           iconPack: 'feather',
           icon: 'icon-alert-circle',
           color: 'success'
@@ -157,17 +160,20 @@ export default {
   },
   computed: {
     validForm () {
-      return this.title !== '' && this.startDate !== '' && this.endDate !== '' && Date.parse(this.endDate) - Date.parse(this.startDate) >= 0
+      return this.activity.title !== '' && this.activity.startDate !== '' && this.activity.endDate !== '' && Date.parse(this.activity.endDate) - Date.parse(this.activity.startDate) >= 0
     },
     disabledDatesTo () {
-      return { to: new Date(this.startDate) }
+      return { to: new Date(this.activity.startDate) }
     },
     disabledDatesFrom () {
-      return { from: new Date(this.endDate) }
+      return { from: new Date(this.activity.endDate) }
     }
   },
   created () {
-    this.company = this.$store.state.AppActiveUser.user_company
+    this.activity = this.$store.state.activity.activityList.find(val => {
+      return val.id === this.$route.params.activityId
+    })
+    console.log(this.activity)
   }
 }
 </script>

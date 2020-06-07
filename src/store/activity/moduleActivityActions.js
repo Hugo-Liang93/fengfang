@@ -1,25 +1,23 @@
-import userAPI from '../../http/requests/api/user/index.js'
+import activityAPI from '../../http/requests/api/activity/index.js'
 
 export default {
-  clockIn (context, clockIn) {
+  getActivityByCompany ({ commit }, company) {
     return new Promise((resolve, reject) => {
-      console.log(clockIn)
-      userAPI.clockIn(clockIn)
+      activityAPI.getActivityByCompany(company)
         .then((response) => {
+          console.log(response.data)
+          commit('SET_ACTIVITY_LIST', response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })
     })
   },
-  clickInListByMonth ({ commit }, user_id) {
+  removeActivity ({ commit }, activityId) {
     return new Promise((resolve, reject) => {
-      userAPI.getClockInListByMonth(user_id)
-        .then((response) => {
-          //调用在获取所有用户数据的时候
-          commit('SET_CLOCKIN_LIST', response.data)
-          resolve(response)
-        })
-        .catch((error) => { reject(error) })
+      activityAPI.removeActivityById(activityId).then((response) => {
+        commit('REMOV_ACTIVITY', activityId)
+        resolve(response)
+      }).catch((error) => { reject(error) })
     })
   }
 }

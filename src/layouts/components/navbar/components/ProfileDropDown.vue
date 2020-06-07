@@ -17,12 +17,12 @@
 
           <li
             class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
-            @click="$router.push('/pages/profile').catch(() => {})">
+            @click="$router.push('/apps/user/user-view/owner').catch(() => {})">
             <feather-icon icon="UserIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Profile</span>
+            <span class="ml-2">个人信息</span>
           </li>
 
-          <li
+         <!-- <li
             class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
             @click="$router.push('/apps/email').catch(() => {})">
             <feather-icon icon="MailIcon" svgClasses="w-4 h-4" />
@@ -48,7 +48,7 @@
             @click="$router.push('/apps/eCommerce/wish-list').catch(() => {})">
             <feather-icon icon="HeartIcon" svgClasses="w-4 h-4" />
             <span class="ml-2">Wish List</span>
-          </li>
+          </li> -->
 
           <vs-divider class="m-1" />
 
@@ -56,7 +56,7 @@
             class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
             @click="logout">
             <feather-icon icon="LogOutIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Logout</span>
+            <span class="ml-2">登出</span>
           </li>
         </ul>
       </vs-dropdown-menu>
