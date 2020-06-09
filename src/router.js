@@ -208,10 +208,10 @@ const router = new Router({
           meta: {
             breadcrumb: [
               { title: 'Home', url: '/' },
-              { title: 'User' },
-              { title: 'View', active: true }
+              { title: '用户管理' },
+              { title: '用户信息', active: true }
             ],
-            pageTitle: 'User View',
+            pageTitle: '用户信息',
             rule: 'editor'
           }
         },
@@ -222,10 +222,10 @@ const router = new Router({
           meta: {
             breadcrumb: [
               { title: 'Home', url: '/' },
-              { title: 'User' },
-              { title: 'Edit', active: true }
+              { title: '用户管理' },
+              { title: '信息修改', active: true }
             ],
-            pageTitle: 'User Edit',
+            pageTitle: '用户信息修改',
             rule: 'editor'
           }
         },
@@ -267,7 +267,7 @@ const router = new Router({
               { title: '项目管理' },
               { title: '项目列表', active: true }
             ],
-            pageTitle: 'Upload',
+            pageTitle: '项目列表',
             rule: 'editor'
           }
         },
@@ -758,10 +758,10 @@ const router = new Router({
           meta: {
             breadcrumb: [
               { title: 'Home', url: '/' },
-              { title: 'Components' },
-              { title: 'Upload', active: true }
+              { title: '项目管理' },
+              { title: '项目上传', active: true }
             ],
-            pageTitle: 'Upload',
+            pageTitle: '资料上传',
             rule: 'editor'
           }
         },
