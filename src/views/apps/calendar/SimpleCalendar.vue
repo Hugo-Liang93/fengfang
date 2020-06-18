@@ -122,14 +122,14 @@
 
         <vs-input name="event-name" v-validate="'required'" class="w-full" label-placeholder="日程标题" v-model="title"></vs-input>
         <div class="my-4">
-            <small class="date-label">Start Date</small>
+            <small class="date-label">开始时间</small>
             <datepicker :format="customFormatter" :language="langZH" name="start-date" v-model="startDate" :disabled="disabledFrom"></datepicker>
         </div>
         <div class="my-4">
-            <small class="date-label">End Date</small>
+            <small class="date-label">结束时间</small>
             <datepicker :format="customFormatter" :language="langZH" :disabledDates="disabledDatesTo" name="end-date" v-model="endDate"></datepicker>
         </div>
-        <vs-input name="event-url" v-validate="'url'" class="w-full mt-6" label-placeholder="Event URL" v-model="url" :color="!errors.has('event-url') ? 'success' : 'danger'"></vs-input>
+        <vs-input name="event-url" v-validate="'url'" class="w-full mt-6" label-placeholder="相关链接" v-model="url" :color="!errors.has('event-url') ? 'success' : 'danger'"></vs-input>
 
     </vs-prompt>
 
@@ -170,14 +170,14 @@
 
         <vs-input name="event-name" v-validate="'required'" class="w-full" label-placeholder="日程标题" v-model="title"></vs-input>
         <div class="my-4">
-            <small class="date-label">Start Date</small>
+            <small class="date-label">开始时间</small>
             <datepicker :format="customFormatter" :language="langZH" :disabledDates="disabledDatesFrom" name="start-date" v-model="startDate"></datepicker>
         </div>
         <div class="my-4">
-            <small class="date-label">End Date</small>
+            <small class="date-label">结束时间</small>
             <datepicker :format="customFormatter" :language="langZH" :disabledDates="disabledDatesTo" name="end-date" v-model="endDate"></datepicker>
         </div>
-        <vs-input name="event-url" v-validate="'url'" class="w-full mt-6" label-placeholder="Event URL" v-model="url" :color="!errors.has('event-url') ? 'success' : 'danger'"></vs-input>
+        <vs-input name="event-url" v-validate="'url'" class="w-full mt-6" label-placeholder="相关链接" v-model="url" :color="!errors.has('event-url') ? 'success' : 'danger'"></vs-input>
 
     </vs-prompt>
   </div>

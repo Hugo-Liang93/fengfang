@@ -30,7 +30,7 @@
         <router-link to="/pages/forgot-password">Forgot Password?</router-link>
     </div>
     <div class="flex flex-wrap justify-between mb-3">
-      <vs-button  type="border" @click="registerUser">注册</vs-button>
+      
       <vs-button :disabled="!validateForm" @click="loginJWT">登录</vs-button>
     </div>
   </div>

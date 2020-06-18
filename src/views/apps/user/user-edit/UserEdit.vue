@@ -22,22 +22,22 @@
       <div slot="no-body" class="tabs-container px-6 pt-6">
 
         <vs-tabs v-model="activeTab" class="tab-action-btn-fill-conatiner">
-          <vs-tab label="Account" icon-pack="feather" icon="icon-user">
+          <vs-tab label="角色管理" icon-pack="feather" icon="icon-user">
             <div class="tab-text">
               <user-edit-tab-account class="mt-4" :data.sync="user_data" />
             </div>
           </vs-tab>
-          <vs-tab label="Information" icon-pack="feather" icon="icon-info">
+          <vs-tab label="个人资料管理" icon-pack="feather" icon="icon-info">
             <div class="tab-text">
               <user-edit-tab-information class="mt-4" :data.sync="user_data" />
             </div>
           </vs-tab>
-          <vs-tab label="Social" icon-pack="feather" icon="icon-share-2">
+<!--          <vs-tab label="Social" icon-pack="feather" icon="icon-share-2">
             <div class="tab-text">
               <user-edit-tab-social class="mt-4" :data.sync="user_data" />
             </div>
-          </vs-tab>
-          <vs-tab label="Password" icon-pack="feather" icon="icon-lock">
+          </vs-tab> -->
+          <vs-tab label="密码管理" icon-pack="feather" icon="icon-lock">
             <div class="tab-text">
               <user-edit-tab-pass class="mt-4" :data="user_data" />
             </div>
@@ -53,7 +53,7 @@
 <script>
 import UserEditTabAccount     from './UserEditTabAccount.vue'
 import UserEditTabInformation from './UserEditTabInformation.vue'
-import UserEditTabSocial      from './UserEditTabSocial.vue'
+// import UserEditTabSocial      from './UserEditTabSocial.vue'
 import UserEditTabPass        from './UserSettingsChangePassword.vue'
 // Store Module
 import moduleUserManagement from '@/store/user-management/moduleUserManagement.js'
@@ -62,7 +62,6 @@ export default {
   components: {
     UserEditTabAccount,
     UserEditTabInformation,
-    UserEditTabSocial,
     UserEditTabPass
   },
   data () {

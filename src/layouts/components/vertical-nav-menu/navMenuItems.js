@@ -61,6 +61,29 @@ export default [
         icon: 'HomeIcon',
         i18n: 'showlist'
       },
+      {
+        url: null,
+        name: 'User',
+        icon: 'LayersIcon',
+        i18n: 'DetailManage',
+        submenu: [
+          {
+            url: '/apps/detail/detail-manage',
+            name: 'DetailAdd',
+            slug: 'DetailAdd',
+            icon: 'EditIcon',
+            tagColor: 'success',
+            i18n: 'DetailAdd'
+          },
+          {
+            url: '/apps/detail/detail-list',
+            name: 'DetailList',
+            slug: 'app-detail-list',
+            i18n: 'DetailList'
+          }
+        ]
+      },
+
       // {
       //   url: '/apps/email',
       //   name: 'Email',

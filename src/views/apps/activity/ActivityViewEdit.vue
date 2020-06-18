@@ -173,7 +173,6 @@ export default {
     this.activity = this.$store.state.activity.activityList.find(val => {
       return val.id === this.$route.params.activityId
     })
-    console.log(this.activity)
   }
 }
 </script>

@@ -58,6 +58,30 @@ const router = new Router({
           }
         },
         {
+          path: '/apps/detail/detail-manage',
+          name: 'detail-manage',
+          component: () => import('./views/apps/detail/DetailListAdd.vue'),
+          meta: {
+            rule: 'admin'
+          }
+        },
+        {
+          path: '/apps/detail/detail-list',
+          name: 'detail-list',
+          component: () => import('./views/apps/detail/detail-list/DetailList.vue'),
+          meta: {
+            rule: 'admin'
+          }
+        },
+        {
+          path: '/apps/detail/detail-view/:detailId',
+          name: 'detail-view',
+          component: () => import('./views/apps/detail/DetailListView.vue'),
+          meta: {
+            rule: 'admin'
+          }
+        },
+        {
           path: '/dashboard/ecommerce',
           name: 'dashboard-ecommerce',
           component: () => import('./views/DashboardECommerce.vue'),

@@ -21,5 +21,15 @@ export default {
   },
   removeProject (projectId) {
     return axios.post('/api/project/delete', projectId)
+  },
+  saveDetail (detail) {
+    return axios.post('api/Detail/saveDetail', detail)
+  },
+  getDetail () {
+    return axios.get('/api/Detail/getDetail')
+  },
+  removeDetail (detailId) {
+    console.log(detailId)
+    return axios.post('/api/Detail/delete', detailId)
   }
 }

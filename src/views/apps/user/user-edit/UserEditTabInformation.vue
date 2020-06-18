@@ -15,7 +15,7 @@
         <!-- Col Header -->
         <div class="flex items-end">
           <feather-icon icon="UserIcon" class="mr-2" svgClasses="w-5 h-5" />
-          <span class="leading-none font-medium">Personal Information</span>
+          <span class="leading-none font-medium">个人用户信息</span>
         </div>
 
         <!-- Col Content -->
@@ -65,14 +65,14 @@
 
           <!-- Col Content -->
           <div>
-            <vs-input class="w-full mt-4" label="Address Line 1" v-model="data_local.nativePlace.native_address" v-validate="'required'" name="addd_line_1" />
+            <vs-input class="w-full mt-4" label="地址" v-model="data_local.nativePlace.native_address" v-validate="'required'" name="addd_line_1" />
             <span class="text-danger text-sm"  v-show="errors.has('addd_line_1')">{{ errors.first('addd_line_1') }}</span>
 
 
-            <vs-input class="w-full mt-4" label="City" v-model="data_local.nativePlace.native_city" v-validate="'required'" name="city" />
+            <vs-input class="w-full mt-4" label="城市" v-model="data_local.nativePlace.native_city" v-validate="'required'" name="city" />
             <span class="text-danger text-sm"  v-show="errors.has('city')">{{ errors.first('city') }}</span>
 
-            <vs-input class="w-full mt-4" label="State" v-model="data_local.nativePlace.native_province" v-validate="'required'" name="state" />
+            <vs-input class="w-full mt-4" label="省份" v-model="data_local.nativePlace.native_province" v-validate="'required'" name="state" />
             <span class="text-danger text-sm"  v-show="errors.has('state')">{{ errors.first('state') }}</span>
 
 

@@ -37,7 +37,7 @@
         </template>
           
           <div class="mt-5">
-              <vs-upload :action="`/upload/houseType/${project.project_id}`" fileName="file" text="户型图/区位图" @on-success="successUpload" />
+              <vs-upload :action="`http://localhost:8080/upload/houseType/${project.project_id}`" fileName="file" text="户型图/区位图" @on-success="successUpload" />
           </div>
           
           <vs-alert color="primary" icon="new_releases" active="true" class="mt-5">
@@ -49,7 +49,7 @@
             </template>
           </template>
           <div class="mt-5">
-              <vs-upload :action="`/upload/attach/${project.project_id}`" fileName="file" text="项目附件" @on-success="successUpload" />
+              <vs-upload :action="`http://localhost:8080/upload/attach/${project.project_id}`" fileName="file" text="项目附件" @on-success="successUpload" />
           </div>
     </vx-card>
 </template>

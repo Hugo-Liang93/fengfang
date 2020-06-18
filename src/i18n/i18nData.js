@@ -1,8 +1,11 @@
 // en, de, fr, pt
 export default {
   cn: {
-    AddActivity: '发布公告',
+    AddActivity: '发布热点',
     Dashboard: '仪表盘',
+    DetailManage: '轮播管理',
+    DetailAdd: '新增轮播',
+    DetailList: '轮播列表',
     eCommerce: '商城',
     Apps: '应用',
     Todo: '提醒事项',
@@ -57,7 +60,7 @@ export default {
     Tabs: 'Tabs',
     Tooltip: 'Tooltip',
     showlist: '首页',
-    ActivityManage: '集团热点',
+    ActivityManage: '热点资讯',
     ListActivity: '热点列表',
     ProjectManage: '项目管理',
     ProjectUpload: '项目资料上传',

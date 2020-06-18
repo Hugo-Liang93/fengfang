@@ -35,32 +35,32 @@
     <div class="vx-row">
       <div class="vx-col md:w-1/2 w-full">
 
-        <vs-input class="w-full mt-4" label="Name" v-model="data_local.name" v-validate="'required'" name="name" />
+        <vs-input class="w-full mt-4" label="姓名" v-model="data_local.name" v-validate="'required'" name="name" />
         <span class="text-danger text-sm"  v-show="errors.has('name')">{{ errors.first('name') }}</span>
 
-        <vs-input class="w-full mt-4" label="Email" v-model="data_local.email" type="email" v-validate="'required|email'" name="email" />
+        <vs-input class="w-full mt-4" label="邮箱" v-model="data_local.email" type="email" v-validate="'required|email'" name="email" />
         <span class="text-danger text-sm"  v-show="errors.has('email')">{{ errors.first('email') }}</span>
         
-        <vs-input class="w-full mt-4" label="Department" v-model="data_local.user_dept" v-validate="'required'" name="department" />
+        <vs-input class="w-full mt-4" label="部门" v-model="data_local.user_dept" v-validate="'required'" name="department" />
         <span class="text-danger text-sm"  v-show="errors.has('department')">{{ errors.first('department') }}</span>
         
-        <vs-input class="w-full mt-4" label="Office Address" v-model="data_local.user_office" v-validate="'required'" name="office" />
+        <vs-input class="w-full mt-4" label="公司地址(打卡地址)" v-model="data_local.user_office" v-validate="'required'" name="office" />
         <span class="text-danger text-sm"  v-show="errors.has('office')">{{ errors.first('office') }}</span>
       </div>
 
       <div class="vx-col md:w-1/2 w-full">
 
         <div class="mt-4">
-          <label class="vs-input--label">Role</label>
+          <label class="vs-input--label">角色</label>
           <v-select v-model="role_local"  :clearable="false" :options="roleOptions" v-validate="'required'" name="role" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
           <span class="text-danger text-sm"  v-show="errors.has('role')">{{ errors.first('role') }}</span>
         </div>
         
         <!-- v-validate="'alpha_spaces'" -->
-        <vs-input class="w-full mt-4" label="Company" v-model="data_local.user_company"  name="company" />
+        <vs-input class="w-full mt-4" label="公司" v-model="data_local.user_company"  name="company" />
         <span class="text-danger text-sm"  v-show="errors.has('company')">{{ errors.first('company') }}</span>
         
-        <vs-input class="w-full mt-4" label="Position" v-model="data_local.user_position" v-validate="'required'" name="position" />
+        <vs-input class="w-full mt-4" label="职位" v-model="data_local.user_position" v-validate="'required'" name="position" />
         <span class="text-danger text-sm"  v-show="errors.has('position')">{{ errors.first('position') }}</span>
         
         <div class="mt-4">
@@ -79,7 +79,7 @@
         <div class="vx-col w-full">
           <div class="flex items-end px-3">
             <feather-icon svgClasses="w-6 h-6" icon="LockIcon" class="mr-2" />
-            <span class="font-medium text-lg leading-none">Permissions</span>
+            <span class="font-medium text-lg leading-none">用户权限</span>
           </div>
           <vs-divider />
         </div>

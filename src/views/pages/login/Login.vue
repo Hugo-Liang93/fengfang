@@ -28,7 +28,7 @@
                   <p>蜂房集团用户登录</p>
                 </div>
                 <vs-tabs>
-                  <vs-tab label="JWT">
+                  <vs-tab label="登录">
                     <login-jwt></login-jwt>
                   </vs-tab>
 <!-- 

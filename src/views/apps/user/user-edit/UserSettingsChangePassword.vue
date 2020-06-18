@@ -1,13 +1,13 @@
 <template>
   <vx-card no-shadow>
     <span class="text-danger">{{ errors.first('old_password') }}</span>
-    <vs-input class="w-full mb-base" label-placeholder="Old Password" data-vv-validate-on="blur" v-validate="'required|min:6|max:10'" name="old_password" v-model="old_password" />
+    <vs-input class="w-full mb-base" label-placeholder="原密码" data-vv-validate-on="blur" v-validate="'required|min:6|max:10'" name="old_password" v-model="old_password" />
     
     <span class="text-danger">{{ errors.first('new_password') }}</span>
-    <vs-input class="w-full mb-base" label-placeholder="New Password" data-vv-validate-on="blur" name="new_password" v-validate="'required|min:6|max:10'" v-model="new_password" />
+    <vs-input class="w-full mb-base" label-placeholder="新密码" data-vv-validate-on="blur" name="new_password" v-validate="'required|min:6|max:10'" v-model="new_password" />
     
     <span class="text-danger">{{ errors.first('confirm_new_password') }}</span>
-    <vs-input class="w-full mb-base" label-placeholder="Confirm Password" data-vv-validate-on="blur" name="confirm_new_password" v-validate="'required|min:6|max:10'" v-model="confirm_new_password" />
+    <vs-input class="w-full mb-base" label-placeholder="再次确认" data-vv-validate-on="blur" name="confirm_new_password" v-validate="'required|min:6|max:10'" v-model="confirm_new_password" />
 
     <!-- Save & Reset Button -->
     <div class="flex flex-wrap items-center justify-end">

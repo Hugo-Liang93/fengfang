@@ -55,7 +55,7 @@
           
               </div> -->
           
-              <vs-input name="event-name" v-validate="'required'" class="w-full" label-placeholder="Event Title" v-model="title"></vs-input>
+              <vs-input name="event-name" v-validate="'required'" class="w-full" label-placeholder="热点标题" v-model="title"></vs-input>
               <div class="my-4">
                   <small class="date-label">Start Date</small>
                   <datepicker :format="customFormatter" :language="langZH" :disabledDates="disabledDatesFrom" name="start-date" v-model="startDate" :disabled="disabledFrom"></datepicker>
@@ -142,6 +142,7 @@ export default {
           icon: 'icon-alert-circle',
           color: 'success'
         })
+        this.$router.push('/activity/activityList').catch(() => {})
       })
         .catch(error => {
           this.$vs.loading.close()

@@ -40,7 +40,7 @@
         <div class="flex-grow">
           <vs-dropdown vs-trigger-click class="cursor-pointer">
             <div class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium">
-              <span class="mr-2">{{ currentPage * paginationPageSize - (paginationPageSize - 1) }} - {{ projectsData.length - currentPage * paginationPageSize > 0 ? currentPage * paginationPageSize : projectsData.length }} of {{ projectsData.length }}</span>
+              <span class="mr-2">{{ currentPage * paginationPageSize - (paginationPageSize - 1) }} - {{ detailsData.length - currentPage * paginationPageSize > 0 ? currentPage * paginationPageSize : detailsData.length }} of {{ detailsData.length }}</span>
               <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
             </div>
             <!-- <vs-button class="btn-drop" type="line" color="primary" icon-pack="feather" icon="icon-chevron-down"></vs-button> -->
@@ -117,7 +117,7 @@
         class="ag-theme-material w-100 my-4 ag-grid-table"
         :columnDefs="columnDefs"
         :defaultColDef="defaultColDef"
-        :rowData="projectsData"
+        :rowData="detailsData"
         rowSelection="multiple"
         colResizeDefault="shift"
         :animateRows="true"
@@ -212,8 +212,8 @@ export default {
       },
       columnDefs: [
         {
-          headerName: '项目ID',
-          field: 'project_id',
+          headerName: 'ID',
+          field: 'id',
           width: 250,
           filter: true,
           checkboxSelection: true,
@@ -221,14 +221,14 @@ export default {
           headerCheckboxSelection: true
         },
         {
-          headerName: '项目名称',
-          field: 'project_name',
+          headerName: '轮播标题',
+          field: 'detail_title',
           filter: true,
           width: 250
         },
         {
-          headerName: '项目描述',
-          field: 'project_desc',
+          headerName: '轮播图片',
+          field: 'pic',
           filter: true,
           width: 650
         },
@@ -268,8 +268,8 @@ export default {
     }
   },
   computed: {
-    projectsData () {
-      return this.$store.state.project.projectList
+    detailsData () {
+      return this.$store.state.project.detailList
     },
     paginationPageSize () {
       if (this.gridApi) return this.gridApi.paginationGetPageSize()
@@ -331,7 +331,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('project/listProject').catch(err => { console.error(err) })
+    this.$store.dispatch('project/listDetail').catch(err => { console.error(err) })
   }
 }
 

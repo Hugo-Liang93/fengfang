@@ -35,15 +35,15 @@
           <div class="vx-col flex-1" id="account-info-col-1">
             <table>
               <tr>
-                <td class="font-semibold">Name</td>
+                <td class="font-semibold">姓名</td>
                 <td>{{ user_data.name }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">Email</td>
+                <td class="font-semibold">邮箱</td>
                 <td>{{ user_data.email }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">Position</td>
+                <td class="font-semibold">职位</td>
                 <td>{{ user_data.user_position }}</td>
               </tr>
             </table>
@@ -54,15 +54,15 @@
           <div class="vx-col flex-1" id="account-info-col-2">
             <table>
               <tr>
-                <td class="font-semibold">Role</td>
+                <td class="font-semibold">角色</td>
                 <td>{{ user_data.permission.role_name }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">Company</td>
+                <td class="font-semibold">公司</td>
                 <td>{{ user_data.user_company }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">Department</td>
+                <td class="font-semibold">部门</td>
                 <td>{{ user_data.user_dept }}</td>
               </tr>
             </table>
@@ -79,34 +79,34 @@
 
       <div class="vx-row">
         <div class="vx-col lg:w-1/2 w-full">
-          <vx-card title="Information" class="mb-base">
+          <vx-card title="基本信息" class="mb-base">
             <table>
               <tr>
-                <td class="font-semibold">Birth Date</td>
+                <td class="font-semibold">生日日期</td>
                 <td>{{ user_data.user_birthday }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">Mobile</td>
+                <td class="font-semibold">手机</td>
                 <td>{{ user_data.user_phone }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">IDCard</td>
+                <td class="font-semibold">身份证号</td>
                 <td>{{ user_data.user_idcard }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">Gender</td>
+                <td class="font-semibold">性别</td>
                 <td>{{ user_data.user_gender }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">Province</td>
+                <td class="font-semibold">籍贯</td>
                 <td>{{ user_data.nativePlace.native_province }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">City</td>
+                <td class="font-semibold">城市</td>
                 <td>{{ user_data.nativePlace.native_city }}</td>
               </tr>
               <tr>
-                <td class="font-semibold">Address</td>
+                <td class="font-semibold">住址</td>
                 <td>{{ user_data.nativePlace.native_address }}</td>
               </tr>
             </table>
@@ -140,7 +140,7 @@
           <div class="vx-col w-full">
             <div class="flex items-end px-3">
               <feather-icon svgClasses="w-6 h-6" icon="LockIcon" class="mr-2" />
-              <span class="font-medium text-lg leading-none">Permissions</span>
+              <span class="font-medium text-lg leading-none">用户权限</span>
             </div>
             <vs-divider />
           </div>
