@@ -4,7 +4,7 @@
       <vx-card title="资讯轮播" class="swiper-container">
         <swiper :options="swiperOption" class="swiper-wrapper">
             <swiper-slide class="swiper-slide" v-for="(item,index) in attachPic" :key="index" >
-              <img alternating="true" :key="`index${item.pic}`" :src="`/images/${item.pic}`" />
+              <img alternating="true" :key="`index${item.fileName}`" :src="`/images/${item.fileName}`" @click="navTo(item.detail_type,item.type_id)" />
             </swiper-slide>
             <div class="swiper-pagination"  slot="pagination"></div>
             <div class="swiper-button-prev" slot="button-prev"></div> 
@@ -118,6 +118,15 @@ export default {
         //开启循环模式
         loop: true,
         centeredSlides : true
+      }
+    }
+  },
+  methods: {
+    navTo (detail_type, type_id) {
+      if (detail_type === 'activity') {
+        this.$router.push(`/activity/activity-view/${type_id}`).catch(() => {})
+      } else if (detail_type === 'project') {
+        this.$router.push(`/project/project-view/${type_id}`).catch(() => {})
       }
     }
   },

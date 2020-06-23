@@ -24,19 +24,37 @@ export default {
         type: 'confirm',
         color: 'danger',
         title: 'Confirm Delete',
-        text: `You are about to delete "${this.params.data.username}"`,
+        text: `You are about to delete "${this.params.data.name}"`,
         accept: this.deleteRecord,
         acceptText: 'Delete'
       })
     },
     deleteRecord () {
+      this.confirmDeleteRecord()
       /* Below two lines are just for demo purpose */
-      this.showDeleteSuccess()
-
-      /* UnComment below lines for enabling true flow if deleting user */
-      // this.$store.dispatch("userManagement/removeRecord", this.params.data.id)
-      //   .then(()   => { this.showDeleteSuccess() })
-      //   .catch(err => { console.error(err)       })
+      this.$store.dispatch('userManagement/removeUser', this.params.data.user_id).then((response) => {
+        if (response.data === true) {
+          this.showDeleteSuccess()
+        } else {
+          this.$vs.loading.close()
+          this.$vs.notify({
+            title: 'Error',
+            text: '删除失败',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+        }
+      }).catch(error => {
+        this.$vs.loading.close()
+        this.$vs.notify({
+          title: 'Error',
+          text: error.message,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+      })
     },
     showDeleteSuccess () {
       this.$vs.notify({

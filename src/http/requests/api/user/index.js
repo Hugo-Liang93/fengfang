@@ -15,5 +15,11 @@ export default {
   },
   getClockInListByMonth (userId) {
     return axios.get(`api/user/clockin/${userId}`)
+  },
+  addUser (user) {
+    return axios.post('api/user-management/user-add', user)
+  },
+  removeUser (user_id) {
+    return axios.get(`api/user-management/user-del/${user_id}`)
   }
 }

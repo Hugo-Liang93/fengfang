@@ -20,23 +20,29 @@
                             <vs-input label="标题" v-model="detail_title" class="w-full" />
                         </div>
                         <div class="vx-col md:w-1/2 w-full mt-5">
-                            <vs-select v-model="project_id" class="w-full select-large" label="项目名称">
+                            <vs-select v-model="detail_type_value" class="w-full select-large" label="轮播类型">
+                                <vs-select-item :key="index" :value="item.value" :text="item.label" v-for="(item,index) in detail_type" class="w-full" />
+                            </vs-select>
+                        </div>
+                    </div>
+                    <div v-show="detail_type_value!==null" class="vx-row">
+                        <div class="vx-col md:w-1/2 w-full mt-5">
+                            <vs-select v-model="type_id" class="w-full select-large" label="(项目/热点)名称">
+                              <template v-if="detail_type_value==='project'">
                                 <vs-select-item :key="index" :value="item.project_id" :text="item.project_name" v-for="(item,index) in projectsData" class="w-full" />
+                              </template>
+                              <template v-if="detail_type_value==='activity'">
+                                <vs-select-item :key="index" :value="item.id" :text="item.title" v-for="(item,index) in activitiesData" class="w-full" />
+                              </template> 
                             </vs-select>
                         </div>
                     </div>
                 </tab-content>
 
                 <!-- tab 2 content -->
-                <tab-content title="Step 2" class="mb-5" icon="feather icon-briefcase">
+                <tab-content title="轮播图片" class="mb-5" icon="feather icon-briefcase">
                     <div class="con-example-images">
-                      <vs-images>
-                        <template v-for="(image, index) in projectPics">
-                          <vs-image :key="index" :src="`/images/${image}`"  />
-                          <vs-radio :key="index+1"  v-model="pic" :vs-value="image">{{image}}</vs-radio>
-                        </template>
-                        
-                      </vs-images>
+                      <vs-upload action="/upload/detail/1" fileName="file" text="轮播图" @on-success="successUpload" />
                     </div>
                 </tab-content>
             </form-wizard>
@@ -52,19 +58,27 @@ import projectAPI from '../../../http/requests/api/project/index.js'
 export default {
   data () {
     return {
+      fileName : '',
+      detail_type_value: null,
       pic:'',
       attachPic: [],
-      project_id: '',
-      detail_title: '',
-      projectsData: this.$store.state.project.projectList
+      detail_type: [
+        { label: '项目', value: 'project' },
+        { label: '热点', value: 'activity' }
+      ],
+      type_id: '',
+      detail_title: ''
     }
   },
   methods: {
+    successUpload (event) {
+      this.fileName = event.target.response
+      this.$vs.notify({ color: 'success', title: '上传成功', text: '您上传的文件已经上传成功' })
+    },
     formSubmitted () {
       this.$vs.loading()
-      projectAPI.saveDetail({pic: this.pic, detail_title: this.detail_title})
-        .then(response => { 
-          console.log(response)
+      projectAPI.saveDetail({fileName: this.fileName, detail_title: this.detail_title, detail_type : this.detail_type_value, type_id:this.type_id})
+        .then(() => { 
           this.$vs.loading.close()
           this.$vs.notify({
             title: 'Success',
@@ -91,17 +105,25 @@ export default {
     TabContent
   },
   computed: {
-    projectPics () {
-      return this.attachPic.filter(val => {
-        return val.split('_')[0] === this.project_id
-      })
+    activitiesData () {
+      return this.$store.state.activity.activityList
+    },
+    projectsData () {
+      return this.$store.state.project.projectList
+    },
+    detail_list () {
+      return this.detail_type_value === 'project' ? this.projectsData : this.activitiesData
     }
+    // ,
+    // projectPics () {
+    //   return this.attachPic.filter(val => {
+    //     return val.split('_')[0] === this.project_id
+    //   })
+    // }
   },
   created () {
+    this.$store.dispatch('activity/getActivityByCompany', this.$store.state.AppActiveUser.user_company).catch(err => { console.error(err) })
     this.$store.dispatch('project/listProject').catch(err => { console.error(err) })
-    projectAPI.getPic().then(response => {
-      this.attachPic = response.data
-    })
   }
 }
 </script>

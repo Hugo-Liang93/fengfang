@@ -51,7 +51,7 @@ const router = new Router({
         },
         {
           path: '/detail',
-          name: 'detail-list',
+          name: 'detail-index',
           component: () => import('./views/DetailList.vue'),
           meta: {
             rule: 'editor'
@@ -222,6 +222,20 @@ const router = new Router({
               { title: '用户列表', active: true }
             ],
             pageTitle: '用户列表',
+            rule: 'editor'
+          }
+        },
+        {
+          path: '/apps/user/user-add',
+          name: 'app-user-add',
+          component: () => import('@/views/apps/user/user-edit/UserAdd.vue'),
+          meta: {
+            breadcrumb: [
+              { title: '主页', url: '/' },
+              { title: '用户管理' },
+              { title: '用户新增', active: true }
+            ],
+            pageTitle: '用户新增',
             rule: 'editor'
           }
         },

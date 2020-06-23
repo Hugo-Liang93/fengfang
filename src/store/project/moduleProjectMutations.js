@@ -8,7 +8,6 @@ export default {
   REMOV_PROJECT (state, projectId) {
     const projectIndex = state.projectList.findIndex((u) => u.project_id === projectId)
     state.projectList.splice(projectIndex, 1)
-    console.log(state.projectList)
   },
   REMOV_DETAIL (state, detailId) {
     const DetailIndex = state.detailList.findIndex((u) => u.id === detailId)

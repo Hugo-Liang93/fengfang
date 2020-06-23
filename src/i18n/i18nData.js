@@ -6,6 +6,7 @@ export default {
     DetailManage: '轮播管理',
     DetailAdd: '新增轮播',
     DetailList: '轮播列表',
+    userAdd: '用户新增',
     eCommerce: '商城',
     Apps: '应用',
     Todo: '提醒事项',

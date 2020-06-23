@@ -29,7 +29,9 @@ export default {
     return axios.get('/api/Detail/getDetail')
   },
   removeDetail (detailId) {
-    console.log(detailId)
     return axios.post('/api/Detail/delete', detailId)
+  },
+  updateDetail (detail) {
+    return axios.post('/api/Detail/updateDetail', detail)
   }
 }

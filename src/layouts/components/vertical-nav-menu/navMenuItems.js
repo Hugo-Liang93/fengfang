@@ -168,6 +168,12 @@ export default [
             name: 'Edit',
             slug: 'app-user-edit',
             i18n: 'Edit'
+          },
+          {
+            url: '/apps/user/user-add',
+            name: 'Edit',
+            slug: 'app-user-add',
+            i18n: 'userAdd'
           }
         ]
       },

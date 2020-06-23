@@ -166,39 +166,6 @@ export default {
     return {
 
       // Filter Options
-      roleFilter: { label: 'All', value: 'all' },
-      roleOptions: [
-        { label: 'All', value: 'all' },
-        { label: '超级管理员', value: '超级管理员' },
-        { label: '公司管理员', value: '公司管理员' },
-        { label: '部门管理员', value: '部门管理员' },
-        { label: '员工', value: '员工' }
-      ],
-
-      statusFilter: { label: 'All', value: 'all' },
-      statusOptions: [
-        { label: 'All', value: 'all' },
-        { label: '已打卡', value: 'active' },
-        { label: '未打卡', value: 'deactivated' },
-        { label: '请假', value: 'blocked' }
-      ],
-
-      userCompanyFilter: { label: 'All', value: 'all' },
-      userCompanyOptions: [
-        { label: 'All', value: 'all' },
-        { label: '蜂旅假期', value: '蜂旅假期' },
-        { label: '展厅', value: '展厅' },
-        { label: '驻场', value: '驻场' },
-        { label: '蜂房商旅', value: '广州市蜂房商旅服务有限公司' },
-        { label: '蜂房集团', value: '蜂房集团' }
-      ],
-
-      departmentFilter: { label: 'All', value: 'all' },
-      departmentOptions: [
-        { label: 'All', value: 'all' },
-        { label: '业务', value: '业务' },
-        { label: '总经办', value: '总经办' }
-      ],
 
       searchQuery: '',
 
@@ -214,7 +181,7 @@ export default {
         {
           headerName: 'ID',
           field: 'id',
-          width: 250,
+          width: 150,
           filter: true,
           checkboxSelection: true,
           headerCheckboxSelectionFilteredOnly: true,
@@ -224,13 +191,19 @@ export default {
           headerName: '轮播标题',
           field: 'detail_title',
           filter: true,
-          width: 250
+          width: 200
         },
         {
           headerName: '轮播图片',
-          field: 'pic',
+          field: 'fileName',
           filter: true,
-          width: 650
+          width: 350
+        },
+        {
+          headerName: '轮播类型',
+          field: 'detail_type',
+          filter: true,
+          width: 200
         },
         {
           headerName: 'Actions',

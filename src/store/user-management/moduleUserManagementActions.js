@@ -89,5 +89,13 @@ export default {
         })
         .catch((error) => { reject(error) })
     })
+  },
+  removeUser ({ commit }, userId) {
+    return new Promise((resolve, reject) => {
+      userAPI.removeUser(userId).then((response) => {
+        commit('REMOV_USER', userId)
+        resolve(response)
+      }).catch((error) => { reject(error) })
+    })
   }
 }
