@@ -21,7 +21,7 @@ export default {
     },
     confirmDeleteRecord () {
       this.$vs.dialog({
-        type: 'confirm',
+
         color: 'danger',
         title: '确定删除？',
         text: `请注意，删除项目会一并删除相关附件,项目名称为 "${this.params.data.project_name}"`,

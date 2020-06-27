@@ -323,6 +323,20 @@ const router = new Router({
             rule: 'editor'
           }
         },
+        {
+          path: '/project/project-viewdetail/:projectId',
+          name: 'project-viewdetail',
+          component: () => import('@/views/apps/upload/UploadViewDetail.vue'),
+          meta: {
+            breadcrumb: [
+              { title: 'Home', url: '/' },
+              { title: '项目' },
+              { title: '项目详情', active: true }
+            ],
+            pageTitle: '项目详情',
+            rule: 'editor'
+          }
+        },
         // =============================================================================
         // UI ELEMENTS
         // =============================================================================

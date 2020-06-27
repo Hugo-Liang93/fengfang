@@ -29,11 +29,13 @@
           <vs-alert color="primary" icon="new_releases" active="true" class="mt-5">
               <p>户型图/区位图</p>
           </vs-alert>
-        <template v-if="houseType !== []">
-          <template class="mt-5" v-for="(houseTypeFileName,index) in houseType">
-            <a class="flex" @click="download_file('houseType',houseTypeFileName)" :key="index">{{houseTypeFileName.replace(project.project_id+"_houseType_",'')}}</a>
+        <template  v-if="houseType !== []">
+          <template class="vx-col" v-for="(houseTypeFileName,index) in houseType">
+            <div :key="`${index+'d'}`" >
+              <a class="mt-4" @click="download_file('houseType',houseTypeFileName)" :key="index">{{houseTypeFileName.replace(project.project_id+"_houseType_",'')}}</a>
+              <vs-icon icon="delete" @click="deleteRecord('houseType',houseTypeFileName)" :key="`${index+'del'}`" size="small" round></vs-icon>
+            </div>
           </template>
-          
         </template>
           
           <div class="mt-5">
@@ -44,8 +46,11 @@
               <p>项目附件</p>
           </vs-alert>
           <template v-if="attach !== []">
-            <template class="mt-5" v-for="(attachFileName,index) in attach">
-              <a class="flex" @click="download_file('attach',attachFileName)" :key="index">{{attachFileName.replace(project.project_id+"_attach_",'')}}</a>
+            <template class="vx-col" v-for="(attachFileName,index) in attach">  
+              <div :key="`${index+'d'}`" >
+                <a class="mt-4" @click="download_file('attach',attachFileName)" :key="index">{{attachFileName.replace(project.project_id+"_attach_",'')}}</a>
+                <vs-icon icon="delete" @click="deleteRecord('attach',attachFileName)" :key="`${index+'del'}`" size="small" round></vs-icon>
+              </div>
             </template>
           </template>
           <div class="mt-5">
@@ -90,10 +95,51 @@ export default {
         document.body.removeChild(link)
       }) 
     },
+    showDeleteSuccess () {
+      this.$vs.notify({
+        color: 'success',
+        title: '附件已经删除',
+        text: '已经成功删除附件'
+      })
+    },
+    deleteRecord (fileType, fileName) {
+      /* Below two lines are just for demo purpose */
+      projectAPI.deleteFile(fileName).then((response) => {
+        if (response.data === true) {
+          if (fileType === 'houseType') {
+            this.houseType = this.houseType.filter(function (item) {
+              return item !== fileName
+            })
+          } else {
+            this.attach = this.attach.filter(function (item) {
+              return item !== fileName
+            })
+          }
+          this.showDeleteSuccess()
+        } else {
+          this.$vs.loading.close()
+          this.$vs.notify({
+            title: 'Error',
+            text: '删除失败',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+        }
+      }).catch(error => {
+        this.$vs.loading.close()
+        this.$vs.notify({
+          title: 'Error',
+          text: error.message,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+      })
+    },
     update_project () {
       if (this.project.project_name) {
         projectAPI.updateProject(this.project).then(response => {
-          console.log(response)
           if (response.data === true) {
             this.$vs.loading.close()
             this.$vs.notify({

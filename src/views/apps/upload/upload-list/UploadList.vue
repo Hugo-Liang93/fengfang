@@ -224,7 +224,8 @@ export default {
           headerName: '项目名称',
           field: 'project_name',
           filter: true,
-          width: 250
+          width: 250,
+          cellRendererFramework: 'CellRendererLink'
         },
         {
           headerName: '项目描述',

@@ -21,7 +21,7 @@
               <template slot="thead">
                 <vs-th>项目ID</vs-th>
                 <vs-th>项目名称</vs-th>
-                <vs-th></vs-th>
+                <vs-th>明细</vs-th>
               </template>
       
               <template slot-scope="{data}">
@@ -33,7 +33,14 @@
                     <span>{{data[indextr].project_name}}</span>
                   </vs-td>
                   <vs-td :data="data[indextr].project_id">
-                    <span><a href="#"></a></span>
+                    <router-link :to="{name:'project-viewdetail',params:{projectId: data[indextr].project_id}}">详情</router-link>
+                  </vs-td>
+                </vs-tr>
+                <vs-tr>
+                  <vs-td></vs-td>
+                  <vs-td></vs-td>
+                  <vs-td>
+                    <router-link to="/project/list-project">查看全部</router-link>
                   </vs-td>
                 </vs-tr>
               </template>
@@ -43,7 +50,7 @@
         </vx-card>
       </div>
       <div class="vx-col w-full md:w-1/2">
-        <vx-card title="热点资讯">
+        <vx-card title="集团热点">
           <div slot="no-body" class="mt-4">
             <vs-table :data="activitiesData" class="table-dark-inverted">
               <template slot="thead">
@@ -73,7 +80,17 @@
                     <router-link :to="{name:'activity-view',params:{activityId: data[indextr].id}}">详情</router-link>
                   </vs-td>
                 </vs-tr>
+                <vs-tr>
+                  <vs-td></vs-td>
+                  <vs-td></vs-td>
+                  <vs-td></vs-td>
+                  <vs-td></vs-td>
+                  <vs-td>
+                    <router-link to="/activity/activityList">查看全部</router-link>
+                  </vs-td>
+                </vs-tr>
               </template>
+              
             </vs-table>
           </div>
       

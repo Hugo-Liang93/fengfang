@@ -61,7 +61,7 @@ export default {
     Tabs: 'Tabs',
     Tooltip: 'Tooltip',
     showlist: '首页',
-    ActivityManage: '热点资讯',
+    ActivityManage: '集团热点',
     ListActivity: '热点列表',
     ProjectManage: '项目管理',
     ProjectUpload: '项目资料上传',

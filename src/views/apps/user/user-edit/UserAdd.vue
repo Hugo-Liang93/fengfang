@@ -38,7 +38,7 @@
                     <!-- Content Row -->
                     <div class="vx-row">
                       <div class="vx-col md:w-1/2 w-full">
-                        <vs-input class="w-full mt-4" label="用户ID" v-model="userInfo.user_id" v-validate="'required'" name="userId" />
+                        <vs-input class="w-full mt-4" label="* 用户ID" v-model="userInfo.user_id" v-validate="'required'" name="userId" />
                         <span class="text-danger text-sm"  v-show="errors.has('userId')">{{ errors.first('userId') }}</span>
                         
                         <vs-input class="w-full mt-4" label="姓名" v-model="userInfo.name" v-validate="'required'" name="name" />
@@ -74,7 +74,7 @@
                         <span class="text-danger text-sm"  v-show="errors.has('phone')">{{ errors.first('phone') }}</span>
                         
                         <div class="mt-4">
-                          <label class="text-sm">入职日期</label>
+                          <label class="text-sm" style="color: red;">* 入职日期</label>
                           <!-- Y-m-d -->
                           <flat-pickr v-model="userInfo.user_hiredate" :config="{altFormat: 'Y-m-d', dateFormat: 'Y-m-d', maxDate: new Date() }" class="w-full" v-validate="'required'" name="dob1" />
                           <span class="text-danger text-sm"  v-show="errors.has('dob1')">{{ errors.first('dob1') }}</span>
@@ -97,7 +97,7 @@
                       <div>
                         <!-- DOB -->
                         <div class="mt-4">
-                          <label class="text-sm">生日日期</label>
+                          <label class="text-sm" style="color: red;">* 生日日期</label>
                           <!-- Y-m-d -->
                           <flat-pickr v-model="userInfo.user_birthday" :config="{altFormat: 'Y-m-d', dateFormat: 'Y-m-d', maxDate: new Date() }" class="w-full" v-validate="'required'" name="dob" />
                           <span class="text-danger text-sm"  v-show="errors.has('dob')">{{ errors.first('dob') }}</span>

@@ -76,29 +76,36 @@ export default {
       this.$vs.notify({ color: 'success', title: '上传成功', text: '您上传的文件已经上传成功' })
     },
     formSubmitted () {
-      this.$vs.loading()
-      projectAPI.saveDetail({fileName: this.fileName, detail_title: this.detail_title, detail_type : this.detail_type_value, type_id:this.type_id})
-        .then(() => { 
-          this.$vs.loading.close()
-          this.$vs.notify({
-            title: 'Success',
-            text: '保存成功',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'success'
+      if (this.$store.state.project.detailList.length < 6) {
+        projectAPI.saveDetail({fileName: this.fileName, detail_title: this.detail_title, detail_type : this.detail_type_value, type_id:this.type_id})
+          .then(() => { 
+            this.$vs.notify({
+              title: 'Success',
+              text: '保存成功',
+              iconPack: 'feather',
+              icon: 'icon-alert-circle',
+              color: 'success'
+            })
+            this.$router.push('/apps/detail/detail-list').catch(() => {})
           })
-          this.$router.push('/apps/detail/detail-list').catch(() => {})
-        })
-        .catch(error => {
-          this.$vs.loading.close()
-          this.$vs.notify({
-            title: 'Error',
-            text: error.message,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
+          .catch(error => {
+            this.$vs.notify({
+              title: 'Error',
+              text: error.message,
+              iconPack: 'feather',
+              icon: 'icon-alert-circle',
+              color: 'danger'
+            })
           })
+      } else {
+        this.$vs.notify({
+          title: 'Error',
+          text: '轮播图达到上限',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
         })
+      }
     }
   },
   components: {
@@ -125,6 +132,7 @@ export default {
   created () {
     this.$store.dispatch('activity/getActivityByCompany', this.$store.state.AppActiveUser.user_company).catch(err => { console.error(err) })
     this.$store.dispatch('project/listProject').catch(err => { console.error(err) })
+    this.$store.dispatch('project/listDetail').catch(err => { console.error(err) })
   }
 }
 </script>

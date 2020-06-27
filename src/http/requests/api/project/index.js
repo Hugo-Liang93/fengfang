@@ -33,5 +33,8 @@ export default {
   },
   updateDetail (detail) {
     return axios.post('/api/Detail/updateDetail', detail)
+  },
+  deleteFile (fileName) {
+    return axios.post('/api/project/deleteFile', fileName)
   }
 }
