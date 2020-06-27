@@ -19,7 +19,7 @@
 
     <div id="user-data" v-if="user_data">
 
-      <vx-card title="Account" class="mb-base">
+      <vx-card title="用户信息" class="mb-base">
 
         <!-- Avatar -->
         <div class="vx-row">
@@ -69,7 +69,7 @@
           </div>
           <!-- /Information - Col 2 -->
           <div class="vx-col w-full flex" id="account-manage-buttons">
-            <vs-button icon-pack="feather" icon="icon-edit" class="mr-4" :to="{name: 'app-user-edit', params: { userId: $route.params.userId }}">修改</vs-button>
+            <vs-button icon-pack="feather" icon="icon-edit" class="mr-4" :to="{name: 'app-user-edit', params: { userId: $route.params.userId }}">信息修改</vs-button>
             <!-- <vs-button type="border" color="danger" icon-pack="feather" icon="icon-trash" @click="confirmDeleteRecord">Delete</vs-button> -->
           </div>
 

@@ -196,6 +196,7 @@ export default {
             icon: 'icon-alert-circle',
             color: 'success'
           })
+          this.$router.push('/apps/user/user-list').catch(() => {})
         })
         .catch(error => {
           this.$vs.loading.close()

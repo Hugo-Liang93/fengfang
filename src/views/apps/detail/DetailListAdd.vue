@@ -87,6 +87,7 @@ export default {
             icon: 'icon-alert-circle',
             color: 'success'
           })
+          this.$router.push('/apps/detail/detail-list').catch(() => {})
         })
         .catch(error => {
           this.$vs.loading.close()

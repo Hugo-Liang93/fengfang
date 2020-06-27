@@ -41,9 +41,12 @@
 
                 <!-- tab 2 content -->
                 <tab-content title="轮播图片" class="mb-5" icon="feather icon-briefcase">
-                    <div class="con-example-images">
-                      <vs-upload action="/upload/detail/1" fileName="file" text="轮播图" @on-success="successUpload" />
-                    </div>
+                  <div class="con-example-images">
+                    <vs-image :src="`/images/${fileName}`"></vs-image>
+                  </div>
+                  <div class="con-example-images">
+                    <vs-upload action="/upload/detail/1" fileName="file" text="轮播图" @on-success="successUpload" />
+                  </div>
                 </tab-content>
             </form-wizard>
         </div>
@@ -128,6 +131,7 @@ export default {
     this.detail_title = detail.detail_title
     this.detail_type_value = detail.detail_type
     this.type_id = detail.type_id
+    this.fileName = detail.fileName
   }
 }
 </script>

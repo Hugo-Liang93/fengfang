@@ -1,8 +1,5 @@
 <template>
   <vx-card no-shadow>
-    <span class="text-danger">{{ errors.first('old_password') }}</span>
-    <vs-input class="w-full mb-base" label-placeholder="原密码" data-vv-validate-on="blur" v-validate="'required|min:6|max:10'" name="old_password" v-model="old_password" />
-    
     <span class="text-danger">{{ errors.first('new_password') }}</span>
     <vs-input class="w-full mb-base" label-placeholder="新密码" data-vv-validate-on="blur" name="new_password" v-validate="'required|min:6|max:10'" v-model="new_password" />
     
@@ -27,7 +24,6 @@ export default {
   },
   data () {
     return {
-      old_password: '',
       new_password: '',
       confirm_new_password: ''
     }
@@ -37,7 +33,7 @@ export default {
       return this.$store.state.AppActiveUser
     },
     validateForm () {
-      return !this.errors.any() && this.old_password !== '' && this.new_password !== '' && this.confirm_new_password !== ''
+      return !this.errors.any() && this.new_password !== '' && this.confirm_new_password !== ''
     }
   },
   methods: {
@@ -54,7 +50,6 @@ export default {
         this.$vs.loading()
         axios.resetPass({
           user_id: this.activeUserInfo.user_id,
-          oldPass: this.old_password, 
           newPass: this.confirm_new_password})
           .then(response => { 
             const res = response.data
