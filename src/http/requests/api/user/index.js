@@ -21,5 +21,8 @@ export default {
   },
   removeUser (user_id) {
     return axios.get(`api/user-management/user-del/${user_id}`)
+  },
+  uploadAvatar (param, user_id) {
+    return axios.post(`api/user-management/upload/avatar/${user_id}`, param)
   }
 }

@@ -10,10 +10,10 @@
 
 <template>
   <div class="layout--main" :class="[layoutTypeClass, navbarClasses, footerClasses, {'no-scroll': isAppPage}]">
-    
+
     <!-- 用户指引 -->
     <vx-tour :steps="steps" v-if="!disableThemeTour && (windowWidth >= 1200 && mainLayoutType === 'vertical' && verticalNavMenuWidth == 'default')" />
-    
+
     <!-- 定制化功能菜单 -->
     <the-customizer
       v-if                    = "!disableCustomizer"
@@ -27,18 +27,18 @@
       @updateNavbar           = "updateNavbar"
       @updateNavbarColor      = "updateNavbarColor"
       @updateRouterTransition = "updateRouterTransition" />
-      
-     
+
+
     <!-- menu -->
     <v-nav-menu
       :navMenuItems = "navMenuItems"
       title         = "蜂房集团"
       parent        = ".layout--main" />
 
-   <!-- 悬浮展开控制底板切换 -->   
+   <!-- 悬浮展开控制底板切换 -->
   <div id="content-area" :class="[contentAreaClass, {'show-overlay': bodyOverlay}]">
       <div id="content-overlay" />
-      
+
     <!-- 快捷导航 -->
     <!-- Navbar -->
    <template v-if="mainLayoutType === 'horizontal' && windowWidth >= 1200">
@@ -58,10 +58,10 @@
         ]"
         :navMenuItems="navMenuItems" />
     </template>
-    
+
     <!-- default -->
     <!-- 仅需录入color class 并不存入 -->
-    <template v-else>
+   <template v-else>
       <the-navbar-vertical
         :navbarColor="navbarColor"
         :class="[
@@ -72,26 +72,26 @@
     <!-- /Navbar -->
 
       <div class="content-wrapper">
- 
+
         <div class="router-view">
           <div class="router-content">
 
             <transition :name="routerTransition">
 
               <div v-if="$route.meta.breadcrumb || $route.meta.pageTitle" class="router-header flex flex-wrap items-center mb-6">
-                
+
                 <!-- 导航栏首个位置 -->
                <div
                   class="content-area__heading"
                   :class="{'pr-4 border-0 md:border-r border-solid border-grey-light' : $route.meta.breadcrumb}">
                   <h2 class="mb-1">{{ routeTitle }}</h2>
                 </div>
-                
+
                 <!-- 导航组件 -->
                 <!-- BREADCRUMB -->
                 <vx-breadcrumb class="ml-4 md:block hidden" v-if="$route.meta.breadcrumb" :route="$route" :isRTL="$vs.rtl" />
-                
-                
+
+
                 <!-- 页面跳转组件 -->
                 <!-- DROPDOWN -->
                 <vs-dropdown vs-trigger-click class="ml-auto md:block hidden cursor-pointer">

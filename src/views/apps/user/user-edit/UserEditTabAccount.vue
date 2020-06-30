@@ -15,14 +15,14 @@
       <div class="vx-col w-full">
         <div class="flex items-start flex-col sm:flex-row">
           <!-- <img :src="data.avatar" class="mr-8 rounded h-24 w-24" /> -->
-          <img :src="require('@/assets/images/portrait/small/avatar-s-11.jpg')" class="mr-8 rounded h-24 w-24" />
+          <img :src="data_local.user_pic" class="mr-8 rounded h-24 w-24" />
           <!-- <vs-avatar :src="data.avatar" size="80px" class="mr-4" /> -->
           <div>
             <p class="text-lg font-medium mb-2 mt-4 sm:mt-0">{{ data.name  }}</p>
             <input type="file" class="hidden" ref="update_avatar_input" @change="update_avatar" accept="image/*">
 
             <!-- Toggle comment of below buttons as one for actual flow & currently shown is only for demo -->
-            <vs-button class="mr-4 mb-4">更换头像</vs-button>
+            <vs-button type="border" class="mr-4" @click="$refs.update_avatar_input.click()">更换头像</vs-button>
             <!-- <vs-button type="border" class="mr-4" @click="$refs.update_avatar_input.click()">Change Avatar</vs-button> -->
 
             <!-- <vs-button type="border" color="danger">Remove Avatar</vs-button> -->
@@ -40,10 +40,10 @@
 
         <vs-input class="w-full mt-4" label="邮箱" v-model="data_local.email" type="email" v-validate="'required|email'" name="email" />
         <span class="text-danger text-sm"  v-show="errors.has('email')">{{ errors.first('email') }}</span>
-        
+
         <vs-input class="w-full mt-4" label="部门" v-model="data_local.user_dept" v-validate="'required'" name="department" />
         <span class="text-danger text-sm"  v-show="errors.has('department')">{{ errors.first('department') }}</span>
-        
+
         <vs-input class="w-full mt-4" label="公司地址(打卡地址)" v-model="data_local.user_office" v-validate="'required'" name="office" />
         <span class="text-danger text-sm"  v-show="errors.has('office')">{{ errors.first('office') }}</span>
       </div>
@@ -55,14 +55,14 @@
           <v-select v-model="role_local"  :clearable="false" :options="roleOptions" v-validate="'required'" name="role" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
           <span class="text-danger text-sm"  v-show="errors.has('role')">{{ errors.first('role') }}</span>
         </div>
-        
+
         <!-- v-validate="'alpha_spaces'" -->
         <vs-input class="w-full mt-4" label="公司" v-model="data_local.user_company"  name="company" />
         <span class="text-danger text-sm"  v-show="errors.has('company')">{{ errors.first('company') }}</span>
-        
+
         <vs-input class="w-full mt-4" label="职位" v-model="data_local.user_position" v-validate="'required'" name="position" />
         <span class="text-danger text-sm"  v-show="errors.has('position')">{{ errors.first('position') }}</span>
-        
+
         <div class="mt-4">
           <label class="text-sm">入职日期</label>
           <!-- Y-m-d -->
@@ -121,6 +121,7 @@
 import vSelect from 'vue-select'
 import flatPickr from 'vue-flatpickr-component'
 import 'flatpickr/dist/flatpickr.css'
+import userAPI from '../../../../http/requests/api/user/index.js'
 
 export default {
   components: {
@@ -137,7 +138,7 @@ export default {
     return {
 
       data_local: JSON.parse(JSON.stringify(this.data)),
-      
+
       companyOptions: [
         { label: '蜂旅假期', value:'蜂旅假期'},
         { label: '蜂房商旅', value:'广州市蜂房商旅服务有限公司'},
@@ -157,7 +158,7 @@ export default {
           'header': ['模块', '发布', '删除', '查看', '修改', '审核']
         },
         'user': {
-          'name': '用户管理', 
+          'name': '用户管理',
           'header': ['', '添加', '删除', '查看', '修改']
         },
         'clockin': {
@@ -195,10 +196,10 @@ export default {
 
       // Here will go your API call for updating data
       // You can get data in "this.data_local"
-      
+
       this.$vs.loading()
       this.$store.dispatch('userManagement/saveAccountInfo', this.data_local)
-        .then(() => { 
+        .then(() => {
           this.$vs.loading.close()
           this.$vs.notify({
             title: 'Success',
@@ -227,10 +228,18 @@ export default {
     reset_data () {
       this.data_local = JSON.parse(JSON.stringify(this.data))
     },
-    update_avatar () {
+    update_avatar (event) {
       // You can update avatar Here
       // For reference you can check dataList example
       // We haven't integrated it here, because data isn't saved in DB
+      const file = event.target.files[0]  //获取input的图片file值
+      const param = new FormData()
+      param.append('file', file)
+      userAPI.uploadAvatar(param, this.data_local.user_id).then(response => {
+        this.data_local.user_pic = response.data
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }

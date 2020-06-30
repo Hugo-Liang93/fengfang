@@ -27,7 +27,7 @@
           <!-- Avatar Col -->
           <div class="vx-col" id="avatar-col">
             <div class="img-container mb-4">
-              <img :src="require('@/assets/images/portrait/small/avatar-s-11.jpg')" class="rounded w-full" />
+              <img :src="user_data.user_pic" class="rounded w-full" />
             </div>
           </div>
 
@@ -145,7 +145,7 @@
             <vs-divider />
           </div>
         </div>
-        
+
               <!--
                 You can also use `Object.keys(Object.values(data_local.permissions)[0])` this logic if you consider,
                 our data structure. You just have to loop over above variable to get table headers.
@@ -154,7 +154,7 @@
 <!--        <div class="block overflow-x-auto">
           <table class="w-full permissions-table">
             <tr>
-              
+
               <th class="font-semibold text-base text-left px-3 py-2" v-for="heading in ['Module', 'Read', 'Write', 'Create', 'Delete']" :key="heading">{{ heading }}</th>
             </tr>
 
@@ -166,7 +166,7 @@
             </tr>
           </table>
         </div> -->
-        
+
         <div class="block overflow-x-auto">
           <table class="w-full permissions-table">
             <template v-for="(val, moduleName) in this.permissionType">
@@ -204,7 +204,7 @@ export default {
           'header': ['模块', '发布', '删除', '查看', '修改', '审核']
         },
         'user': {
-          'name': '用户管理', 
+          'name': '用户管理',
           'header': ['', '添加', '删除', '查看', '修改']
         },
         'clockin': {
@@ -264,7 +264,7 @@ export default {
             this.user_not_found = true
             return
           }
-          console.error(err) 
+          console.error(err)
         })
     }
   },
@@ -276,7 +276,7 @@ export default {
     }
 
     //const userId = this.$route.params.userId
-    
+
     if (this.$route.params.userId === 'owner') {
       this.user_data = JSON.parse(localStorage.getItem('userInfo'))
     } else if (this.$store.state.userManagement.users) {
@@ -288,19 +288,6 @@ export default {
         this.fetch_user_data(this.$route.params.userId)
       }
     }
-    
-    // this.$store.dispatch('userManagement/fetchUser', userId)
-    //   .then(res => {
-    //     this.user_data = res.data
-    //     console.log(res.data)
-    //   })
-    //   .catch(err => {
-    //     if (err.response.status === 404) {
-    //       this.user_not_found = true
-    //       return
-    //     }
-    //     console.error(err) 
-    //   })
   }
 }
 

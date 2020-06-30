@@ -315,7 +315,6 @@ export default {
 
             // Update user details
             commit('UPDATE_USER_INFO', response.data.userData, {root: true})
-            console.log(response.data.userData)
             // Set bearer token in axios
             commit('SET_BEARER', response.data.accessToken)
             // 返回到loginJWT then方法中
