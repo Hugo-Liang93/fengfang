@@ -9,7 +9,7 @@
 
 
 <template>
-    <vx-card title="Form wizard with icon tabs" code-toggler>
+    <vx-card title="用户信息新增" code-toggler>
 
         <div class="mt-5">
             <form-wizard color="rgba(var(--vs-primary), 1)" :title="null" :subtitle="null" finishButtonText="提交" @on-complete="formSubmitted">
@@ -20,16 +20,13 @@
                       <div class="vx-col w-full">
                         <div class="flex items-start flex-col sm:flex-row">
                           <!-- <img :src="data.avatar" class="mr-8 rounded h-24 w-24" /> -->
-                          <img :src="require('@/assets/images/portrait/small/avatar-s-11.jpg')" class="mr-8 rounded h-24 w-24" />
+                          <img :src="userInfo.user_pic" class="mr-8 rounded h-24 w-24" />
                           <!-- <vs-avatar :src="data.avatar" size="80px" class="mr-4" /> -->
                           <div>
-<!--                            <input type="file" class="hidden" ref="update_avatar_input" @change="update_avatar" accept="image/*"> -->
-                    
+                            <input type="file" class="hidden" ref="update_avatar_input" @change="update_avatar" accept="image/*">
+                            
                             <!-- Toggle comment of below buttons as one for actual flow & currently shown is only for demo -->
-                            <vs-button class="mr-4 mb-4">更换头像</vs-button>
-                            <!-- <vs-button type="border" class="mr-4" @click="$refs.update_avatar_input.click()">Change Avatar</vs-button> -->
-                    
-                            <!-- <vs-button type="border" color="danger">Remove Avatar</vs-button> -->
+                            <vs-button type="border" class="mr-4" @click="$refs.update_avatar_input.click()">更换头像</vs-button>
                           </div>
                         </div>
                       </div>
@@ -157,6 +154,7 @@ export default {
   data () {
     return {
       userInfo: {
+        user_pic: '/img/avatar-s-11.1a620230.jpg',
         user_id: '',
         name: '',
         email: '',
@@ -208,6 +206,36 @@ export default {
             color: 'danger'
           })
         })
+    },
+    update_avatar (event) {
+      // You can update avatar Here
+      // For reference you can check dataList example
+      // We haven't integrated it here, because data isn't saved in DB
+      const file = event.target.files[0]  //获取input的图片file值
+      const param = new FormData()
+      param.append('file', file)
+      if (this.userInfo.user_id === '') {
+        this.$vs.notify({
+          title: 'Error',
+          text: '请先输入用户ID',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+      } else {
+        userAPI.uploadAvatar(param, this.userInfo.user_id).then(response => {
+          this.userInfo.user_pic = response.data
+          this.$vs.notify({
+            title: 'Success',
+            text: '头像上传成功',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'success'
+          })
+        }).catch(err => {
+          console.log(err)
+        })
+      }
     }
   },
   components: {

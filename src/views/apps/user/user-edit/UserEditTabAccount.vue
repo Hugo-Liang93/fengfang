@@ -20,7 +20,6 @@
           <div>
             <p class="text-lg font-medium mb-2 mt-4 sm:mt-0">{{ data.name  }}</p>
             <input type="file" class="hidden" ref="update_avatar_input" @change="update_avatar" accept="image/*">
-
             <!-- Toggle comment of below buttons as one for actual flow & currently shown is only for demo -->
             <vs-button type="border" class="mr-4" @click="$refs.update_avatar_input.click()">更换头像</vs-button>
             <!-- <vs-button type="border" class="mr-4" @click="$refs.update_avatar_input.click()">Change Avatar</vs-button> -->
@@ -237,6 +236,13 @@ export default {
       param.append('file', file)
       userAPI.uploadAvatar(param, this.data_local.user_id).then(response => {
         this.data_local.user_pic = response.data
+        this.$vs.notify({
+          title: 'Success',
+          text: '头像上传成功',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'success'
+        })
       }).catch(err => {
         console.log(err)
       })

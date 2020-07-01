@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center">
     <!-- :src="params.data.user_pic" -->
-    <vs-avatar :src="require('@/assets/images/portrait/small/avatar-s-11.jpg')" class="flex-shrink-0 mr-2" size="30px" @click="$router.push(url)" />
+    <vs-avatar :src="this.params.data.user_pic" class="flex-shrink-0 mr-2" size="30px" @click="$router.push(url)" />
     <router-link :to="url" @click.stop.prevent class="text-inherit hover:text-primary">{{ params.value }}</router-link>
   </div>
 </template>

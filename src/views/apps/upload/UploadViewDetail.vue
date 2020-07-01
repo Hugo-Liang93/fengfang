@@ -25,9 +25,12 @@
           </vs-alert>
         
           <template class="vx-col">
-            <vs-images>
-              <vs-image :key="index" :src="`/images/${houseTypeFileName}`" v-for="(houseTypeFileName, index) in houseType"></vs-image>
-            </vs-images>
+            <div class="con-example-images">
+              <vs-images>
+                <vs-image :key="index" :src="`/images/${houseTypeFileName}`" v-for="(houseTypeFileName, index) in houseType"></vs-image>
+              </vs-images>
+            </div>
+            
           </template>
         </template>
           
@@ -39,7 +42,6 @@
             <template class="vx-col" v-for="(attachFileName,index) in attach">  
               <div :key="`${index+'d'}`" >
                 <a class="mt-4" @click="download_file('attach',attachFileName)" :key="index">{{attachFileName.replace(project.project_id+"_attach_",'')}}</a>
-                <vs-icon icon="delete" @click="deleteRecord('attach',attachFileName)" :key="`${index+'del'}`" size="small" round></vs-icon>
               </div>
             </template>
           </template>
@@ -69,6 +71,22 @@ export default {
         this.houseType = response.data.houseType
         this.$forceUpdate()
       })
+    },
+    download_file (fileType, fileName) {
+      projectAPI.downLoadFile(fileName).then(msg => {
+        const link = document.createElement('a')
+        link.style.display = 'none'
+        link.href = window.URL.createObjectURL(new Blob([msg.data]))
+        if (fileType === 'attach') {
+          link.setAttribute('download', fileName.replace(this.project.project_id.concat('_attach_'), ''))//完整文件名称
+        } else {
+          link.setAttribute('download', fileName.replace(this.project.project_id.concat('_houseType_'), ''))//完整文件名称
+        }
+        document.body.appendChild(link)
+        link.click()
+        URL.revokeObjectURL(link.href)
+        document.body.removeChild(link)
+      }) 
     }
     
   },
@@ -81,3 +99,9 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+.con-example-images
+  max-height 800px
+  overflow auto
+</style>
