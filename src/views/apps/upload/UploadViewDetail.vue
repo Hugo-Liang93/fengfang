@@ -15,7 +15,7 @@
         
         <div class="vx-col w-full">
           <vs-input disabled  class="w-full mt-4" label="项目名称" size="large" placeholder="请输入项目名称"  v-model="project.project_name" />
-          <vs-textarea disabled  class="w-full mt-4" label="项目介绍" v-model="project.project_desc" />
+          <vs-textarea disabled  class="w-full mt-4" style="height: 200px;" label="项目介绍" v-model="project.project_desc" />
         </div>
 
       </div>
@@ -27,7 +27,7 @@
           <template class="vx-col">
             <div class="con-example-images">
               <vs-images>
-                <vs-image :key="index" :src="`/images/${houseTypeFileName}`" v-for="(houseTypeFileName, index) in houseType"></vs-image>
+                <vs-image :key="index" :src="`http://localhost:8080/images/${houseTypeFileName}`" v-for="(houseTypeFileName, index) in houseType"></vs-image>
               </vs-images>
             </div>
             

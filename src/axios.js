@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 //'http://localhost:8080'
-const baseURL = ''
+const baseURL = 'http://localhost:8080'
 
 export default axios.create({
   baseURL,

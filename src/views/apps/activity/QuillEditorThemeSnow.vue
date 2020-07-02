@@ -10,6 +10,16 @@
 
 <template>
     <vx-card title="公告发布" >
+        <el-upload
+          class="avatar-uploader"
+          :action="serverUrl"
+          name="img"
+          :headers="header"
+          :show-file-list="false"
+          :on-success="uploadSuccess"
+          :on-error="uploadError"
+          :before-upload="beforeUpload">
+        </el-upload>
         <p class="mb-5">公告内容编辑</p>
         <quill-editor v-model="content"></quill-editor>
 
@@ -32,36 +42,13 @@
               :is-valid="validForm"
               :active.sync="activePromptAddEvent">
           
-<!--             <div class="calendar__label-container flex">
-          
-                  <vs-chip v-if="labelLocal != 'none'" class="text-white" :class="'bg-' + labelColor(labelLocal)">{{ labelLocal }}</vs-chip>
-          
-                  <vs-dropdown vs-custom-content vs-trigger-click class="ml-auto my-2 cursor-pointer">
-          
-                      <feather-icon icon="TagIcon" svgClasses="h-5 w-5" class="cursor-pointer" @click.prevent></feather-icon>
-          
-                      <vs-dropdown-menu style="z-index: 200001">
-                              <vs-dropdown-item v-for="(label, index) in calendarLabels" :key="index" @click="labelLocal = label.label_value">
-                                  <div class="h-3 w-3 inline-block rounded-full mr-2" :class="'bg-' + label.label_color"></div>
-                                  <span>{{ label.label_text }}</span>
-                              </vs-dropdown-item>
-          
-                              <vs-dropdown-item @click="labelLocal = 'none'">
-                                  <div class="h-3 w-3 mr-1 inline-block rounded-full mr-2 bg-primary"></div>
-                                  <span>None</span>
-                              </vs-dropdown-item>
-                      </vs-dropdown-menu>
-                  </vs-dropdown>
-          
-              </div> -->
-          
               <vs-input name="event-name" v-validate="'required'" class="w-full" label-placeholder="热点标题" v-model="title"></vs-input>
               <div class="my-4">
-                  <small class="date-label">Start Date</small>
+                  <small class="date-label">开始时间</small>
                   <datepicker :format="customFormatter" :language="langZH" :disabledDates="disabledDatesFrom" name="start-date" v-model="startDate" :disabled="disabledFrom"></datepicker>
               </div>
               <div class="my-4">
-                  <small class="date-label">End Date</small>
+                  <small class="date-label">结束时间</small>
                   <datepicker :format="customFormatter" :language="langZH" :disabledDates="disabledDatesTo" name="end-date" v-model="endDate"></datepicker>
               </div>
               <div class="my-4">
@@ -96,6 +83,8 @@ import { zh } from 'vuejs-datepicker/src/locale'
 export default {
   data () {
     return {
+      serverUrl: '',  // 这里写你要上传的图片服务器地址
+      header: {token: sessionStorage.token}, // 有的图片服务器要求请求头需要有token  
       langZH: zh,
       content: null,
       activePromptAddEvent: false,
@@ -111,6 +100,11 @@ export default {
     Datepicker
   },
   methods: {
+    beforeUpload () {},
+    // 上传图片成功
+    uploadSuccess () {},
+    // 上传图片失败
+    uploadError () {},
     customFormatter (date) {
       return moment(date).format('YYYY-MM-DD')
     },
