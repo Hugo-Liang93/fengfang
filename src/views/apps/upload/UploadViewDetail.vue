@@ -9,37 +9,33 @@
 
 
 <template>
-    <vx-card title="项目资料上传">
-      
-      <div class="vx-row">
-        
-        <div class="vx-col w-full">
-          <vs-input disabled  class="w-full mt-4" label="项目名称" size="large" placeholder="请输入项目名称"  v-model="project.project_name" />
-          <vs-textarea disabled  class="w-full mt-4" style="height: 200px;" label="项目介绍" v-model="project.project_desc" />
-        </div>
-
-      </div>
+    <vx-card :title="project.project_name">
+      <vs-alert color="primary" icon="new_releases" active="true" class="mt-5">
+                    <p>项目介绍</p>
+                </vs-alert>
+          <vs-divider></vs-divider>
+          <span>{{project.project_desc}}</span>
       <template  v-if="houseType.length !== 0">
           <vs-alert color="primary" icon="new_releases" active="true" class="mt-5">
               <p>户型图/区位图</p>
           </vs-alert>
-        
+
           <template class="vx-col">
             <div class="con-example-images">
               <vs-images>
                 <vs-image :key="index" :src="`http://localhost:8080/images/${houseTypeFileName}`" v-for="(houseTypeFileName, index) in houseType"></vs-image>
               </vs-images>
             </div>
-            
+
           </template>
         </template>
-          
-        <template v-if="attach.length !== 0">  
+
+        <template v-if="attach.length !== 0">
           <vs-alert color="primary" icon="new_releases" active="true" class="mt-5">
               <p>项目附件</p>
           </vs-alert>
-          
-            <template class="vx-col" v-for="(attachFileName,index) in attach">  
+
+            <template class="vx-col" v-for="(attachFileName,index) in attach">
               <div :key="`${index+'d'}`" >
                 <a class="mt-4" @click="download_file('attach',attachFileName)" :key="index">{{attachFileName.replace(project.project_id+"_attach_",'')}}</a>
               </div>
@@ -86,16 +82,16 @@ export default {
         link.click()
         URL.revokeObjectURL(link.href)
         document.body.removeChild(link)
-      }) 
+      })
     }
-    
+
   },
   created () {
     this.project = this.$store.state.project.projectList.find(val => {
       return val.project_id === this.$route.params.projectId
     })
     this.fetchFiles(this.$route.params.projectId)
-    
+
   }
 }
 </script>

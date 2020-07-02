@@ -21,7 +21,9 @@
           :before-upload="beforeUpload">
         </el-upload>
         <p class="mb-5">公告内容编辑</p>
-        <quill-editor v-model="content"></quill-editor>
+        <quill-editor v-model="content"  ref="myTextEditor"
+          :options="quillOption">
+        </quill-editor>
 
         <template v-if="content">
           <h1>预览</h1>
@@ -41,7 +43,7 @@
               @accept="addEvent"
               :is-valid="validForm"
               :active.sync="activePromptAddEvent">
-          
+
               <vs-input name="event-name" v-validate="'required'" class="w-full" label-placeholder="热点标题" v-model="title"></vs-input>
               <div class="my-4">
                   <small class="date-label">开始时间</small>
@@ -72,19 +74,18 @@
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+import quillConfig from './quill-config.js'
 import moment from 'moment'
 import { quillEditor } from 'vue-quill-editor'
 import activityAPI from '../../../http/requests/api/activity/index.js'
 // import Prism from 'vue-prism-component'
-
 import Datepicker from 'vuejs-datepicker'
 import { zh } from 'vuejs-datepicker/src/locale'
 
 export default {
   data () {
     return {
-      serverUrl: '',  // 这里写你要上传的图片服务器地址
-      header: {token: sessionStorage.token}, // 有的图片服务器要求请求头需要有token  
+      quillOption: quillConfig,
       langZH: zh,
       content: null,
       activePromptAddEvent: false,
@@ -126,7 +127,7 @@ export default {
         content: this.content,
         owner: this.$store.state.AppActiveUser.name,
         company: this.company
-      }).then(response => { 
+      }).then(response => {
         console.log(response.data)
         this.$vs.loading.close()
         this.$vs.notify({

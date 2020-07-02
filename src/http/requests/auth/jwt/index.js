@@ -65,7 +65,6 @@ export default {
     return axios.post('/api/auth/refresh-token', {accessToken: localStorage.getItem('accessToKen')})
   },
   resetPass (password) {
-    console.log(password)
     return axios.post('/api/auth/changePass', password)
   }
 }
