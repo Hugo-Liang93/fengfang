@@ -234,7 +234,7 @@ export default {
         {
           headerName: '员工ID',
           field: 'user_id',
-          width: 250,
+          width: 200,
           filter: true,
           checkboxSelection: true,
           headerCheckboxSelectionFilteredOnly: true,
@@ -299,9 +299,9 @@ export default {
         //   cellClass: 'text-center'
         // },
         {
-          headerName: 'Actions',
+          headerName: '操作',
           field: 'transactions',
-          width: 150,
+          width: 100,
           cellRendererFramework: 'CellRendererActions'
         }
       ],

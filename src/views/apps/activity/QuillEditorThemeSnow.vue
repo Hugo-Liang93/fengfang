@@ -10,16 +10,7 @@
 
 <template>
     <vx-card title="公告发布" >
-        <el-upload
-          class="avatar-uploader"
-          :action="serverUrl"
-          name="img"
-          :headers="header"
-          :show-file-list="false"
-          :on-success="uploadSuccess"
-          :on-error="uploadError"
-          :before-upload="beforeUpload">
-        </el-upload>
+
         <p class="mb-5">公告内容编辑</p>
         <quill-editor v-model="content"  ref="myTextEditor"
           :options="quillOption">

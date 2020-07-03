@@ -113,24 +113,6 @@
           </vx-card>
         </div>
 
-        <div class="vx-col lg:w-1/2 w-full">
-          <vx-card title="Social Links" class="mb-base">
-            <table>
-              <tr>
-                <td class="font-semibold">Wechat</td>
-                <td>{{ user_data.social.user_wechat }}</td>
-              </tr>
-              <tr>
-                <td class="font-semibold">Weibo</td>
-                <td>{{ user_data.social.user_weibo }}</td>
-              </tr>
-              <tr>
-                <td class="font-semibold">Mobile</td>
-                <td>{{ user_data.social.user_mobile }}</td>
-              </tr>
-            </table>
-          </vx-card>
-        </div>
       </div>
 
       <!-- Permissions -->

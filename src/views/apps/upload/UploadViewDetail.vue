@@ -23,7 +23,7 @@
           <template class="vx-col">
             <div class="con-example-images">
               <vs-images>
-                <vs-image :key="index" :src="`http://localhost:8080/images/${houseTypeFileName}`" v-for="(houseTypeFileName, index) in houseType"></vs-image>
+                <vs-image :key="index" :src="`/images/${houseTypeFileName}`" v-for="(houseTypeFileName, index) in houseType"></vs-image>
               </vs-images>
             </div>
 

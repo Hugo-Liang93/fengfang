@@ -1,8 +1,8 @@
 /*富文本编辑图片上传配置*/
 const uploadConfig = {
-  action:  'http://localhost:8080/api/user-management/upload/avatar/1',  // 必填参数 图片上传地址
+  action:  '/api/user-management/upload/avatar/1',  // 必填参数 图片上传地址
   methods: 'POST',  // 必填参数 图片上传方式
-  token: localStorage.getItem('accessToKen'),  // 可选参数 如果需要token验证，假设你的token有存放在sessionStorage
+  token: localStorage.getItem('accessToken'),  // 可选参数 如果需要token验证，假设你的token有存放在sessionStorage
   name: 'file',  // 必填参数 文件的参数名
   size: 500,  // 可选参数   图片大小，单位为Kb, 1M = 1024Kb
   accept: 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon'  // 可选 可上传的图片格式
@@ -27,7 +27,6 @@ const toolOptions = [
 ]
 const handlers1 = {
   image: function image () {
-    console.log(uploadConfig.token)
     const self = this
     let fileInput = this.container.querySelector('input.ql-image[type=file]')
     if (fileInput === null) {
@@ -47,21 +46,22 @@ const handlers1 = {
         formData.append(uploadConfig.name, fileInput.files[0])
         formData.append('object', 'product')
         // 如果需要token且存在token
-        if (uploadConfig.token) {
-          
-          formData.append('Authorization', uploadConfig.token)
-        }
+
         // 图片上传
         const xhr = new XMLHttpRequest()
         xhr.open(uploadConfig.methods, uploadConfig.action, true)
+        if (uploadConfig.token) {
+          xhr.setRequestHeader('Authorization', `Bearer ${uploadConfig.token}`)
+        }
         // 上传数据成功，会触发
         xhr.onload = function (e) {
           console.log(e)
           if (xhr.status === 200) {
-            const res = JSON.parse(xhr.responseText)
+            const res = xhr.responseText
             const length = self.quill.getSelection(true).index
+            console.log(res)
             //这里很重要，你图片上传成功后，img的src需要在这里添加，res.path就是你服务器返回的图片链接。
-            self.quill.insertEmbed(length, 'image', res.path)
+            self.quill.insertEmbed(length, 'image', res)
             self.quill.setSelection(length + 1)
           }
           fileInput.value = ''

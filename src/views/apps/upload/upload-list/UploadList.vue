@@ -214,7 +214,7 @@ export default {
         {
           headerName: '项目ID',
           field: 'project_id',
-          width: 250,
+          width: 200,
           filter: true,
           checkboxSelection: true,
           headerCheckboxSelectionFilteredOnly: true,
@@ -231,12 +231,12 @@ export default {
           headerName: '项目描述',
           field: 'project_desc',
           filter: true,
-          width: 650
+          width: 550
         },
         {
-          headerName: 'Actions',
+          headerName: '操作',
           field: 'transactions',
-          width: 150,
+          width: 100,
           cellRendererFramework: 'CellRendererActions'
         }
       ],

@@ -230,7 +230,7 @@ export default {
         {
           headerName: '热点ID',
           field: 'id',
-          width: 250,
+          width: 150,
           filter: true,
           checkboxSelection: true,
           headerCheckboxSelectionFilteredOnly: true,
@@ -283,9 +283,9 @@ export default {
         //   cellClass: 'text-center'
         // },
         {
-          headerName: 'Actions',
+          headerName: '操作',
           field: 'transactions',
-          width: 150,
+          width: 100,
           cellRendererFramework: 'CellRendererActions'
         }
       ],

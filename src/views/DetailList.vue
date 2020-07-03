@@ -1,6 +1,6 @@
 <template>
   <div id="dashboard-analytics">
-    <div class="vx-row">
+
       <vx-card title="资讯轮播" class="swiper-container">
         <swiper :options="swiperOption" class="swiper-wrapper">
             <swiper-slide class="swiper-slide" v-for="(item,index) in attachPic" :key="index" >
@@ -11,7 +11,6 @@
             <div class="swiper-button-next" slot="button-next"></div> 
           </swiper>
       </vx-card>
-    </div>
     <br />
     <div class="vx-row">
       <div class="vx-col w-full md:w-1/2">
@@ -128,9 +127,10 @@ export default {
         },
         //自动轮播
         autoplay: {
-          delay: 2000,
+          delay: 3000,
           //当用户滑动图片后继续自动轮播
-          disableOnInteraction: false
+          disableOnInteraction: false,
+          stopOnLastSlide: false
         },
         //开启循环模式
         loop: true,

@@ -206,9 +206,9 @@ export default {
           width: 200
         },
         {
-          headerName: 'Actions',
+          headerName: '操作',
           field: 'transactions',
-          width: 150,
+          width: 100,
           cellRendererFramework: 'CellRendererActions'
         }
       ],
