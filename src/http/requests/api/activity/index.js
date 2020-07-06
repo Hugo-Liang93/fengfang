@@ -15,5 +15,17 @@ export default {
   },
   removeActivityById (activityId) {
     return axios.post('api/Activity/deleteInfo', activityId)
+  },
+  getCommentByActivityId (activityId) {
+    return axios.get(`api/Activity/comment/${activityId}`)
+  },
+  getLikePostByActivityId (activityId) {
+    return axios.get(`api/Activity/likepost/${activityId}`)
+  },
+  changeLiked (activityId, user_id) {
+    return axios.get(`api/Activity/changelinked/${activityId}/${user_id}`)
+  },
+  postMsg (activityId, user_id, commentbox) {
+    return axios.post(`api/Activity/postComment/${activityId}/${user_id}`, {'comment': commentbox})
   }
 }

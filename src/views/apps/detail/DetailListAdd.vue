@@ -33,7 +33,7 @@
                               </template>
                               <template v-if="detail_type_value==='activity'">
                                 <vs-select-item :key="index" :value="item.id" :text="item.title" v-for="(item,index) in activitiesData" class="w-full" />
-                              </template> 
+                              </template>
                             </vs-select>
                         </div>
                     </div>

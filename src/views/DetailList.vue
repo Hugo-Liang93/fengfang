@@ -2,9 +2,9 @@
   <div id="dashboard-analytics">
 
       <vx-card title="资讯轮播" class="swiper-container">
-        <swiper :options="swiperOption" class="swiper-wrapper">
+        <swiper :options="swiperOption" class="swiper-wrapper" v-if="attachPic.length">
             <swiper-slide class="swiper-slide" v-for="(item,index) in attachPic" :key="index" >
-              <img alternating="true" :key="`index${item.fileName}`" :src="`/images/${item.fileName}`" @click="navTo(item.detail_type,item.type_id)" />
+                  <img alternating="true" :key="`index${item.fileName}`" :src="`/images/${item.fileName}`" @click="navTo(item.detail_type,item.type_id)" />
             </swiper-slide>
             <div class="swiper-pagination"  slot="pagination"></div>
             <div class="swiper-button-prev" slot="button-prev"></div> 
@@ -117,24 +117,20 @@ export default {
       swiperOption: {
         // 所有的参数同 swiper 官方 api 参数一样
         // 
-        pagination: {
-          el: '.swiper-pagination'
-        },
+        
         //设置点击箭头
+        //开启循环模式
+        loop: true,
         navigation: {
           nextEl: '.swiper-button-next', 
           prevEl: '.swiper-button-prev'
         },
         //自动轮播
-        autoplay: {
-          delay: 3000,
-          //当用户滑动图片后继续自动轮播
-          disableOnInteraction: false,
-          stopOnLastSlide: false
-        },
-        //开启循环模式
-        loop: true,
-        centeredSlides : true
+        autoplay: true,
+        centeredSlides : true,
+        pagination: {
+          el: '.swiper-pagination'
+        }
       }
     }
   },

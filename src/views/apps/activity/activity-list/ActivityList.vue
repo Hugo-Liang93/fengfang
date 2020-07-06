@@ -257,7 +257,7 @@ export default {
         },
         {
           headerName: '活动发布人',
-          field: 'owner',
+          field: 'user.name',
           filter: true,
           width: 150
         },

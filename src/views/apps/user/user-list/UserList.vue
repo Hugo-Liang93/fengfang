@@ -27,10 +27,10 @@
           <label class="text-sm opacity-75">角色</label>
           <v-select :options="roleOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="roleFilter" class="mb-4 md:mb-0" />
         </div>
-        <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
+<!--        <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
           <label class="text-sm opacity-75">打卡</label>
           <v-select :options="statusOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="statusFilter" class="mb-4 md:mb-0" />
-        </div>
+        </div> -->
         <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
           <label class="text-sm opacity-75">公司</label>
           <v-select :options="userCompanyOptions" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="userCompanyFilter" class="mb-4 sm:mb-0" />
@@ -195,14 +195,6 @@ export default {
         { label: '员工', value: '员工' }
       ],
 
-      statusFilter: { label: 'All', value: 'all' },
-      statusOptions: [
-        { label: 'All', value: 'all' },
-        { label: '已打卡', value: 'active' },
-        { label: '未打卡', value: 'deactivated' },
-        { label: '请假', value: 'blocked' }
-      ],
-
       userCompanyFilter: { label: 'All', value: 'all' },
       userCompanyOptions: [
         { label: 'All', value: 'all' },
@@ -231,21 +223,21 @@ export default {
         suppressMenu: true
       },
       columnDefs: [
-        {
-          headerName: '员工ID',
-          field: 'user_id',
-          width: 200,
-          filter: true,
-          checkboxSelection: true,
-          headerCheckboxSelectionFilteredOnly: true,
-          headerCheckboxSelection: true
-        },
-        {
-          headerName: '邮箱',
-          field: 'email',
-          filter: true,
-          width: 225
-        },
+        // {
+        //   headerName: '员工ID',
+        //   field: 'user_id',
+        //   width: 200,
+        //   filter: true,
+        //   checkboxSelection: true,
+        //   headerCheckboxSelectionFilteredOnly: true,
+        //   headerCheckboxSelection: true
+        // },
+        // {
+        //   headerName: '邮箱',
+        //   field: 'email',
+        //   filter: true,
+        //   width: 225
+        // },
         {
           headerName: '姓名',
           field: 'name',
@@ -257,7 +249,7 @@ export default {
           headerName: '公司',
           field: 'user_company',
           filter: true,
-          width: 150
+          width: 300
         },
         {
           headerName: '部门',
@@ -265,24 +257,24 @@ export default {
           filter: true,
           width: 200
         },
-        {
-          headerName: '公司地址',
-          field: 'user_office',
-          filter: true,
-          width: 150
-        },
+        // {
+        //   headerName: '公司地址',
+        //   field: 'user_office',
+        //   filter: true,
+        //   width: 150
+        // },
         {
           headerName: '角色',
           field: 'permission.role_name',
           filter: true,
           width: 150
         },
-        {
-          headerName: '职位',
-          field: 'user_position',
-          filter: true,
-          width: 150
-        },
+        // {
+        //   headerName: '职位',
+        //   field: 'user_position',
+        //   filter: true,
+        //   width: 150
+        // },
         // {
         //   headerName: '打卡状态',
         //   field: 'status',

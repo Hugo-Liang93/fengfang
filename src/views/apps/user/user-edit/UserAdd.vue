@@ -47,7 +47,7 @@
                         <vs-input class="w-full mt-4" label="部门" v-model="userInfo.user_dept" v-validate="'required'" name="department" />
                         <span class="text-danger text-sm"  v-show="errors.has('department')">{{ errors.first('department') }}</span>
                         
-                        <vs-input class="w-full mt-4" label="公司地址(打卡地址)" v-model="userInfo.user_office" v-validate="'required'" name="office" />
+                        <vs-input class="w-full mt-4" label="* 公司地址(打卡地址)" v-model="userInfo.user_office" v-validate="'required'" name="office" />
                         <span class="text-danger text-sm"  v-show="errors.has('office')">{{ errors.first('office') }}</span>
                       </div>
                     
@@ -61,7 +61,7 @@
                         </div>
                         
                         <!-- v-validate="'alpha_spaces'" -->
-                        <vs-input class="w-full mt-4" label="公司" v-model="userInfo.user_company"  name="company" />
+                        <vs-input class="w-full mt-4" label="公司" v-model="userInfo.user_company"  v-validate="'required'" name="company" />
                         <span class="text-danger text-sm"  v-show="errors.has('company')">{{ errors.first('company') }}</span>
                         
                         <vs-input class="w-full mt-4" label="职位" v-model="userInfo.user_position" v-validate="'required'" name="position" />
@@ -73,8 +73,7 @@
                         <div class="mt-4">
                           <label class="text-sm" style="color: red;">* 入职日期</label>
                           <!-- Y-m-d -->
-                          <flat-pickr v-model="userInfo.user_hiredate" :config="{altFormat: 'Y-m-d', dateFormat: 'Y-m-d', maxDate: new Date() }" class="w-full" v-validate="'required'" name="dob1" />
-                          <span class="text-danger text-sm"  v-show="errors.has('dob1')">{{ errors.first('dob1') }}</span>
+                          <flat-pickr v-model="userInfo.user_hiredate" :config="{altFormat: 'Y-m-d', dateFormat: 'Y-m-d', maxDate: '2020-01-01' }" class="w-full"/>
                         </div>
                       </div>
                     </div>
@@ -96,8 +95,7 @@
                         <div class="mt-4">
                           <label class="text-sm" style="color: red;">* 生日日期</label>
                           <!-- Y-m-d -->
-                          <flat-pickr v-model="userInfo.user_birthday" :config="{altFormat: 'Y-m-d', dateFormat: 'Y-m-d', maxDate: new Date() }" class="w-full" v-validate="'required'" name="dob" />
-                          <span class="text-danger text-sm"  v-show="errors.has('dob')">{{ errors.first('dob') }}</span>
+                          <flat-pickr v-model="userInfo.user_birthday" :config="{altFormat: 'Y-m-d', dateFormat: 'Y-m-d', maxDate: '2020-01-01' }" class="w-full" />
                         </div>
               
                         <vs-input class="w-full mt-4" label="身份证号" v-model="userInfo.user_idcard" v-validate="{regex: '^\\+?([0-9]+)$' }" name="idcard" />

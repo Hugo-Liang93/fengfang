@@ -133,7 +133,7 @@ export default {
         endDate: this.customFormatter(this.activity.endDate),
         title: this.activity.title,
         content: this.activity.content,
-        owner: this.$store.state.AppActiveUser.name,
+        owner: this.$store.state.AppActiveUser.user_id,
         company: this.activity.company
       }).then(response => { 
         console.log(response.data)

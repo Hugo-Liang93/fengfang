@@ -19,11 +19,11 @@
           <vs-alert color="primary" icon="new_releases" active="true" class="mt-5">
               <p>户型图/区位图</p>
           </vs-alert>
-
+          <vs-divider></vs-divider>
           <template class="vx-col">
             <div class="con-example-images">
               <vs-images>
-                <vs-image :key="index" :src="`/images/${houseTypeFileName}`" v-for="(houseTypeFileName, index) in houseType"></vs-image>
+                <vs-image :key="index" :src="`/images/${houseTypeFileName}`" v-for="(houseTypeFileName, index) in houseType" @click="download_file('houseType',houseTypeFileName)"></vs-image>
               </vs-images>
             </div>
 
@@ -34,7 +34,7 @@
           <vs-alert color="primary" icon="new_releases" active="true" class="mt-5">
               <p>项目附件</p>
           </vs-alert>
-
+          <vs-divider></vs-divider>
             <template class="vx-col" v-for="(attachFileName,index) in attach">
               <div :key="`${index+'d'}`" >
                 <a class="mt-4" @click="download_file('attach',attachFileName)" :key="index">{{attachFileName.replace(project.project_id+"_attach_",'')}}</a>
