@@ -43,7 +43,7 @@
                   class="cursor-pointer bg-primary text-white rounded-full" />
               </div>
             </div>
-            
+
              <!-- 选择年周月 -->
             <div class="vx-col sm:w-1/3 w-full flex justify-center">
               <template v-for="(view, index) in calendarViewTypes">
@@ -71,16 +71,13 @@
           <!-- Labels 标题 -->
           <div class="vx-row sm:flex hidden mt-4">
             <div class="vx-col w-full flex">
-              
+
               <div class="flex flex-wrap sm:justify-start justify-center">
                   <div v-for="(label, index) in calendarLabels" :key="index" class="flex items-center mr-4 mb-2">
                       <div class="h-3 w-3 inline-block rounded-full mr-2" :class="'bg-' + label.label_color"></div>
                       <span>{{ label.label_text }}</span>
                   </div>
-                  <div class="flex items-center mr-4 mb-2">
-                      <div class="h-3 w-3 inline-block rounded-full mr-2 bg-primary"></div>
-                      <span>None</span>
-                  </div>
+
               </div>
             </div>
           </div>
@@ -111,10 +108,6 @@
                             <span>{{ label.label_text }}</span>
                         </vs-dropdown-item>
 
-                        <vs-dropdown-item @click="labelLocal = 'none'">
-                            <div class="h-3 w-3 mr-1 inline-block rounded-full mr-2 bg-primary"></div>
-                            <span>None</span>
-                        </vs-dropdown-item>
                 </vs-dropdown-menu>
             </vs-dropdown>
 
@@ -159,10 +152,6 @@
                             <span>{{ label.label_text }}</span>
                         </vs-dropdown-item>
 
-                        <vs-dropdown-item @click="labelLocal = 'none'">
-                            <div class="h-3 w-3 mr-1 inline-block rounded-full mr-2 bg-primary"></div>
-                            <span>None</span>
-                        </vs-dropdown-item>
                 </vs-dropdown-menu>
             </vs-dropdown>
 
@@ -206,7 +195,7 @@ export default {
       title: '',
       startDate: '',
       endDate: '',
-      labelLocal: 'none',
+      labelLocal: 'personal',
 
       langZH: zh,
 
@@ -250,10 +239,9 @@ export default {
     },
     labelColor () {
       return (label) => {
-        if      (label === 'business') return 'success'
-        else if (label === 'work')     return 'warning'
+        if      (label === 'all') return 'success'
+        else if (label === 'company')     return 'warning'
         else if (label === 'personal') return 'danger'
-        else if (label === 'none')     return 'primary'
       }
     },
     windowWidth () {
@@ -265,7 +253,15 @@ export default {
       return moment(date).format('YYYY-MM-DD')
     },
     addEvent () {
-      const obj = { title: this.title, user_id: this.$store.state.AppActiveUser.user_id, startDate: this.customFormatter(this.startDate), endDate: this.customFormatter(this.endDate), label: this.labelLocal, url: this.url }
+      const obj = {
+        title: this.title,
+        user_id: this.$store.state.AppActiveUser.user_id,
+        startDate: this.customFormatter(this.startDate),
+        endDate: this.customFormatter(this.endDate),
+        label: this.labelLocal,
+        url: this.url,
+        user_company: this.$store.state.AppActiveUser.user_company
+      }
       obj.classes = `event-${  this.labelColor(this.labelLocal)}`
       this.$store.dispatch('calendar/addEvent', obj)
     },
@@ -306,7 +302,7 @@ export default {
     clearFields () {
       this.title = this.endDate = this.url = ''
       this.id = 0
-      this.labelLocal = 'none'
+      this.labelLocal = 'personal'
     },
     promptAddNewEvent (date) {
       this.disabledFrom = false
