@@ -1,17 +1,21 @@
 <template>
   <vx-card title="员工打卡">
   
-      <p>当定位在公司范围之内方可打卡</p>
-      <div class="mt-5">
-        <vs-button class="mr-4" v-bind:disabled="isAble" color="primary"  type="filled" @click="clockin">打卡</vs-button>
-        <label v-if="clockInRecord">今天已经在 {{clockInRecord.clockin_path}}  打卡</label>
-      </div>
+      <p>当定位在公司范围之内才可打卡哦</p>
+        <vs-list>
+          <vs-list-header title="打卡状态"></vs-list-header>
+          <vs-list-item title="上班啦" subtitle="只能在早上9点~12点间打卡">
+            <vs-button :disabled="workFlag" color="success" @click="gotowork">上班啦</vs-button>
+          </vs-list-item>
+          <vs-list-item title="下班啦" subtitle="只能在下午4点~8点间打卡">
+            <vs-button :disabled="homeFlag" color="success" @click="backhome">下班啦</vs-button>
+          </vs-list-item>
+      </vs-list>
       <div class="mt-5">
         
         <el-amap  vid="amapDemo" :plugin="plugin"  :center="center" :zoom="zoom"  class="amap-demo" style="width: 100%; height: 400px">
           <el-amap-marker :position="officeMarker.postion" :label="{content:officeMarker.label,offset: [10, 10]}"></el-amap-marker>
           <el-amap-circle :center="officeMarker.postion" :radius="2000" :fill-opacity="0.5" ></el-amap-circle>
-          <el-amap-marker v-if="clockIn" :position="center" ></el-amap-marker>
         </el-amap>
       </div>
   </vx-card>
@@ -20,6 +24,7 @@
 <script>
 import Vue from 'vue'
 import VueAMap from 'vue-amap'
+import userAPI from '../../../../http/requests/api/user/index.js'
 Vue.use(VueAMap)
 VueAMap.initAMapApiLoader({
   key: '66e5986aed3a1a56064e9793f326d18d',
@@ -51,9 +56,9 @@ export default {
       latOffice: 0,
       officeStatus: false,
       locationStatus: false,
-      clockIn: false,
-      isAble: true,
-      clockInRecord: null,
+      workFlag: true,
+      homeFlag: true,
+      clockInRecord: [],
       plugin: [
         {
           pName: 'Geolocation',
@@ -95,11 +100,64 @@ export default {
     }
   },
   methods: {
+    getHour () {
+      const now = new Date()
+      // 获取当前日期与当前时间
+      return now.getHours()
+    },
+    gotowork () {
+      if (this.getHour() >= 9 && this.getHour() < 12) {
+        this.clockin()
+      } else if (this.getHour() < 9) {
+        this.$vs.notify({
+          title: '不在打卡时间内',
+          text: '还没到打卡时间先歇歇！',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'warning'
+        })
+      } else if (this.getHour() >= 12 &&  this.getHour() < 16) {
+        this.$vs.notify({
+          title: '不在打卡时间内',
+          text: '已经过了打卡时间，明天请准时打卡！',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'warning'
+        })
+      } else {
+        this.$vs.notify({
+          title: '不在打卡时间内',
+          text: '都下班了，明天请记得打卡！',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'warning'
+        })
+      }
+    },
+    backhome () {
+      if (this.getHour() >= 16 && this.getHour() < 20) {
+        this.clockin()
+      } else if (this.getHour() < 16) {
+        this.$vs.notify({
+          title: '不在打卡时间内',
+          text: '还没到点就想下班，是想要扣工资吗？',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'warning'
+        })
+      } else {
+        this.$vs.notify({
+          title: '不在打卡时间内',
+          text: '还是明天早点上班吧！',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'warning'
+        }) 
+      }
+    },
     clockin () {
       if (this.officeStatus && this.locationStatus) {
-        
         if (this.getDistance(this.lng, this.lat, this.lngOffice, this.latOffice) < 2) {
-          this.clockIn = true
           this.$vs.loading()
           const userInfo = JSON.parse(localStorage.getItem('userInfo'))
           const clockInObj = {
@@ -109,19 +167,27 @@ export default {
             clockin_lat: this.lat
           }
           this.$store.dispatch('user/clockIn', clockInObj)
-            .then(() => { 
-              this.$vs.loading.close()
-              this.$vs.notify({
-                title: 'Success',
-                text: '打卡成功',
-                iconPack: 'feather',
-                icon: 'icon-alert-circle',
-                color: 'success'
-              })
-              clockInObj.clockin_time = new Date()
-              userInfo.clockin = clockInObj
-              localStorage.setItem('userInfo', JSON.stringify(userInfo))
-              this.isAble = true
+            .then(response => { 
+              if (response.data.status === true) {
+                this.$vs.loading.close()
+                this.$vs.notify({
+                  title: 'Success',
+                  text: '打卡成功',
+                  iconPack: 'feather',
+                  icon: 'icon-alert-circle',
+                  color: 'success'
+                })
+                this.buttonStatus()
+              } else {
+                this.$vs.loading.close()
+                this.$vs.notify({
+                  title: 'Error',
+                  text: response.data.errorMsg,
+                  iconPack: 'feather',
+                  icon: 'icon-alert-circle',
+                  color: 'danger'
+                })
+              }
             })
             .catch(error => {
               this.$vs.loading.close()
@@ -175,14 +241,31 @@ export default {
           ((arrayOfDouble1[1] - arrayOfDouble2[1]) * (arrayOfDouble1[1] - arrayOfDouble2[1])) +
           ((arrayOfDouble1[2] - arrayOfDouble2[2]) * (arrayOfDouble1[2] - arrayOfDouble2[2])))
       return (Math.asin(d14 / 2.0) * 12742001.579854401) / 1000
+    },
+    async buttonStatus () {
+      await userAPI.getTodayClockInList(this.$store.state.AppActiveUser.user_id).then(response => {
+        this.clockInRecord = response.data
+        if (response.data.length === 0) {
+          this.workFlag = false
+          this.homeFlag = false
+        } else if (response.data.length === 1) {
+          if (this.clockInRecord[0].clockin_type === 'morning') {
+            this.workFlag = true
+            this.homeFlag = false
+          } else {
+            this.homeFlag = true
+            this.workFlag = false
+          }
+        } else {
+          this.workFlag = true
+          this.homeFlag = true
+        }
+      })
     }
   },
   created () {
     this.userOffice = this.$store.state.AppActiveUser.user_office
-    this.clockInRecord = this.$store.state.AppActiveUser.clockin
-    if (this.clockInRecord === undefined || this.clockInRecord.id === null) {
-      this.isAble = false
-    }
+    this.buttonStatus()
   }
 }    
 </script>

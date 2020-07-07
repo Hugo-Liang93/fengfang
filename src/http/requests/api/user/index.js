@@ -24,5 +24,8 @@ export default {
   },
   uploadAvatar (param, user_id) {
     return axios.post(`api/user-management/upload/avatar/${user_id}`, param)
+  },
+  getTodayClockInList (user_id) {
+    return axios.get(`/api/clockin/getTodayClockin/${user_id}`)
   }
 }
