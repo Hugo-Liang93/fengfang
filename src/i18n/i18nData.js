@@ -30,6 +30,7 @@ export default {
     Tailwind: 'Tailwind',
     Colors: 'Colors',
     Card: 'Card',
+    commentList: '评论审核',
     Basic: 'Basic',
     Statistics: 'Statistics',
     Analytics: 'Analytics',

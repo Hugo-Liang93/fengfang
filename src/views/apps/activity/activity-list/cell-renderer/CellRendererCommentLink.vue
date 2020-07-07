@@ -10,12 +10,15 @@ export default {
   name: 'CellRendererLink',
   computed: {
     url () {
-      return `/project/project-viewdetail/${this.params.data.project_id}`
+      return `/activity/activity-view/${this.params.data.activity.id}`
 
       // Below line will be for actual product
       // Currently it's commented due to demo purpose - Above url is for demo purpose
       // return "/apps/user/user-view/" + this.params.data.id
     }
+  },
+  created () {
+    console.log(this.params.data.activity.id)
   }
 }
 </script>

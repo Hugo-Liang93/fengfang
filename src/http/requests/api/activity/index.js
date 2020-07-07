@@ -28,7 +28,10 @@ export default {
   postMsg (activityId, user_id, commentbox) {
     return axios.post(`api/Activity/postComment/${activityId}/${user_id}`, {'comment': commentbox})
   },
-  getAllComment(){
+  getAllComment () {
     return axios.get('api/Activity/getComments')
+  },
+  updateCommentStatus (type, obj) {
+    return axios.post(`api/Activity/Comments/${type}`, obj)
   }
 }

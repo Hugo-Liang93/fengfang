@@ -116,7 +116,7 @@ export default {
         endDate: this.customFormatter(this.endDate),
         title: this.title,
         content: this.content,
-        owner: this.$store.state.AppActiveUser.name,
+        owner: this.$store.state.AppActiveUser.user_id,
         company: this.company
       }).then(response => {
         console.log(response.data)

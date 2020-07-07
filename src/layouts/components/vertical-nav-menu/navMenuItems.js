@@ -218,6 +218,13 @@ export default [
             icon: 'MapIcon',
             slug: 'extra-component-maps-google-map',
             i18n: 'ListActivity'
+          },
+          {
+            url: '/activity/commentList',
+            name: 'commentList',
+            icon: 'MapIcon',
+            slug: 'commentList',
+            i18n: 'commentList'
           }
         ]
       },

@@ -1235,6 +1235,20 @@ const router = new Router({
           }
         },
         {
+          path: '/activity/commentList',
+          name: 'commentList',
+          component: () => import('@/views/apps/activity/activity-list/CommentList.vue'),
+          meta: {
+            breadcrumb: [
+              { title: '首页', url: '/' },
+              { title: '评论管理' },
+              { title: '评论审核', active: true }
+            ],
+            pageTitle: '评论审核',
+            rule: 'editor'
+          }
+        },
+        {
           path: '/extensions/drag-and-drop',
           name: 'extra-component-drag-and-drop',
           component: () => import('@/views/components/extra-components/drag-and-drop/DragAndDrop.vue'),

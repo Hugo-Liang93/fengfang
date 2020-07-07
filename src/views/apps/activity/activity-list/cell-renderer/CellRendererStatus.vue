@@ -10,10 +10,10 @@ export default {
   computed: {
     chipColor () {
       return (value) => {
-        if (value === 'active') return 'success'
-        else if (value === 'blocked') return 'danger'
-        else if (value === 'deactivated') return 'warning'
-        else return 'primary'
+        if (value === 'true') return 'success'
+        else if (value === 'false') return 'danger'
+        // else if (value === 'deactivated') return 'warning'
+        // else return 'primary'
       }
     }
   }
