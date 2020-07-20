@@ -124,6 +124,13 @@ export default {
     },
     postMsg () {
       activityAPI.postMsg(this.$route.params.activityId, this.$store.state.AppActiveUser.user_id, this.commentbox).then(() => {
+        this.$vs.notify({
+          title: 'Success',
+          text: '评论成功等待审核',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'success'
+        })
         this.getComment()
       })
     },
