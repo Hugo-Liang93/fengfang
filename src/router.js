@@ -21,6 +21,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import auth from '@/auth/authService'
+import { AclRule } from 'vue-acl'
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -47,14 +48,17 @@ const router = new Router({
         // =============================================================================
         {
           path: '/',
-          redirect: '/detail'
+          redirect: '/detail',
+          meta: {
+            rule: 'staff'
+          }
         },
         {
           path: '/detail',
           name: 'detail-index',
           component: () => import('./views/DetailList.vue'),
           meta: {
-            rule: 'editor'
+            rule: 'staff'
           }
         },
         {
@@ -1472,7 +1476,7 @@ const router = new Router({
           name: 'page-login',
           component: () => import('@/views/pages/login/Login.vue'),
           meta: {
-            rule: 'editor'
+            rule: new AclRule('*').generate()
           }
         },
         {

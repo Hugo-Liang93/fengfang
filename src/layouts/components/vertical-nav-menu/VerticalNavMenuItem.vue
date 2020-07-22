@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import { AclRule } from 'vue-acl'
+
 export default {
   name: 'v-nav-menu-item',
   props: {
@@ -54,8 +56,9 @@ export default {
   },
   computed: {
     canSee () {
-      this.$acl.check(this.$store.state.AppActiveUser.userRole)
-      return this.to ? this.$acl.check(this.$router.match(this.to).meta.rule) : true
+      console.log(this.$acl.check(new AclRule(this.$store.state.AppActiveUser.permission.role_name_en).generate()))
+      return this.$acl.check(new AclRule(this.$store.state.AppActiveUser.permission.role_name_en).generate())
+      // return this.to ? this.$acl.check(this.$router.match(this.to).meta.rule) : true
     },
     activeLink () {
       return !!((this.to === this.$route.path || this.$route.meta.parent === this.slug) && this.to)
@@ -64,4 +67,3 @@ export default {
 }
 
 </script>
-

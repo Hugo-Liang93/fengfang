@@ -181,7 +181,6 @@ export default {
           }
         }
       }
-      console.log(clone)
       return clone
     },
     isVerticalNavMenuActive: {

@@ -1,6 +1,6 @@
 <template>
   <vx-card title="员工打卡">
-  
+
       <p>当定位在公司范围之内才可打卡哦</p>
         <vs-list>
           <vs-list-header title="打卡状态"></vs-list-header>
@@ -12,7 +12,7 @@
           </vs-list-item>
       </vs-list>
       <div class="mt-5">
-        
+
         <el-amap  vid="amapDemo" :plugin="plugin"  :center="center" :zoom="zoom"  class="amap-demo" style="width: 100%; height: 400px">
           <el-amap-marker :position="officeMarker.postion" :label="{content:officeMarker.label,offset: [10, 10]}"></el-amap-marker>
           <el-amap-circle :center="officeMarker.postion" :radius="2000" :fill-opacity="0.5" ></el-amap-circle>
@@ -34,10 +34,10 @@ VueAMap.initAMapApiLoader({
   ],
   // 默认高德 sdk 版本为 1.4.4
   v: '1.4.4'
-})  
+})
 
 export default {
- 
+
   data () {
     const vm = this
     return {
@@ -76,7 +76,7 @@ export default {
                 }
               })
             }
-          }  
+          }
         },
         {
           pName: 'Geocoder',
@@ -89,14 +89,13 @@ export default {
                   vm.latOffice = result.geocodes[0].location.lat
                   vm.officeMarker.postion = [vm.lngOffice, vm.latOffice]
                   vm.officeStatus = true
-                  console.log(vm.getDistance(vm.lng, vm.lat, vm.lngOffice, vm.latOffice))
                   vm.$nextTick()
                 }
               })
             }
-          }  
+          }
         }
-      ]          
+      ]
     }
   },
   methods: {
@@ -152,7 +151,7 @@ export default {
           iconPack: 'feather',
           icon: 'icon-alert-circle',
           color: 'warning'
-        }) 
+        })
       }
     },
     clockin () {
@@ -167,7 +166,7 @@ export default {
             clockin_lat: this.lat
           }
           this.$store.dispatch('user/clockIn', clockInObj)
-            .then(response => { 
+            .then(response => {
               if (response.data.status === true) {
                 this.$vs.loading.close()
                 this.$vs.notify({
@@ -208,11 +207,11 @@ export default {
             color: 'danger'
           })
         }
-        
-      }      
+
+      }
     },
     getDistance (longitude1, latitude1, longitude2, latitude2) {
-      const d1 = 0.01745329251994329  
+      const d1 = 0.01745329251994329
       let d2 = longitude1
       let d3 = latitude1
       let d4 = longitude2
@@ -267,7 +266,7 @@ export default {
     this.userOffice = this.$store.state.AppActiveUser.user_office
     this.buttonStatus()
   }
-}    
+}
 </script>
 <style>
 </style>
