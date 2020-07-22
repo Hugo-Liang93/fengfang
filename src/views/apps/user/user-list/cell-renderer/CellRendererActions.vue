@@ -1,7 +1,7 @@
 <template>
     <div :style="{'direction': $vs.rtl ? 'rtl' : 'ltr'}">
-      <feather-icon icon="Edit3Icon" svgClasses="h-5 w-5 mr-4 hover:text-primary cursor-pointer" @click="editRecord" />
-      <feather-icon icon="Trash2Icon" svgClasses="h-5 w-5 hover:text-danger cursor-pointer" @click="confirmDeleteRecord" />
+      <feather-icon icon="Edit3Icon" svgClasses="h-5 w-5 mr-4 hover:text-primary cursor-pointer" @click="opAccess('edit')" />
+      <feather-icon icon="Trash2Icon" svgClasses="h-5 w-5 hover:text-danger cursor-pointer" @click="opAccess('del')" />
     </div>
 </template>
 
@@ -9,6 +9,21 @@
 export default {
   name: 'CellRendererActions',
   methods: {
+    opAccess (opType) {
+      if (this.$acl.check('isAdmin')) {
+        if (opType === 'edit') {
+          this.editRecord()
+        } else this.confirmDeleteRecord()
+      } else {
+        this.$vs.notify({
+          title: 'Error',
+          text: '没有该操作权限',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+      }
+    },
     editRecord () {
       this.$router.push(`/apps/user/user-edit/${this.params.data.user_id}`).catch(() => {})
 

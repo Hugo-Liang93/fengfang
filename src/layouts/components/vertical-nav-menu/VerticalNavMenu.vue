@@ -177,10 +177,22 @@ export default {
         if (item.header && item.items.length && (index || 1)) {
           const i = clone.findIndex(ix => ix.header === item.header)
           for (const [subIndex, subItem] of item.items.entries()) {
+            if (subItem.submenu) {
+              let coc = 0
+              subItem.submenu.forEach((cItem) => {
+                console.log(this.$router.match(cItem.url).meta.rule)
+                if (this.$acl.check(this.$router.match(cItem.url).meta.rule)) {
+                  coc++
+                }
+              })
+              if (coc === 0) continue
+            }
             clone.splice(i + 1 + subIndex, 0, subItem)
           }
         }
       }
+      // 当不存在子元素时删除
+
       return clone
     },
     isVerticalNavMenuActive: {

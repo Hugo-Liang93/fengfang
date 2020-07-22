@@ -56,9 +56,8 @@ export default {
   },
   computed: {
     canSee () {
-      console.log(this.$acl.check(new AclRule(this.$store.state.AppActiveUser.permission.role_name_en).generate()))
-      return this.$acl.check(new AclRule(this.$store.state.AppActiveUser.permission.role_name_en).generate())
-      // return this.to ? this.$acl.check(this.$router.match(this.to).meta.rule) : true
+      // this.$acl.check(this.$store.state.AppActiveUser.permission.role_name_en)
+      return this.to ? this.$acl.check(this.$router.match(this.to).meta.rule) : true
     },
     activeLink () {
       return !!((this.to === this.$route.path || this.$route.meta.parent === this.slug) && this.to)
