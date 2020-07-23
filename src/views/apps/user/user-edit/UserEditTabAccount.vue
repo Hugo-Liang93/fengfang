@@ -43,7 +43,7 @@
         <vs-input class="w-full mt-4" label="部门" v-model="data_local.user_dept" v-validate="'required'" name="department" />
         <span class="text-danger text-sm"  v-show="errors.has('department')">{{ errors.first('department') }}</span>
 
-        <vs-input class="w-full mt-4" label="公司地址(打卡地址)" v-model="data_local.user_office" v-validate="'required'" name="office" />
+        <vs-input class="w-full mt-4" label="公司地址(打卡地址)" v-model="data_local.user_office" v-validate="'required'" name="office"  :disabled="!this.$acl.check('isAdmin')"/>
         <span class="text-danger text-sm"  v-show="errors.has('office')">{{ errors.first('office') }}</span>
       </div>
 
@@ -51,12 +51,12 @@
 
         <div class="mt-4">
           <label class="vs-input--label">角色</label>
-          <v-select v-model="role_local"  :clearable="false" :options="roleOptions" v-validate="'required'" name="role" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+          <v-select v-model="role_local"  :clearable="false" :options="roleOptions" v-validate="'required'" name="role" :dir="$vs.rtl ? 'rtl' : 'ltr'" :disabled="!this.$acl.check('isAdmin')"/>
           <span class="text-danger text-sm"  v-show="errors.has('role')">{{ errors.first('role') }}</span>
         </div>
 
         <!-- v-validate="'alpha_spaces'" -->
-        <vs-input class="w-full mt-4" label="公司" v-model="data_local.user_company"  name="company" />
+        <vs-input class="w-full mt-4" label="公司" v-model="data_local.user_company"  name="company" :disabled="!this.$acl.check('isAdmin')"/>
         <span class="text-danger text-sm"  v-show="errors.has('company')">{{ errors.first('company') }}</span>
 
         <vs-input class="w-full mt-4" label="职位" v-model="data_local.user_position" v-validate="'required'" name="position" />

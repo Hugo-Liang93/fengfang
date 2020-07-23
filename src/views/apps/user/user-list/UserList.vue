@@ -430,7 +430,7 @@ export default {
       this.$store.registerModule('userManagement', moduleUserManagement)
       moduleUserManagement.isRegistered = true
     }
-    this.$store.dispatch('userManagement/fetchUsers').catch(err => { console.error(err) })
+    this.$store.dispatch('userManagement/fetchUsers', {userId: this.$store.state.AppActiveUser.user_id, roleId: this.$store.state.AppActiveUser.permission.role_id}).catch(err => { console.error(err) })
   }
 }
 

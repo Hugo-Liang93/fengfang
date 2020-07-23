@@ -21,9 +21,14 @@ export default {
   //       .catch((error) => { reject(error) })
   //   })
   // },
-  fetchUsers ({ commit }) {
+  fetchUsers ({ commit }, parm) {
+    
     return new Promise((resolve, reject) => {
-      axios.get('/api/user-management/users')
+      axios.get('/api/user-management/users', {
+        params: {userId: parm.userId,
+          roleId: parm.roleId
+        }
+      })
         .then((response) => {
           //调用在获取所有用户数据的时候
           commit('SET_USERS', response.data)

@@ -141,6 +141,9 @@ export default {
     }
   },
   async created () {
+    if (this.$store.state.activity.activityList.length === 0) {
+      await this.$store.dispatch('activity/getActivityByCompany', this.$store.state.AppActiveUser.user_company).catch(err => { console.error(err) })
+    }
     this.activity = this.$store.state.activity.activityList.find(val => {
       return val.id === this.$route.params.activityId
     })

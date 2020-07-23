@@ -48,10 +48,10 @@
                 <small class="date-label">发布范围</small>
                 <ul class="demo-alignment">
                   <li>
-                    <vs-radio v-model="company" vs-value="admin">Admin</vs-radio>
+                    <vs-radio v-model="company" vs-value="全集团">全集团</vs-radio>
                   </li>
                   <li>
-                    <vs-radio v-model="company" :vs-value="company">Company</vs-radio>
+                    <vs-radio v-model="company" :vs-value="公司">公司</vs-radio>
                   </li>
                 </ul>
               </div>

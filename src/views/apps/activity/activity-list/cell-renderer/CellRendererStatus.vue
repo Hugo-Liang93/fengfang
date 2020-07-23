@@ -1,6 +1,6 @@
 <template>
     <vs-chip class="ag-grid-cell-chip" :color="chipColor(params.value)">
-      <span>{{ params.value }}</span>
+      <span>{{ params.value ==='true'? '已通过':'未通过' }}</span>
     </vs-chip>
 </template>
 

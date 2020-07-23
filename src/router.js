@@ -222,7 +222,7 @@ const router = new Router({
               { title: '用户列表', active: true }
             ],
             pageTitle: '用户列表',
-            rule: 'isPublic'
+            rule: 'isAdmin'
           }
         },
         {

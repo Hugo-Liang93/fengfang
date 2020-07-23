@@ -180,7 +180,6 @@ export default {
             if (subItem.submenu) {
               let coc = 0
               subItem.submenu.forEach((cItem) => {
-                console.log(this.$router.match(cItem.url).meta.rule)
                 if (this.$acl.check(this.$router.match(cItem.url).meta.rule)) {
                   coc++
                 }
@@ -192,7 +191,7 @@ export default {
         }
       }
       // 当不存在子元素时删除
-
+      
       return clone
     },
     isVerticalNavMenuActive: {
