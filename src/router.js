@@ -21,6 +21,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import auth from '@/auth/authService'
+import { AclRule } from 'vue-acl'
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -47,7 +48,10 @@ const router = new Router({
         // =============================================================================
         {
           path: '/',
-          redirect: '/detail'
+          redirect: '/detail',
+          meta: {
+            rule: 'staff'
+          }
         },
         {
           path: '/detail',

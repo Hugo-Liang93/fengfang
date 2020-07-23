@@ -9,7 +9,6 @@ let initialRole = 'staff'
 const userInfo = JSON.parse(localStorage.getItem('userInfo'))
 if (userInfo && userInfo.permission.role_name_en) initialRole = userInfo.permission.role_name_en
 
-console.log(initialRole)
 
 export default new AclCreate({
   initial  : initialRole,
@@ -17,6 +16,7 @@ export default new AclCreate({
   router,
   acceptLocalRules : true,
   globalRules: {
+    isPublic : new AclRule('*').generate(),
     admin  : new AclRule('admin').generate(),
     editor : new AclRule('editor').or('admin').generate(),
     isPublic : new AclRule('admin').or('com_admin').or('dept_admin').or('staff').generate(),

@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import { AclRule } from 'vue-acl'
+
 export default {
   name: 'v-nav-menu-item',
   props: {
@@ -64,4 +66,3 @@ export default {
 }
 
 </script>
-
