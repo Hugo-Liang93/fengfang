@@ -77,7 +77,8 @@
           <!-- <vs-button class="mb-4 md:mb-0" @click="gridApi.exportDataAsCsv()">Export as CSV</vs-button> -->
           
           <vs-button class="sm:mr-4 mr-0 sm:w-auto w-full sm:order-normal order-3 sm:mt-0 mt-4" @click="updateCommentStatus(true)">通过</vs-button>
-          <vs-button color="danger" @click="updateCommentStatus(false)">不通过</vs-button>
+          <vs-button class="sm:mr-4 mr-0 sm:w-auto w-full sm:order-normal order-3 sm:mt-0 mt-4" color="danger" @click="updateCommentStatus(false)">不通过</vs-button>
+          <vs-button class="sm:mr-4 mr-0 sm:w-auto w-full sm:order-normal order-3 sm:mt-0 mt-4" color="warning" @click="delComment">删除</vs-button>
           <!-- ACTION - DROPDOWN -->
           <!-- <vs-dropdown vs-trigger-click class="cursor-pointer">
 
@@ -338,6 +339,19 @@ export default {
     }
   },
   methods: {
+    delComment () {
+      const selectedNodes = this.gridApi.getSelectedNodes()
+      const selectedData = selectedNodes.map(node => node.data)
+      const ls = []
+      for (const i in selectedData) {
+        ls.push(parseInt((selectedData[i].like_id)))
+      }
+      activityAPI.delComment({'passLs': ls.toString()}).then(() => {
+        activityAPI.getAllComment().then(response => {
+          this.commentsData = response.data
+        })
+      })
+    },
     updateCommentStatus (Statustype) {
       const selectedNodes = this.gridApi.getSelectedNodes()
       const selectedData = selectedNodes.map(node => node.data)

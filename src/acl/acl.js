@@ -16,9 +16,8 @@ export default new AclCreate({
   router,
   acceptLocalRules : true,
   globalRules: {
-    isPublic : new AclRule('*').generate(),
-    admin  : new AclRule('admin').generate(),
-    editor : new AclRule('editor').or('admin').generate(),
+    isSuperAdmin  : new AclRule('admin').generate(),
+    staff : new AclRule('staff'),
     isPublic : new AclRule('admin').or('com_admin').or('dept_admin').or('staff').generate(),
     isAdmin: new AclRule('admin').or('com_admin').or('dept_admin').generate()
   }

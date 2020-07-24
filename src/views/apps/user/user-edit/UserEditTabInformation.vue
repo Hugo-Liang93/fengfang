@@ -19,15 +19,10 @@
         </div>
 
         <!-- Col Content -->
-        <div>
-
-          <!-- DOB -->
-          <div class="mt-4">
-            <label class="text-sm">生日日期</label>
-            <!-- Y-m-d -->
-            <flat-pickr v-model="data_local.user_birthday" :config="{altFormat: 'Y-m-d', dateFormat: 'Y-m-d', defaultDate: data_local.user_birthday, maxDate: new Date() }" class="w-full" v-validate="'required'" name="dob" />
-            <span class="text-danger text-sm"  v-show="errors.has('dob')">{{ errors.first('dob') }}</span>
-          </div>
+   
+          
+          <vs-input class="w-full mt-4" label="生日日期('YYYY-MM-DD')" v-model="data_local.user_birthday" v-validate="'required'" name="dob1" />
+          <span class="text-danger text-sm"  v-show="errors.has('dob1')">{{ errors.first('dob1') }}</span>
 
           <vs-input class="w-full mt-4" label="身份证号" v-model="data_local.user_idcard" v-validate="{regex: '^\\+?([0-9]+)$' }" name="idcard" />
           <span class="text-danger text-sm"  v-show="errors.has('idcard')">{{ errors.first('idcard') }}</span>
@@ -51,7 +46,6 @@
             </div>
           </div>
  -->
-        </div>
       </div>
 
       <!-- Address Col -->

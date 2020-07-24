@@ -62,12 +62,12 @@
         <vs-input class="w-full mt-4" label="职位" v-model="data_local.user_position" v-validate="'required'" name="position" />
         <span class="text-danger text-sm"  v-show="errors.has('position')">{{ errors.first('position') }}</span>
 
-        <div class="mt-4">
-          <label class="text-sm">入职日期</label>
+        <!-- <div class="mt-4"> -->
           <!-- Y-m-d -->
-          <flat-pickr v-model="data_local.user_hiredate" :config="{altFormat: 'Y-m-d', dateFormat: 'Y-m-d', defaultDate: data_local.user_birthday, maxDate: new Date() }" class="w-full" v-validate="'required'" name="dob" />
+          <!-- <flat-pickr v-model="data_local.user_hiredate" :config="{altFormat: 'Y-m-d', dateFormat: 'Y-m-d', defaultDate: data_local.user_birthday, maxDate: new Date() }" class="w-full" v-validate="'required'" name="dob" /> -->
+          <vs-input class="w-full mt-4" label="入职日期('YYYY-MM-DD')" v-model="data_local.user_hiredate" v-validate="'required'" name="dob" />
           <span class="text-danger text-sm"  v-show="errors.has('dob')">{{ errors.first('dob') }}</span>
-        </div>
+        <!-- </div> -->
       </div>
     </div>
 

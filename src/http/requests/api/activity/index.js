@@ -33,5 +33,8 @@ export default {
   },
   updateCommentStatus (type, obj) {
     return axios.post(`api/Activity/Comments/${type}`, obj)
+  },
+  delComment (obj) {
+    return axios.post('api/Activity/delComment', obj)
   }
 }

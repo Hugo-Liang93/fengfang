@@ -21,7 +21,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import auth from '@/auth/authService'
-import { AclRule } from 'vue-acl'
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -66,7 +65,7 @@ const router = new Router({
           name: 'detail-manage',
           component: () => import('./views/apps/detail/DetailListAdd.vue'),
           meta: {
-            rule: 'isAdmin'
+            rule: 'isSuperAdmin'
           }
         },
         {
@@ -74,7 +73,7 @@ const router = new Router({
           name: 'detail-list',
           component: () => import('./views/apps/detail/detail-list/DetailList.vue'),
           meta: {
-            rule: 'isAdmin'
+            rule: 'isSuperAdmin'
           }
         },
         {
@@ -82,7 +81,7 @@ const router = new Router({
           name: 'detail-view',
           component: () => import('./views/apps/detail/DetailListView.vue'),
           meta: {
-            rule: 'isPublic'
+            rule: 'isSuperAdmin'
           }
         },
         // {

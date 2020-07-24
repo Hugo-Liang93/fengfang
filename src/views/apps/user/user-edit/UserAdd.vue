@@ -70,11 +70,9 @@
                         <vs-input class="w-full mt-4" label="手机" v-model="userInfo.user_phone" v-validate="'required'" name="phone" />
                         <span class="text-danger text-sm"  v-show="errors.has('phone')">{{ errors.first('phone') }}</span>
                         
-                        <div class="mt-4">
-                          <label class="text-sm" style="color: red;">* 入职日期</label>
-                          <!-- Y-m-d -->
-                          <flat-pickr v-model="userInfo.user_hiredate" :config="{altFormat: 'Y-m-d', dateFormat: 'Y-m-d', maxDate: '2020-01-01' }" class="w-full"/>
-                        </div>
+                        <vs-input class="w-full mt-4" label="入职日期" v-model="userInfo.user_hiredate" v-validate="'required'" name="user_hiredate" />
+                        <span class="text-danger text-sm"  v-show="errors.has('user_hiredate')">{{ errors.first('user_hiredate') }}</span>
+                       
                       </div>
                     </div>
                 </tab-content>
@@ -91,12 +89,9 @@
                       </div>
                       <!-- Col Content -->
                       <div>
-                        <!-- DOB -->
-                        <div class="mt-4">
-                          <label class="text-sm" style="color: red;">* 生日日期</label>
-                          <!-- Y-m-d -->
-                          <flat-pickr v-model="userInfo.user_birthday" :config="{altFormat: 'Y-m-d', dateFormat: 'Y-m-d', maxDate: '2020-01-01' }" class="w-full" />
-                        </div>
+                        
+                        <vs-input class="w-full mt-4" label="入职日期" v-model="userInfo.user_birthday" v-validate="'required'" name="user_birthday" />
+                        <span class="text-danger text-sm"  v-show="errors.has('user_birthday')">{{ errors.first('user_birthday') }}</span>
               
                         <vs-input class="w-full mt-4" label="身份证号" v-model="userInfo.user_idcard" v-validate="{regex: '^\\+?([0-9]+)$' }" name="idcard" />
                         <span class="text-danger text-sm"  v-show="errors.has('idcard')">{{ errors.first('idcard') }}</span>
