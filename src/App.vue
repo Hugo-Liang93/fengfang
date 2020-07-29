@@ -75,13 +75,11 @@ export default {
     }
     // nav move 方向
     const dir = this.$vs.rtl ? 'rtl' : 'ltr'
-    
+
     document.documentElement.setAttribute('dir', dir)
 
     window.addEventListener('resize', this.handleWindowResize)
     window.addEventListener('scroll', this.handleScroll)
-    // Auth0
-    //  try       { await this.$auth.renewTokens() } catch (e) { console.log(e) }
   },
   destroyed () {
     window.removeEventListener('resize', this.handleWindowResize)

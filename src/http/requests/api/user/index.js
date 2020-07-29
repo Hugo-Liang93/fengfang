@@ -27,5 +27,14 @@ export default {
   },
   getTodayClockInList (user_id) {
     return axios.get(`/api/clockin/getTodayClockin/${user_id}`)
+  },
+  getRoles () {
+    return axios.get('api/filter/get-roles')
+  },
+  getCompanys () {
+    return axios.get('api/filter/get-companys')
+  },
+  getDepts () {
+    return axios.get('api/filter/get-depts')
   }
 }

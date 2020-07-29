@@ -5,6 +5,7 @@
         <swiper :options="swiperOption" class="swiper-wrapper" v-if="attachPic.length">
             <swiper-slide class="swiper-slide" v-for="(item,index) in attachPic" :key="index" >
                   <img alternating="true" :key="`index${item.fileName}`" :src="`/images/${item.fileName}`" @click="navTo(item.detail_type,item.type_id)" />
+                  
             </swiper-slide>
             <div class="swiper-pagination"  slot="pagination"></div>
             <div class="swiper-button-prev" slot="button-prev"></div> 

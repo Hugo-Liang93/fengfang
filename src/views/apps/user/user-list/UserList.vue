@@ -12,7 +12,7 @@
   <div id="page-user-list">
 
     <vx-card ref="filterCard" title="Filters" class="user-list-filters mb-8" actionButtons @refresh="resetColFilters" @remove="resetColFilters">
-      
+
       <vs-prompt title="导出数据" class="export-options" @cancle="clearFields" @accept="exportToExcel" accept-text="Export"  @close="clearFields" :active.sync="activePrompt">
           <vs-input v-model="fileName" placeholder="文件名" class="w-full" />
           <v-select v-model="selectedFormat" :options="formats" class="my-4" />
@@ -21,7 +21,7 @@
             <vs-switch v-model="cellAutoWidth">Cell Auto Width</vs-switch>
           </div>
       </vs-prompt>
-      
+
       <div class="vx-row">
         <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
           <label class="text-sm opacity-75">角色</label>
@@ -75,7 +75,7 @@
         <!-- TABLE ACTION COL-2: SEARCH & EXPORT AS CSV -->
           <vs-input class="sm:mr-4 mr-0 sm:w-auto w-full sm:order-normal order-3 sm:mt-0 mt-4" v-model="searchQuery" @input="updateSearchQuery" placeholder="Search..." />
           <!-- <vs-button class="mb-4 md:mb-0" @click="gridApi.exportDataAsCsv()">Export as CSV</vs-button> -->
-          
+
           <vs-button @click="activePrompt=true">导出</vs-button>
           <!-- ACTION - DROPDOWN -->
           <!-- <vs-dropdown vs-trigger-click class="cursor-pointer">
@@ -138,7 +138,7 @@
         :suppressPaginationPanel="true"
         :enableRtl="$vs.rtl">
       </ag-grid-vue>
-      
+
       <!-- 当前页码 -->
       <vs-pagination
         :total="totalPages"
@@ -164,6 +164,7 @@ import CellRendererStatus from './cell-renderer/CellRendererStatus.vue'
 import CellRendererVerified from './cell-renderer/CellRendererVerified.vue'
 import CellRendererActions from './cell-renderer/CellRendererActions.vue'
 
+import userAPI from '../../../../http/requests/api/user/index.js'
 
 export default {
   components: {
@@ -186,31 +187,20 @@ export default {
       headerVal: ['user_id', 'email', 'name', 'user_company', 'user_dept', 'user_office', 'permission.role_name', 'user_position'],
       headerTitle: [],
       // Filter Options
-      roleFilter: { label: 'All', value: 'all' },
+      roleFilter: { label: '所有', value: 'all' },
       roleOptions: [
-        { label: 'All', value: 'all' },
+        { label: '所有', value: 'all' },
         { label: '超级管理员', value: '超级管理员' },
         { label: '公司管理员', value: '公司管理员' },
         { label: '部门管理员', value: '部门管理员' },
         { label: '员工', value: '员工' }
       ],
 
-      userCompanyFilter: { label: 'All', value: 'all' },
-      userCompanyOptions: [
-        { label: 'All', value: 'all' },
-        { label: '蜂旅假期', value: '蜂旅假期' },
-        { label: '展厅', value: '展厅' },
-        { label: '驻场', value: '驻场' },
-        { label: '蜂房商旅', value: '广州市蜂房商旅服务有限公司' },
-        { label: '蜂房集团', value: '蜂房集团' }
-      ],
+      userCompanyFilter: { label: '所有', value: 'all' },
+      userCompanyOptions: [],
 
-      departmentFilter: { label: 'All', value: 'all' },
-      departmentOptions: [
-        { label: 'All', value: 'all' },
-        { label: '业务', value: '业务' },
-        { label: '总经办', value: '总经办' }
-      ],
+      departmentFilter: { label: '所有', value: 'all' },
+      departmentOptions: [],
 
       searchQuery: '',
 
@@ -348,6 +338,15 @@ export default {
     }
   },
   methods: {
+    buildMap (filterList) {
+      const filterReturn = [{ label: '所有', value: 'all' }]
+      for (const i of filterList) {
+        const filterObj = {label: i, value: i}
+        filterReturn.push(filterObj)
+      }
+      return filterReturn
+    },
+    // 代入要筛选的字段，接着通过字段找到对应的值
     setColumnFilter (column, val) {
       const filter = this.gridApi.getFilterInstance(column)
       let modelObj = null
@@ -399,7 +398,7 @@ export default {
         // } else {
         //   return v[j]
         // }
-    
+
         return v[j]
       }))
     },
@@ -412,7 +411,7 @@ export default {
   mounted () {
     // 挂在gridApi
     this.gridApi = this.gridOptions.api
-   
+
 
     /* =================================================================
       NOTE:
@@ -424,13 +423,25 @@ export default {
       header.style.left = `-${  String(Number(header.style.transform.slice(11, -3)) + 9)  }px`
     }
   },
-  created () {
+  async created () {
     // 获取用户信息存到state中
     if (!moduleUserManagement.isRegistered) {
       this.$store.registerModule('userManagement', moduleUserManagement)
       moduleUserManagement.isRegistered = true
     }
     this.$store.dispatch('userManagement/fetchUsers', {userId: this.$store.state.AppActiveUser.user_id, roleId: this.$store.state.AppActiveUser.permission.role_id}).catch(err => { console.error(err) })
+
+    await userAPI.getCompanys().then(response => {
+      this.userCompanyOptions = this.buildMap(response.data)
+    })
+    
+    await userAPI.getDepts().then(response => {
+      this.departmentOptions = this.buildMap(response.data)
+    })
+    
+    await userAPI.getCompanys().then(response => {
+      this.userCompanyOptions = this.buildMap(response.data)
+    })
   }
 }
 
