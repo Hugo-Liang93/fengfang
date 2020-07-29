@@ -3,7 +3,6 @@ import { AclInstaller, AclCreate, AclRule } from 'vue-acl'
 import router from '@/router'
 
 Vue.use(AclInstaller)
-
 let initialRole = 'staff'
 
 const userInfo = JSON.parse(localStorage.getItem('userInfo'))

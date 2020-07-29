@@ -5,7 +5,6 @@ export default {
     return new Promise((resolve, reject) => {
       activityAPI.getActivityByCompany(company)
         .then((response) => {
-          console.log(response.data)
           commit('SET_ACTIVITY_LIST', response.data)
           resolve(response)
         })

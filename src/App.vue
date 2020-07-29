@@ -70,6 +70,7 @@ export default {
   async created () {
     // jwt
     // jwt.init()
+    console.log('initApp')
     if (!localStorage.getItem('userInfo')) {
       this.$router.push('/pages/login')
     }

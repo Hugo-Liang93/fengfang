@@ -4,12 +4,20 @@
       <vx-card title="资讯轮播" class="swiper-container">
         <swiper :options="swiperOption" class="swiper-wrapper" v-if="attachPic.length">
             <swiper-slide class="swiper-slide" v-for="(item,index) in attachPic" :key="index" >
-                  <img alternating="true" :key="`index${item.fileName}`" :src="`/images/${item.fileName}`" @click="navTo(item.detail_type,item.type_id)" />
-                  
+              <div>
+                <div>
+                  <img alternating="true" :key="`index${item.fileName}`" :src="`http://localhost:8080/images/${item.fileName}`" @click="navTo(item.detail_type,item.type_id)" />
+                </div>
+                <div>
+                  <vs-alert :title="item.detail_title" color="rgb(231, 154, 23)" active="true">
+                  </vs-alert>
+                </div>
+              </div>
+
             </swiper-slide>
             <div class="swiper-pagination"  slot="pagination"></div>
-            <div class="swiper-button-prev" slot="button-prev"></div> 
-            <div class="swiper-button-next" slot="button-next"></div> 
+            <div class="swiper-button-prev" slot="button-prev"></div>
+            <div class="swiper-button-next" slot="button-next"></div>
           </swiper>
       </vx-card>
     <br />
@@ -23,7 +31,7 @@
                 <vs-th>项目名称</vs-th>
                 <vs-th>明细</vs-th>
               </template>
-      
+
               <template slot-scope="{data}">
                 <vs-tr :key="indextr" v-for="(tr, indextr) in data">
                   <vs-td :data="data[indextr].project_id">
@@ -46,7 +54,7 @@
               </template>
             </vs-table>
           </div>
-      
+
         </vx-card>
       </div>
       <div class="vx-col w-full md:w-1/2">
@@ -60,7 +68,7 @@
                 <vs-th>开始时间</vs-th>
                 <vs-th>明细</vs-th>
               </template>
-      
+
               <template slot-scope="{data}">
                 <vs-tr :key="indextr" v-for="(tr, indextr) in data">
                   <vs-td :data="data[indextr].id">
@@ -90,16 +98,16 @@
                   </vs-td>
                 </vs-tr>
               </template>
-              
+
             </vs-table>
           </div>
-      
+
         </vx-card>
       </div>
     </div>
-   
-   </div> 
-  
+
+   </div>
+
 </template>
 
 <script>
@@ -117,13 +125,13 @@ export default {
       attachPic: [],
       swiperOption: {
         // 所有的参数同 swiper 官方 api 参数一样
-        // 
-        
+        //
+
         //设置点击箭头
         //开启循环模式
         loop: true,
         navigation: {
-          nextEl: '.swiper-button-next', 
+          nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
         },
         //自动轮播
@@ -153,6 +161,9 @@ export default {
     }
   },
   created () {
+    if (this.$route.redirectedFrom) {
+      location.reload()
+    }
     projectAPI.getDetail().then(response => {
       this.attachPic = response.data
     })
@@ -167,7 +178,7 @@ export default {
   #dashboard-analytics {
     .greet-user{
       position: relative;
-  
+
       .decore-left{
         position: absolute;
         left:0;
@@ -179,7 +190,7 @@ export default {
         top: 0;
       }
     }
-  
+
     @media(max-width: 576px) {
       .decore-left, .decore-right{
         width: 140px;
