@@ -242,20 +242,20 @@ const router = new Router({
             rule: 'isAdmin'
           }
         },
-        {
-          path: '/apps/user/user-view/:userId',
-          name: 'app-user-view',
-          component: () => import('@/views/apps/user/UserView.vue'),
-          meta: {
-            breadcrumb: [
-              { title: 'Home', url: '/' },
-              { title: '用户管理' },
-              { title: '用户信息', active: true }
-            ],
-            pageTitle: '用户信息',
-            rule: 'isPublic'
-          }
-        },
+        // {
+        //   path: '/apps/user/user-view/:userId',
+        //   name: 'app-user-view',
+        //   component: () => import('@/views/apps/user/UserView.vue'),
+        //   meta: {
+        //     breadcrumb: [
+        //       { title: 'Home', url: '/' },
+        //       { title: '用户管理' },
+        //       { title: '用户信息', active: true }
+        //     ],
+        //     pageTitle: '用户信息',
+        //     rule: 'isPublic'
+        //   }
+        // },
         {
           path: '/apps/user/user-edit/:userId',
           name: 'app-user-edit',

@@ -6,7 +6,7 @@
             <swiper-slide class="swiper-slide" v-for="(item,index) in attachPic" :key="index" >
               <div>
                 <div>
-                  <img alternating="true" :key="`index${item.fileName}`" :src="`http://localhost:8080/images/${item.fileName}`" @click="navTo(item.detail_type,item.type_id)" />
+                  <img alternating="true" :key="`index${item.fileName}`" :src="`/images/${item.fileName}`" @click="navTo(item.detail_type,item.type_id)" />
                 </div>
                 <div>
                   <vs-alert :title="item.detail_title" color="rgb(231, 154, 23)" active="true">

@@ -31,6 +31,15 @@
         </div>
       </div>
     </vx-card> -->
+    
+    <vs-prompt title="导出数据" class="export-options" @cancle="clearFields" @accept="exportToExcel" accept-text="导出"  @close="clearFields" :active.sync="activePrompt">
+        <vs-input v-model="fileName" placeholder="文件名" class="w-full" />
+        <v-select v-model="selectedFormat" :options="formats" class="my-4" />
+        <div class="flex">
+          <span class="mr-4">单元格自适应:</span>
+          <vs-switch v-model="cellAutoWidth">Cell Auto Width</vs-switch>
+        </div>
+    </vs-prompt>
 
     <div class="vx-card p-6">
 
@@ -63,11 +72,12 @@
         </div>
 
         <!-- TABLE ACTION COL-2: SEARCH & EXPORT AS CSV -->
-          <vs-input class="sm:mr-4 mr-0 sm:w-auto w-full sm:order-normal order-3 sm:mt-0 mt-4" v-model="searchQuery" @input="updateSearchQuery" placeholder="Search..." />
+          <vs-input class="sm:mr-4 mr-0 sm:w-auto w-full sm:order-normal order-3 sm:mt-0 mt-4" v-model="searchQuery" @input="updateSearchQuery" placeholder="查找..." />
+          <vs-button @click="activePrompt=true">导出</vs-button>
           <!-- <vs-button class="mb-4 md:mb-0" @click="gridApi.exportDataAsCsv()">Export as CSV</vs-button> -->
 
           <!-- ACTION - DROPDOWN -->
-          <vs-dropdown vs-trigger-click class="cursor-pointer">
+          <!-- <vs-dropdown vs-trigger-click class="cursor-pointer">
 
             <div class="p-3 shadow-drop rounded-lg d-theme-dark-light-bg cursor-pointer flex items-end justify-center text-lg font-medium w-32">
               <span class="mr-2 leading-none">Actions</span>
@@ -105,7 +115,7 @@
               </vs-dropdown-item>
 
             </vs-dropdown-menu>
-          </vs-dropdown>
+          </vs-dropdown> -->
       </div>
 
 
@@ -165,7 +175,12 @@ export default {
   },
   data () {
     return {
-
+      activePrompt: false,
+      fileName: '',
+      formats:['xlsx', 'csv', 'txt'],
+      cellAutoWidth: true,
+      selectedFormat: 'xlsx',
+      headerVal: ['user_id', 'clockin_path', 'clockin_time'],
       // Filter Options
       roleFilter: { label: 'All', value: 'all' },
       roleOptions: [
@@ -308,6 +323,42 @@ export default {
     },
     updateSearchQuery (val) {
       this.gridApi.setQuickFilter(val)
+    },
+    exportToExcel () {
+      const selectedNodes = this.gridApi.getSelectedNodes()
+      const selectedData = selectedNodes.map(node => node.data)
+      import('@/vendor/Export2Excel').then(excel => {
+        const list = selectedData
+        const data = this.formatJson(this.headerVal, list)
+        excel.export_json_to_excel({
+          header: this.headerVal,
+          data,
+          filename: this.fileName,
+          autoWidth: this.cellAutoWidth,
+          bookType: this.selectedFormat
+        })
+        this.clearFields()
+      })
+    },
+    formatJson (filterVal, jsonData) {
+      return jsonData.map(v => filterVal.map(j => {
+        if (j.indexOf('.') !== -1) {
+          return v[j.split('.')[0]][j.split('.')[1]]
+        }
+        // Add col name which needs to be translated
+        // if (j === 'timestamp') {
+        //   return parseTime(v[j])
+        // } else {
+        //   return v[j]
+        // }
+    
+        return v[j]
+      }))
+    },
+    clearFields () {
+      this.filename = ''
+      this.cellAutoWidth = true
+      this.selectedFormat = 'xlsx'
     }
   },
   mounted () {

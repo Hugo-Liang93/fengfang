@@ -17,7 +17,7 @@
 
           <li
             class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
-            @click="$router.push('/apps/user/user-view/owner').catch(() => {})">
+            @click="$router.push('/apps/user/user-edit/owner').catch(() => {})">
             <feather-icon icon="UserIcon" svgClasses="w-4 h-4" />
             <span class="ml-2">个人信息</span>
           </li>

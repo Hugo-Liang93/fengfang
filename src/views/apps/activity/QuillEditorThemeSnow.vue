@@ -51,7 +51,7 @@
                     <vs-radio v-model="company" vs-value="全集团">全集团</vs-radio>
                   </li>
                   <li>
-                    <vs-radio v-model="company" :vs-value="公司">公司</vs-radio>
+                    <vs-radio v-model="company" :vs-value="this.$store.state.AppActiveUser.user_company">公司</vs-radio>
                   </li>
                 </ul>
               </div>

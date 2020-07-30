@@ -13,15 +13,6 @@
 
 <!--    <vx-card ref="filterCard" title="Filters" class="user-list-filters mb-8" actionButtons @refresh="resetColFilters" @remove="resetColFilters">
       
-      <vs-prompt title="导出数据" class="export-options" @cancle="clearFields" @accept="exportToExcel" accept-text="Export"  @close="clearFields" :active.sync="activePrompt">
-          <vs-input v-model="fileName" placeholder="文件名" class="w-full" />
-          <v-select v-model="selectedFormat" :options="formats" class="my-4" />
-          <div class="flex">
-            <span class="mr-4">单元格自适应:</span>
-            <vs-switch v-model="cellAutoWidth">Cell Auto Width</vs-switch>
-          </div>
-      </vs-prompt>
-      
       <div class="vx-row">
         <div class="vx-col md:w-1/4 sm:w-1/2 w-full">
           <label class="text-sm opacity-75">角色</label>
@@ -41,6 +32,15 @@
         </div>
       </div>
     </vx-card> -->
+    
+    <vs-prompt title="导出数据" class="export-options" @cancle="clearFields" @accept="exportToExcel" accept-text="Export"  @close="clearFields" :active.sync="activePrompt">
+        <vs-input v-model="fileName" placeholder="文件名" class="w-full" />
+        <v-select v-model="selectedFormat" :options="formats" class="my-4" />
+        <div class="flex">
+          <span class="mr-4">单元格自适应:</span>
+          <vs-switch v-model="cellAutoWidth">Cell Auto Width</vs-switch>
+        </div>
+    </vs-prompt>
 
     <div class="vx-card p-6">
 
@@ -73,7 +73,7 @@
         </div>
 
         <!-- TABLE ACTION COL-2: SEARCH & EXPORT AS CSV -->
-          <vs-input class="sm:mr-4 mr-0 sm:w-auto w-full sm:order-normal order-3 sm:mt-0 mt-4" v-model="searchQuery" @input="updateSearchQuery" placeholder="Search..." />
+          <vs-input class="sm:mr-4 mr-0 sm:w-auto w-full sm:order-normal order-3 sm:mt-0 mt-4" v-model="searchQuery" @input="updateSearchQuery" placeholder="查找..." />
           <!-- <vs-button class="mb-4 md:mb-0" @click="gridApi.exportDataAsCsv()">Export as CSV</vs-button> -->
           
           <vs-button @click="activePrompt=true">导出</vs-button>
@@ -179,7 +179,7 @@ export default {
       formats:['xlsx', 'csv', 'txt'],
       cellAutoWidth: true,
       selectedFormat: 'xlsx',
-      headerVal: ['user_id', 'email', 'name', 'user_company', 'user_dept', 'user_office', 'permission.role_name', 'user_position'],
+      headerVal: ['id', 'title', 'startDate', 'endDate', 'company', 'user.name'],
       headerTitle: [],
       // Filter Options
       roleFilter: { label: 'All', value: 'all' },

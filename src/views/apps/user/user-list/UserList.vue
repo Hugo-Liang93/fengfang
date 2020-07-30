@@ -13,7 +13,7 @@
 
     <vx-card ref="filterCard" title="Filters" class="user-list-filters mb-8" actionButtons @refresh="resetColFilters" @remove="resetColFilters">
 
-      <vs-prompt title="导出数据" class="export-options" @cancle="clearFields" @accept="exportToExcel" accept-text="Export"  @close="clearFields" :active.sync="activePrompt">
+      <vs-prompt title="导出数据" class="export-options" @cancle="clearFields" @accept="exportToExcel" accept-text="导出"  @close="clearFields" :active.sync="activePrompt">
           <vs-input v-model="fileName" placeholder="文件名" class="w-full" />
           <v-select v-model="selectedFormat" :options="formats" class="my-4" />
           <div class="flex">
@@ -73,7 +73,7 @@
         </div>
 
         <!-- TABLE ACTION COL-2: SEARCH & EXPORT AS CSV -->
-          <vs-input class="sm:mr-4 mr-0 sm:w-auto w-full sm:order-normal order-3 sm:mt-0 mt-4" v-model="searchQuery" @input="updateSearchQuery" placeholder="Search..." />
+          <vs-input class="sm:mr-4 mr-0 sm:w-auto w-full sm:order-normal order-3 sm:mt-0 mt-4" v-model="searchQuery" @input="updateSearchQuery" placeholder="查找..." />
           <!-- <vs-button class="mb-4 md:mb-0" @click="gridApi.exportDataAsCsv()">Export as CSV</vs-button> -->
 
           <vs-button @click="activePrompt=true">导出</vs-button>
@@ -160,8 +160,8 @@ import moduleUserManagement from '@/store/user-management/moduleUserManagement.j
 
 // Cell Renderer
 import CellRendererLink from './cell-renderer/CellRendererLink.vue'
-import CellRendererStatus from './cell-renderer/CellRendererStatus.vue'
-import CellRendererVerified from './cell-renderer/CellRendererVerified.vue'
+// import CellRendererStatus from './cell-renderer/CellRendererStatus.vue'
+// import CellRendererVerified from './cell-renderer/CellRendererVerified.vue'
 import CellRendererActions from './cell-renderer/CellRendererActions.vue'
 
 import userAPI from '../../../../http/requests/api/user/index.js'
@@ -173,8 +173,8 @@ export default {
 
     // Cell Renderer
     CellRendererLink,
-    CellRendererStatus,
-    CellRendererVerified,
+    // CellRendererStatus,
+    // CellRendererVerified,
     CellRendererActions
   },
   data () {
@@ -188,13 +188,7 @@ export default {
       headerTitle: [],
       // Filter Options
       roleFilter: { label: '所有', value: 'all' },
-      roleOptions: [
-        { label: '所有', value: 'all' },
-        { label: '超级管理员', value: '超级管理员' },
-        { label: '公司管理员', value: '公司管理员' },
-        { label: '部门管理员', value: '部门管理员' },
-        { label: '员工', value: '员工' }
-      ],
+      roleOptions: [],
 
       userCompanyFilter: { label: '所有', value: 'all' },
       userCompanyOptions: [],
@@ -232,7 +226,10 @@ export default {
           headerName: '姓名',
           field: 'name',
           filter: true,
-          width: 150,
+          checkboxSelection: true,
+          headerCheckboxSelectionFilteredOnly: true,
+          headerCheckboxSelection: true,
+          width: 250,
           cellRendererFramework: 'CellRendererLink'
         },
         {
@@ -291,8 +288,8 @@ export default {
       // Cell Renderer Components
       components: {
         CellRendererLink,
-        CellRendererStatus,
-        CellRendererVerified,
+        // CellRendererStatus,
+        // CellRendererVerified,
         CellRendererActions
       }
     }
@@ -364,7 +361,7 @@ export default {
       this.gridApi.onFilterChanged()
 
       // Reset Filter Options
-      this.roleFilter = this.statusFilter = this.isVerifiedFilter = this.departmentFilter = { label: 'All', value: 'all' }
+      this.roleFilter = this.userCompanyFilter = this.departmentFilter = { label: '所有', value: 'all' }
 
       this.$refs.filterCard.removeRefreshAnimation()
     },
@@ -431,8 +428,8 @@ export default {
     }
     this.$store.dispatch('userManagement/fetchUsers', {userId: this.$store.state.AppActiveUser.user_id, roleId: this.$store.state.AppActiveUser.permission.role_id}).catch(err => { console.error(err) })
 
-    await userAPI.getCompanys().then(response => {
-      this.userCompanyOptions = this.buildMap(response.data)
+    await userAPI.getRoles().then(response => {
+      this.roleOptions = this.buildMap(response.data)
     })
     
     await userAPI.getDepts().then(response => {

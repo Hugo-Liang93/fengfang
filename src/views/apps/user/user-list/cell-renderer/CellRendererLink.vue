@@ -11,7 +11,7 @@ export default {
   name: 'CellRendererLink',
   computed: {
     url () {
-      return `/apps/user/user-view/${this.params.data.user_id}`
+      return `/apps/user/user-edit/${this.params.data.user_id}`
 
       // Below line will be for actual product
       // Currently it's commented due to demo purpose - Above url is for demo purpose

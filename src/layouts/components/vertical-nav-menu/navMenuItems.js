@@ -157,12 +157,12 @@ export default [
             slug: 'app-user-list',
             i18n: 'List'
           },
-          {
-            url: '/apps/user/user-view/owner',
-            name: 'View',
-            slug: 'app-user-view',
-            i18n: 'View'
-          },
+          // {
+          //   url: '/apps/user/user-view/owner',
+          //   name: 'View',
+          //   slug: 'app-user-view',
+          //   i18n: 'View'
+          // },
           {
             url: '/apps/user/user-edit/owner',
             name: 'Edit',
