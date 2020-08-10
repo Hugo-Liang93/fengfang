@@ -62,8 +62,10 @@ export default {
       plugin: [
         {
           pName: 'Geolocation',
+          GeoLocationFirst: true,
           events: {
             init (o) {
+              console.log(o.isSupported())
               // o 是高德地图定位插件实例
               o.getCurrentPosition((status, result) => {
                 if (result && result.position) {

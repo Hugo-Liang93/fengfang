@@ -51,7 +51,7 @@
 
         <div class="mt-4">
           <label class="vs-input--label">角色</label>
-          <v-select v-model="role_local"  :clearable="false" :options="roleOptions" v-validate="'required'" name="role" :dir="$vs.rtl ? 'rtl' : 'ltr'" :disabled="!this.$acl.check('isAdmin')"/>
+          <v-select v-model="role_local"  :clearable="false" :options="roleOptions" v-validate="'required'" name="role" :dir="$vs.rtl ? 'rtl' : 'ltr'" :disabled="!this.$acl.check('isSuperAdmin')"/>
           <span class="text-danger text-sm"  v-show="errors.has('role')">{{ errors.first('role') }}</span>
         </div>
 

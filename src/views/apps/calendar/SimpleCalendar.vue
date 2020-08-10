@@ -235,7 +235,16 @@ export default {
       return { from: new Date(this.endDate) }
     },
     calendarLabels () {
-      return this.$store.state.calendar.eventLabels
+      console.log(this.$store.state.calendar.eventLabels)
+      if (!this.$acl.check('isAdmin')) {
+        return this.$store.state.calendar.eventLabels.filter(val => {
+          return val.id === 3
+        })
+      } else if (!this.$acl.check('isSuperAdmin')) {
+        return  this.$store.state.calendar.eventLabels.filter(val => {
+          return val.id >= 2 
+        })
+      } else return this.$store.state.calendar.eventLabels
     },
     labelColor () {
       return (label) => {
