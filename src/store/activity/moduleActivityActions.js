@@ -18,5 +18,13 @@ export default {
         resolve(response)
       }).catch((error) => { reject(error) })
     })
+  },
+  toTop ({ commit }, activityId) {
+    return new Promise((resolve, reject) => {
+      activityAPI.toTop(activityId).then((response) => {
+        commit('TOTOP_ACTIVITY_LIST', activityId)
+        resolve(response)
+      }).catch((error) => { reject(error) })
+    })
   }
 }

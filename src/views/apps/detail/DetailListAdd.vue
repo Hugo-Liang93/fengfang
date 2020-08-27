@@ -76,7 +76,7 @@ export default {
       this.$vs.notify({ color: 'success', title: '上传成功', text: '您上传的文件已经上传成功' })
     },
     formSubmitted () {
-      if (this.$store.state.project.detailList.length < 6) {
+      if (this.$store.state.project.detailList.length < 10) {
         projectAPI.saveDetail({fileName: this.fileName, detail_title: this.detail_title, detail_type : this.detail_type_value, type_id:this.type_id})
           .then(() => { 
             this.$vs.notify({

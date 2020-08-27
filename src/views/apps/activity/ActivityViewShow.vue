@@ -10,6 +10,12 @@
 
 <template>
     <vx-card :title="activity.title" >
+      <vs-popup background-color="rgba(255, 255, 255, 0.7)"   title="评论成功等待审核" :active.sync="popupActivo">
+                  <div>
+                    <span >{{commentbox}}</span>
+                  </div>
+
+      </vs-popup>
       <div>
       <div class="post-header flex justify-between mb-4">
           <div class="flex items-center">
@@ -75,6 +81,7 @@
         </div>
         </div>
     </vx-card>
+
 </template>
 
 <script>
@@ -87,6 +94,7 @@ import activityAPI from '../../../http/requests/api/activity/index.js'
 export default {
   data () {
     return {
+      popupActivo: false,
       activity: null,
       like_post: [],
       commentbox: '',
@@ -123,15 +131,20 @@ export default {
       })
     },
     postMsg () {
-      activityAPI.postMsg(this.$route.params.activityId, this.$store.state.AppActiveUser.user_id, this.commentbox).then(() => {
+      if (!this.commentbox) {
         this.$vs.notify({
-          title: 'Success',
-          text: '评论成功等待审核',
+          title: '错误消息',
+          text: '评论失败，评论内容不能为空',
           iconPack: 'feather',
           icon: 'icon-alert-circle',
-          color: 'success'
+          color: 'danger'
         })
+        return
+      }
+      activityAPI.postMsg(this.$route.params.activityId, this.$store.state.AppActiveUser.user_id, this.commentbox).then(() => {
         this.getComment()
+        this.popupActivo = true
+
       })
     },
     async getComment () {

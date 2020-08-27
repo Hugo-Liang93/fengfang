@@ -8,7 +8,7 @@
 
     <!-- Save & Reset Button -->
     <div class="flex flex-wrap items-center justify-end">
-      <vs-button class="ml-auto mt-2" @click="changePass" :disabled="!validateForm">Save Changes</vs-button>
+      <vs-button class="ml-auto mt-2" @click="changePass" :disabled="!validateForm">保存更改</vs-button>
     </div>
   </vx-card>
 </template>

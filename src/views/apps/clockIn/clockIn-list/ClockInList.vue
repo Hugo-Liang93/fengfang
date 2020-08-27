@@ -237,6 +237,18 @@ export default {
           headerCheckboxSelection: true
         },
         {
+          headerName: '员工名称',
+          field: 'user_name',
+          filter: true,
+          width: 150
+        },
+        {
+          headerName: '员工公司',
+          field: 'user_company',
+          filter: true,
+          width: 200
+        },
+        {
           headerName: '打卡地点',
           field: 'clockin_path',
           filter: true,
@@ -246,7 +258,7 @@ export default {
           headerName: '打卡时间',
           field: 'clockin_time',
           filter: true,
-          width: 150
+          width: 200
         }
       ],
 

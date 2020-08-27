@@ -36,5 +36,8 @@ export default {
   },
   delComment (obj) {
     return axios.post('api/Activity/delComment', obj)
+  },
+  toTop (activityId) {
+    return axios.post('api/Activity/toTop', activityId)
   }
 }

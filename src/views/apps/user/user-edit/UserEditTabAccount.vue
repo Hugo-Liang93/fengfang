@@ -94,7 +94,7 @@
               <td class="px-3 py-2">{{ val.name }}</td>
               <template v-for="permissionName in Object.keys(data_local.permission)">
                 <td v-if="permissionName.indexOf(moduleName)!= -1" class="px-3 py-2" :key="data_local.permission[permissionName]+permissionName">
-                    <vs-checkbox v-model="data_local.permission[permissionName]" />
+                    <vs-checkbox disabled="true" v-model="data_local.permission[permissionName]" />
                 </td>
               </template>
             </tr>
@@ -108,8 +108,8 @@
     <div class="vx-row">
       <div class="vx-col w-full">
         <div class="mt-8 flex flex-wrap items-center justify-end">
-          <vs-button class="ml-auto mt-2" @click="save_changes" :disabled="!validateForm">Save Changes</vs-button>
-          <vs-button class="ml-4 mt-2" type="border" color="warning" @click="reset_data">Reset</vs-button>
+          <vs-button class="ml-auto mt-2" @click="save_changes" :disabled="!validateForm">保存更改</vs-button>
+          <vs-button class="ml-4 mt-2" type="border" color="warning" @click="reset_data">重置</vs-button>
         </div>
       </div>
     </div>

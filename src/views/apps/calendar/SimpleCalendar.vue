@@ -73,7 +73,7 @@
             <div class="vx-col w-full flex">
 
               <div class="flex flex-wrap sm:justify-start justify-center">
-                  <div v-for="(label, index) in calendarLabels" :key="index" class="flex items-center mr-4 mb-2">
+                  <div v-for="(label, index) in labels" :key="index" class="flex items-center mr-4 mb-2">
                       <div class="h-3 w-3 inline-block rounded-full mr-2" :class="'bg-' + label.label_color"></div>
                       <span>{{ label.label_text }}</span>
                   </div>
@@ -130,8 +130,8 @@
     <vs-prompt
         class="calendar-event-dialog"
         title="修改日程"
-        accept-text= "Submit"
-        cancel-text = "Remove"
+        accept-text= "提交"
+        cancel-text = "删除"
         button-cancel = "border"
         @cancel="removeEvent"
         @accept="editEvent"
@@ -140,7 +140,7 @@
 
         <div class="calendar__label-container flex">
 
-            <vs-chip v-if="labelLocal != 'none'" class="text-white" :class="'bg-' + labelColor(labelLocal)">{{ labelLocal }}</vs-chip>
+            <vs-chip v-if="labelLocal != 'none'" class="text-white mb-base" :class="'bg-' + labelColor(labelLocal)">{{ labelLocal }}</vs-chip>
 
             <vs-dropdown vs-custom-content class="ml-auto my-2 cursor-pointer">
 
@@ -234,6 +234,9 @@ export default {
     disabledDatesFrom () {
       return { from: new Date(this.endDate) }
     },
+    labels () {
+      return this.$store.state.calendar.eventLabels
+    },
     calendarLabels () {
       console.log(this.$store.state.calendar.eventLabels)
       if (!this.$acl.check('isAdmin')) {
@@ -275,6 +278,17 @@ export default {
       this.$store.dispatch('calendar/addEvent', obj)
     },
     editEvent () {
+      if (this.labelLocal !== 'personal' & !this.$acl.check('isAdmin')) {
+        this.$vs.notify({
+          title: 'Error',
+          text: '无权限',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+        return
+      }
+      console.log(this.labelLocal)
       const obj = { id: this.id, user_id: this.$store.state.AppActiveUser.user_id, title: this.title, startDate: this.customFormatter(this.startDate), endDate: this.customFormatter(this.endDate), label: this.labelLocal, url: this.url }
       obj.classes = `event-${  this.labelColor(this.labelLocal)}`
       this.$store.dispatch('calendar/editEvent', obj).then(response => {
@@ -339,6 +353,16 @@ export default {
       this.activePromptEditEvent = true
     },
     removeEvent () {
+      if (this.labelLocal !== 'personal' & !this.$acl.check('isAdmin')) {
+        this.$vs.notify({
+          title: 'Error',
+          text: '无权限',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+        return
+      }
       this.$store.dispatch('calendar/removeEvent', this.id)
     },
     eventDragged (event, date) {

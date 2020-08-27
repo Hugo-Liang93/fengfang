@@ -285,7 +285,7 @@ export default {
         {
           headerName: '操作',
           field: 'transactions',
-          width: 100,
+          width: 150,
           cellRendererFramework: 'CellRendererActions'
         }
       ],

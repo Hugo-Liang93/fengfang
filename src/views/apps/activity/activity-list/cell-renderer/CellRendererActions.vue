@@ -1,7 +1,8 @@
 <template>
     <div :style="{'direction': $vs.rtl ? 'rtl' : 'ltr'}">
       <feather-icon icon="Edit3Icon" svgClasses="h-5 w-5 mr-4 hover:text-primary cursor-pointer" @click="opAccess('edit')" />
-      <feather-icon icon="Trash2Icon" svgClasses="h-5 w-5 hover:text-danger cursor-pointer" @click="opAccess('del')" />
+      <feather-icon icon="Trash2Icon" svgClasses="h-5 w-5 mr-4 hover:text-danger cursor-pointer" @click="opAccess('del')" />
+      <feather-icon icon="ArrowUpIcon" svgClasses="h-5 w-5 hover:text-danger cursor-pointer" @click="opAccess('toTop')" />
     </div>
 </template>
 
@@ -13,6 +14,8 @@ export default {
       if (this.$acl.check('isAdmin')) {
         if (opType === 'edit') {
           this.editRecord()
+        } else if (opType === 'toTop') {
+          this.toTop()
         } else this.confirmDeleteRecord()
       } else {
         this.$vs.notify({
@@ -23,6 +26,35 @@ export default {
           color: 'danger'
         })
       }
+    },
+    toTop () {
+      this.$store.dispatch('activity/toTop', this.params.data.id).then((response) => {
+        if (response.data === true) {
+          this.$vs.notify({
+            color: 'success',
+            title: '置顶成功',
+            text: '成功置顶项目'
+          })
+        } else {
+          this.$vs.loading.close()
+          this.$vs.notify({
+            title: 'Error',
+            text: '置顶失败',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+        }
+      }).catch(error => {
+        this.$vs.loading.close()
+        this.$vs.notify({
+          title: 'Error',
+          text: error.message,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+      })
     },
     editRecord () {
       this.$router.push(`/activity/activity-edit/${this.params.data.id}`).catch(() => {})
